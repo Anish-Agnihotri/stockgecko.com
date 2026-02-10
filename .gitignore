@@ -1,0 +1,22 @@
+# Deps
+node_modules
+
+# Output
+.vercel
+/.svelte-kit
+/build
+
+# File cache
+.DS_Store
+
+# Env
+.env
+.env.*
+!.env.example
+
+# Vite
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# VSCode workspace config
+.vscode
