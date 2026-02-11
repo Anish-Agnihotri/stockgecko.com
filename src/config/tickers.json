@@ -1,0 +1,67 @@
+{
+	"perps": {
+		"stocks": {
+			"nvda": ["hyperliquid:xyz:NVDA", "hyperliquid:cash:NVDA", "hyperliquid:flx:NVDA"],
+			"mu": ["hyperliquid:xyz:MU"],
+			"hood": ["hyperliquid:xyz:HOOD", "hyperliquid:cash:HOOD"],
+			"sndk": ["hyperliquid:xyz:SNDK"],
+			"tsla": [
+				"hyperliquid:xyz:TSLA",
+				"hyperliquid:cash:TSLA",
+				"hyperliquid:flx:TSLA",
+				"hyperliquid:km:TSLA"
+			],
+			"intc": ["hyperliquid:xyz:INTC", "hyperliquid:cash:INTC"],
+			"mstr": ["hyperliquid:xyz:MSTR"],
+			"pltr": ["hyperliquid:xyz:PLTR"],
+			"coin": ["hyperliquid:xyz:COIN", "hyperliquid:flx:COIN"],
+			"googl": ["hyperliquid:xyz:GOOGL", "hyperliquid:cash:GOOGL", "hyperliquid:km:GOOGL"],
+			"msft": ["hyperliquid:xyz:MSFT", "hyperliquid:cash:MSFT"],
+			"amzn": ["hyperliquid:xyz:AMZN", "hyperliquid:cash:AMZN"],
+			"amd": ["hyperliquid:xyz:AMD"],
+			"orcl": ["hyperliquid:xyz:ORCL"],
+			"rivn": ["hyperliquid:xyz:RIVN"],
+			"meta": ["hyperliquid:xyz:META", "hyperliquid:cash:META"],
+			"usar": ["hyperliquid:xyz:USAR"],
+			"baba": ["hyperliquid:xyz:BABA", "hyperliquid:km:BABA"],
+			"tsm": ["hyperliquid:xyz:TSM"],
+			"crwv": ["hyperliquid:xyz:CRWV"],
+			"aapl": ["hyperliquid:xyz:AAPL", "hyperliquid:km:AAPL"],
+			"crcl": ["hyperliquid:flx:CRCL"]
+		},
+		"indices": [
+			"hyperliquid:xyz:XYZ100",
+			"hyperliquid:cash:USA500",
+			"hyperliquid:km:US500",
+			"hyperliquid:km:USTECH",
+			"hyperliquid:vntl:MAG7",
+			"hyperliquid:km:SMALL2000",
+			"hyperliquid:vntl:NUCLEAR",
+			"hyperliquid:vntl:ROBOT",
+			"hyperliquid:vntl:DEFENSE",
+			"hyperliquid:vntl:SEMIS",
+			"hyperliquid:vntl:INFOTECH",
+			"hyperliquid:vntl:ENERGY",
+			"hyperliquid:vntl:BIOTECH"
+		],
+		"commodities": {
+			"silver": ["hyperliquid:xyz:SILVER", "hyperliquid:flx:SILVER", "hyperliquid:km:SILVER"],
+			"gold": ["hyperliquid:xyz:GOLD", "hyperliquid:flx:GOLD", "hyperliquid:km:GOLD"],
+			"copper": ["hyperliquid:xyz:copper", "hyperliquid:flx:COPPER"],
+			"oil": ["hyperliquid:xyz:CL", "hyperliquid:flx:OIL", "hyperliquid:km:USOIL"],
+			"platinum": ["hyperliquid:xyz:PLATINUM", "hyperliquid:flx:PLATINUM"],
+			"natgas": ["hyperliquid:xyz:NATGAS"],
+			"uranium": ["hyperliquid:xyz:URNM"],
+			"palladium": ["hyperliquid:flx:PALLADIUM"]
+		},
+		"fx": {
+			"EUR": ["hyperliquid:xyz:EUR"],
+			"JPY": ["hyperliquid:xyz:JPY"]
+		},
+		"ipo": {
+			"openai": ["hyperliquid:vntl:OPENAI"],
+			"spacex": ["hyperliquid:vntl:SPACEX"],
+			"anthropic": ["hyperliquid:vntl:ANTHROPIC"]
+		}
+	}
+}

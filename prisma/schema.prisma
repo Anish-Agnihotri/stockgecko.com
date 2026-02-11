@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Flat market snapshot entries
+model MarketEntry {
+  id String @id @default(uuid())
+
+  // Market identifier
+  venue     String
+  namespace String
+  ticker    String
+
+  // Price reference
+  midPx     Decimal
+  markPx    Decimal?
+  oraclePx  Decimal?
+  prevDayPx Decimal?
+
+  // Stats
+  oi      Decimal?
+  funding Decimal?
+
+  // Volume (in units)
+  volumeUnits Decimal
+
+  // Market reference data
+  maxLeverage Decimal?
+
+  // Timestamp record
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([venue, namespace, ticker])
+}
