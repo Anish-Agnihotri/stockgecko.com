@@ -1,8 +1,8 @@
 import { start } from "workflow/api";
 import { strTimingSafeEqual } from "$lib/utils";
 import { JOB_AUTH_KEY } from "$env/static/private";
+import { collectMarkets } from "$workflows/collect";
 import { json, error, type RequestHandler } from "@sveltejs/kit";
-import { collectHyperliquidMarkets } from "$workflows/hyperliquid";
 
 /**
  * Initiate authenticated collection job
@@ -18,6 +18,6 @@ export const GET: RequestHandler = async ({ url }) => {
 	}
 
 	// Kick off collection and return
-	await start(collectHyperliquidMarkets);
-	return json({ success: true });
+	const { runId } = await start(collectMarkets);
+	return json({ runId });
 };

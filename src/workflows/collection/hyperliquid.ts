@@ -5,7 +5,7 @@ import { HttpTransport, InfoClient } from "@nktkas/hyperliquid";
 import { stepInsertMarketEntries } from "$workflows/shared/insert";
 import type { AsyncReturn, MethodKeys, MethodAt } from "$lib/types";
 
-// Find and `hyperliquid:` prefixed markets in config
+// Find and extract `hyperliquid:` prefixed markets in config
 // Drop `hyperliquid:` prefix and collect just market ticker (e.g., `xyz:XYZ100`)
 const LOCAL_MARKETS: ReadonlySet<string> = new Set(
 	JSON.stringify(tickers)
@@ -44,16 +44,12 @@ async function stepCollectHLInfo<M extends MethodKeys<InfoClient>>(
  * Collect relevant Hyperliquid market data
  * @returns workflow execution diagnostics
  */
-export async function collectHyperliquidMarkets(): Promise<{
-	batchId: string;
+export async function collectHyperliquidMarkets(batchId: string): Promise<{
 	collectedDexs: readonly string[];
 	insertedMarkets: number;
 	failures: { dex: string; error: string }[];
 }> {
 	"use workflow";
-
-	// Collect unique workflow execution ID
-	const { workflowRunId: batchId } = getWorkflowMetadata();
 
 	// `@nktas/hyperliquid.HttpTransport` uses `fetch`
 	// Patch `fetch` globally to make workflow-safe
@@ -151,7 +147,6 @@ export async function collectHyperliquidMarkets(): Promise<{
 
 	// Return workflow execution diagnostics
 	return {
-		batchId,
 		collectedDexs: relevantDexNames,
 		insertedMarkets: insertedCount,
 		failures
