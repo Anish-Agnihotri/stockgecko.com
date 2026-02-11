@@ -11,6 +11,9 @@ datasource db {
 model MarketEntry {
   id String @id @default(uuid())
 
+  // Storage batch for O(1) lookup
+  batchId String
+
   // Market identifier
   venue     String
   namespace String

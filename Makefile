@@ -5,7 +5,7 @@ SHELL := /bin/bash
 PRISMA := bunx --bun prisma
 
 # Phony targets
-.PHONY: install dev prisma-format prisma-generate prisma-migrate
+.PHONY: install dev prisma-format prisma-generate prisma-migrate workflow
 
 # Default target: local dev run
 all: dev
@@ -29,3 +29,7 @@ prisma-generate:
 # Apply Prisma schema to dev db, trigger generators
 prisma-migrate:
 	@$(PRISMA) migrate dev
+
+# Open workflow web view
+workflow:
+	@bunx workflow web

@@ -5,8 +5,8 @@ export default {
 	kit: {
 		adapter: adapter(),
 		alias: {
-			$db: "src/lib/db.ts",
 			$config: "src/config",
+			$workflows: "src/workflows",
 			$prisma: "src/lib/generated/prisma"
 		}
 	}

@@ -25,4 +25,17 @@ vite.config.ts.timestamp-*
 src/lib/generated/prisma
 
 # Prisma migrations
-prisma/migrations
+src/prisma/migrations
+
+# Workflows: SWC compiler to run workflow transformation pipeline
+.swc
+
+# Workflows: execution debugging snapshots
+.workflow-data
+
+# Workflows: step and workflow build time handler bundling
+# https://useworkflow.dev/docs/how-it-works/code-transform#flowjs
+#
+# Effectively generated `POST` handlers for workflow and step execution,
+# embedding the execution layer within the SvelteKit API route Node.js VM.
+src/route/.well-known

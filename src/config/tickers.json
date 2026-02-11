@@ -47,7 +47,7 @@
 		"commodities": {
 			"silver": ["hyperliquid:xyz:SILVER", "hyperliquid:flx:SILVER", "hyperliquid:km:SILVER"],
 			"gold": ["hyperliquid:xyz:GOLD", "hyperliquid:flx:GOLD", "hyperliquid:km:GOLD"],
-			"copper": ["hyperliquid:xyz:copper", "hyperliquid:flx:COPPER"],
+			"copper": ["hyperliquid:xyz:COPPER", "hyperliquid:flx:COPPER"],
 			"oil": ["hyperliquid:xyz:CL", "hyperliquid:flx:OIL", "hyperliquid:km:USOIL"],
 			"platinum": ["hyperliquid:xyz:PLATINUM", "hyperliquid:flx:PLATINUM"],
 			"natgas": ["hyperliquid:xyz:NATGAS"],
