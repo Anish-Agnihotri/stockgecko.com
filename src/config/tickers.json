@@ -1,33 +1,45 @@
 {
 	"perps": {
 		"stocks": {
-			"nvda": ["hyperliquid:xyz:NVDA", "hyperliquid:cash:NVDA", "hyperliquid:flx:NVDA"],
+			"nvda": [
+				"hyperliquid:xyz:NVDA",
+				"hyperliquid:cash:NVDA",
+				"hyperliquid:flx:NVDA",
+				"lighter:NVDA"
+			],
 			"mu": ["hyperliquid:xyz:MU"],
-			"hood": ["hyperliquid:xyz:HOOD", "hyperliquid:cash:HOOD"],
-			"sndk": ["hyperliquid:xyz:SNDK"],
+			"hood": ["hyperliquid:xyz:HOOD", "hyperliquid:cash:HOOD", "lighter:HOOD"],
+			"sndk": ["hyperliquid:xyz:SNDK", "lighter:SNDK"],
 			"tsla": [
 				"hyperliquid:xyz:TSLA",
 				"hyperliquid:cash:TSLA",
 				"hyperliquid:flx:TSLA",
-				"hyperliquid:km:TSLA"
+				"hyperliquid:km:TSLA",
+				"lighter:TSLA"
 			],
-			"intc": ["hyperliquid:xyz:INTC", "hyperliquid:cash:INTC"],
-			"mstr": ["hyperliquid:xyz:MSTR"],
-			"pltr": ["hyperliquid:xyz:PLTR"],
-			"coin": ["hyperliquid:xyz:COIN", "hyperliquid:flx:COIN"],
-			"googl": ["hyperliquid:xyz:GOOGL", "hyperliquid:cash:GOOGL", "hyperliquid:km:GOOGL"],
-			"msft": ["hyperliquid:xyz:MSFT", "hyperliquid:cash:MSFT"],
-			"amzn": ["hyperliquid:xyz:AMZN", "hyperliquid:cash:AMZN"],
-			"amd": ["hyperliquid:xyz:AMD"],
+			"intc": ["hyperliquid:xyz:INTC", "hyperliquid:cash:INTC", "lighter:INTC"],
+			"mstr": ["hyperliquid:xyz:MSTR", "lighter:MSTR"],
+			"pltr": ["hyperliquid:xyz:PLTR", "lighter:PLTR"],
+			"coin": ["hyperliquid:xyz:COIN", "hyperliquid:flx:COIN", "lighter:COIN"],
+			"googl": [
+				"hyperliquid:xyz:GOOGL",
+				"hyperliquid:cash:GOOGL",
+				"hyperliquid:km:GOOGL",
+				"lighter:GOOGL"
+			],
+			"msft": ["hyperliquid:xyz:MSFT", "hyperliquid:cash:MSFT", "lighter:MSFT"],
+			"amzn": ["hyperliquid:xyz:AMZN", "hyperliquid:cash:AMZN", "lighter:AMZN"],
+			"amd": ["hyperliquid:xyz:AMD", "lighter:AMD"],
 			"orcl": ["hyperliquid:xyz:ORCL"],
 			"rivn": ["hyperliquid:xyz:RIVN"],
-			"meta": ["hyperliquid:xyz:META", "hyperliquid:cash:META"],
+			"meta": ["hyperliquid:xyz:META", "hyperliquid:cash:META", "lighter:META"],
 			"usar": ["hyperliquid:xyz:USAR"],
 			"baba": ["hyperliquid:xyz:BABA", "hyperliquid:km:BABA"],
 			"tsm": ["hyperliquid:xyz:TSM"],
 			"crwv": ["hyperliquid:xyz:CRWV"],
-			"aapl": ["hyperliquid:xyz:AAPL", "hyperliquid:km:AAPL"],
-			"crcl": ["hyperliquid:flx:CRCL"]
+			"aapl": ["hyperliquid:xyz:AAPL", "hyperliquid:km:AAPL", "lighter:AAPL"],
+			"crcl": ["hyperliquid:flx:CRCL", "lighter:CRCL"],
+			"bmnr": ["lighter:BMNR"]
 		},
 		"indices": [
 			"hyperliquid:xyz:XYZ100",
@@ -42,12 +54,24 @@
 			"hyperliquid:vntl:SEMIS",
 			"hyperliquid:vntl:INFOTECH",
 			"hyperliquid:vntl:ENERGY",
-			"hyperliquid:vntl:BIOTECH"
+			"hyperliquid:vntl:BIOTECH",
+			"lighter:SPY",
+			"lighter:QQQ"
 		],
 		"commodities": {
-			"silver": ["hyperliquid:xyz:SILVER", "hyperliquid:flx:SILVER", "hyperliquid:km:SILVER"],
-			"gold": ["hyperliquid:xyz:GOLD", "hyperliquid:flx:GOLD", "hyperliquid:km:GOLD"],
-			"copper": ["hyperliquid:xyz:COPPER", "hyperliquid:flx:COPPER"],
+			"silver": [
+				"hyperliquid:xyz:SILVER",
+				"hyperliquid:flx:SILVER",
+				"hyperliquid:km:SILVER",
+				"lighter:XAG"
+			],
+			"gold": [
+				"hyperliquid:xyz:GOLD",
+				"hyperliquid:flx:GOLD",
+				"hyperliquid:km:GOLD",
+				"lighter:XAU"
+			],
+			"copper": ["hyperliquid:xyz:COPPER", "hyperliquid:flx:COPPER", "lighter:XCU"],
 			"oil": ["hyperliquid:xyz:CL", "hyperliquid:flx:OIL", "hyperliquid:km:USOIL"],
 			"platinum": ["hyperliquid:xyz:PLATINUM", "hyperliquid:flx:PLATINUM"],
 			"natgas": ["hyperliquid:xyz:NATGAS"],
@@ -55,8 +79,14 @@
 			"palladium": ["hyperliquid:flx:PALLADIUM"]
 		},
 		"fx": {
-			"EUR": ["hyperliquid:xyz:EUR"],
-			"JPY": ["hyperliquid:xyz:JPY"]
+			"EUR": ["hyperliquid:xyz:EUR", "lighter:EURUSD"],
+			"JPY": ["hyperliquid:xyz:JPY", "lighter:USDJPY"],
+			"GBP": ["lighter:GBPUSD"],
+			"KRW": ["lighter:USDKRW"],
+			"CHF": ["lighter:USDCHF"],
+			"AUD": ["lighter:AUDUSD"],
+			"NZD": ["lighter:NZDUSD"],
+			"CAD": ["lighter:USDCAD"]
 		},
 		"ipo": {
 			"openai": ["hyperliquid:vntl:OPENAI"],

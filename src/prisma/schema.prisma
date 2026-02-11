@@ -1,6 +1,6 @@
 generator client {
   provider = "prisma-client"
-  output   = "../src/lib/generated/prisma"
+  output   = "../lib/generated/prisma"
 }
 
 datasource db {
@@ -29,8 +29,8 @@ model MarketEntry {
   oi      Decimal?
   funding Decimal?
 
-  // Volume (in units)
-  volumeUnits Decimal
+  // Volume (in dollars)
+  volume Decimal
 
   // Market reference data
   maxLeverage Decimal?

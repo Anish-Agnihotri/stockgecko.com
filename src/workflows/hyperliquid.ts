@@ -141,7 +141,7 @@ export async function collectHyperliquidMarkets(): Promise<{
 				prevDayPx: metrics[i].prevDayPx,
 				oi: metrics[i].openInterest,
 				funding: metrics[i].funding,
-				volumeUnits: metrics[i].dayBaseVlm
+				volume: metrics[i].dayNtlVlm
 			}))
 		);
 	}
