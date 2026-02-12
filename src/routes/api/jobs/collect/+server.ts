@@ -1,20 +1,19 @@
 import { start } from "workflow/api";
 import { strTimingSafeEqual } from "$lib/utils";
-import { JOB_AUTH_KEY } from "$env/static/private";
+import { CRON_SECRET } from "$env/static/private";
 import { collectMarkets } from "$workflows/collect";
 import { json, error, type RequestHandler } from "@sveltejs/kit";
 
 /**
  * Initiate authenticated collection job
  */
-export const GET: RequestHandler = async ({ url }) => {
-	// Collect job authentication key
-	// Force non-"" empty string to prevent default `JOB_AUTH_KEY`
-	const key = url.searchParams.get("key") ?? "EMPTY";
+export const GET: RequestHandler = async ({ request }) => {
+	// Collect job authentication header
+	const authHeader = request.headers.get("Authorization") ?? "";
 
-	// Match job authentication key
-	if (!strTimingSafeEqual(key, JOB_AUTH_KEY)) {
-		throw error(401, "Missing `key` auth");
+	// Check for authenticated status
+	if (!strTimingSafeEqual(authHeader, `Bearer ${CRON_SECRET}`)) {
+		throw error(401, "Missing `Authorization` header");
 	}
 
 	// Kick off collection and return
