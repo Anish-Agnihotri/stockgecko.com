@@ -8,7 +8,10 @@ export default {
 			$config: "src/config",
 			$workflows: "src/workflows",
 			$components: "src/lib/components",
-			$prisma: "src/lib/generated/prisma"
+			$prisma: "src/lib/generated/prisma",
+
+			// shadcn/ui
+			"@/*": "src/lib/*"
 		}
 	}
 };
