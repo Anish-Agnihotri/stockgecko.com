@@ -1,8 +1,5 @@
 {
 	"$schema": "https://openapi.vercel.sh/vercel.json",
 	"bunVersion": "1.x",
-	"crons": [
-		{ "path": "/api/jobs/collect", "schedule": "*/10 * * * *" },
-		{ "path": "/api/jobs/aggregate", "schedule": "5,35 * * * *" }
-	]
+	"crons": [{ "path": "/api/jobs/collect", "schedule": "*/10 * * * *" }]
 }

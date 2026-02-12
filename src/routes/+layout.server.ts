@@ -1,26 +1,33 @@
-import type { Snapshot } from "$lib/transform";
-import { createClient } from "@vercel/edge-config";
-import { EDGE_CONFIG, ISR_BYPASS_TOKEN } from "$env/static/private";
-
-// Setup Vercel ECS client
-const client = createClient(EDGE_CONFIG);
+import db from "$lib/db";
+import { plainifyEntries } from "$lib/serialize";
+import { CRON_SECRET } from "$env/static/private";
+import { buildSnapshot, type Snapshot } from "$lib/transform";
 
 /**
- * Collect `snapshot` state from ECS at load
+ * Collect `snapshot` state from database
+ * @dev Hot cached via ISR
  * @returns {Promise<{snapshot: Snapshot}>} snapshot state
  */
 export async function load(): Promise<{ snapshot: Snapshot }> {
-	const snapshot = await client.get<Snapshot>("snapshot");
-	if (!snapshot) throw new Error("Snapshot not found in ECS");
-	return { snapshot };
+	// Collect latest batch ID
+	const { batchId } = await db.marketEntry.findFirstOrThrow({
+		orderBy: { updatedAt: "desc" },
+		select: { batchId: true }
+	});
+
+	// Collect full batch of data via batch ID
+	const entries = await db.marketEntry.findMany({ where: { batchId } });
+
+	// Parse and return snapshot data
+	return { snapshot: buildSnapshot(plainifyEntries(entries)) };
 }
 
 /** @type {import('@sveltejs/adapter-vercel').Config} */
 export const config = {
 	isr: {
 		// 1 hour expiration but we will keep data warm via workflow
-		// TODO: add aggregate workflow step to trigger ISR bypass
+		// TODO: add workflow step to trigger ISR bypass
 		expiration: 3600,
-		bypassToken: ISR_BYPASS_TOKEN
+		bypassToken: CRON_SECRET
 	}
 };
