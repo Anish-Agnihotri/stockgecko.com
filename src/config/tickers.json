@@ -41,23 +41,23 @@
 			"crcl": ["hyperliquid:flx:CRCL", "lighter:CRCL"],
 			"bmnr": ["lighter:BMNR"]
 		},
-		"indices": [
-			"hyperliquid:xyz:XYZ100",
-			"hyperliquid:cash:USA500",
-			"hyperliquid:km:US500",
-			"hyperliquid:km:USTECH",
-			"hyperliquid:vntl:MAG7",
-			"hyperliquid:km:SMALL2000",
-			"hyperliquid:vntl:NUCLEAR",
-			"hyperliquid:vntl:ROBOT",
-			"hyperliquid:vntl:DEFENSE",
-			"hyperliquid:vntl:SEMIS",
-			"hyperliquid:vntl:INFOTECH",
-			"hyperliquid:vntl:ENERGY",
-			"hyperliquid:vntl:BIOTECH",
-			"lighter:SPY",
-			"lighter:QQQ"
-		],
+		"indices": {
+			"xyz100": ["hyperliquid:xyz:XYZ100"],
+			"usa500": ["hyperliquid:cash:USA500"],
+			"us500": ["hyperliquid:km:US500"],
+			"ustech": ["hyperliquid:km:USTECH"],
+			"mag7": ["hyperliquid:vntl:MAG7"],
+			"small2000": ["hyperliquid:km:SMALL2000"],
+			"nuclear": ["hyperliquid:vntl:NUCLEAR"],
+			"robot": ["hyperliquid:vntl:ROBOT"],
+			"defense": ["hyperliquid:vntl:DEFENSE"],
+			"semis": ["hyperliquid:vntl:SEMIS"],
+			"infotech": ["hyperliquid:vntl:INFOTECH"],
+			"energy": ["hyperliquid:vntl:ENERGY"],
+			"biotech": ["hyperliquid:vntl:BIOTECH"],
+			"spy": ["lighter:SPY"],
+			"qqq": ["lighter:QQQ"]
+		},
 		"commodities": {
 			"silver": [
 				"hyperliquid:xyz:SILVER",
