@@ -7,6 +7,7 @@ export default {
 		alias: {
 			$config: "src/config",
 			$workflows: "src/workflows",
+			$components: "src/lib/components",
 			$prisma: "src/lib/generated/prisma"
 		}
 	}

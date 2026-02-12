@@ -6,7 +6,7 @@ import type { PlainMarketEntry } from "$lib/serialize";
 const MARKET_TO_ASSET = new Map(
 	Object.entries(tickers.perps).flatMap(([category, assets]) =>
 		Object.entries(assets).flatMap(([asset, markets]) =>
-			markets.map((market) => [market, { asset, category }] as const)
+			markets.ref.map((market) => [market, { asset, category }] as const)
 		)
 	)
 );

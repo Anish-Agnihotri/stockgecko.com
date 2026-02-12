@@ -1,0 +1,52 @@
+[
+	{
+		"venue": "hyperliquid",
+		"namespace": "",
+		"meta": { "name": "Hyperliquid", "icon": ["/assets/icons/exchanges/hyperliquid.webp"] }
+	},
+	{
+		"venue": "hyperliquid",
+		"namespace": "xyz",
+		"meta": {
+			"name": "Trade[XYZ]",
+			"icon": ["/assets/icons/exchanges/hyperliquid.webp", "/assets/icons/exchanges/xyz.webp"]
+		}
+	},
+	{
+		"venue": "hyperliquid",
+		"namespace": "flx",
+		"meta": {
+			"name": "Felix",
+			"icon": ["/assets/icons/exchanges/hyperliquid.webp", "/assets/icons/exchanges/flx.webp"]
+		}
+	},
+	{
+		"venue": "hyperliquid",
+		"namespace": "vntl",
+		"meta": {
+			"name": "Ventuals",
+			"icon": ["/assets/icons/exchanges/hyperliquid.webp", "/assets/icons/exchanges/vntl.webp"]
+		}
+	},
+	{
+		"venue": "hyperliquid",
+		"namespace": "km",
+		"meta": {
+			"name": "Kinetiq Markets",
+			"icon": ["/assets/icons/exchanges/hyperliquid.webp", "/assets/icons/exchanges/km.webp"]
+		}
+	},
+	{
+		"venue": "hyperliquid",
+		"namespace": "cash",
+		"meta": {
+			"name": "Dreamcash",
+			"icon": ["/assets/icons/exchanges/hyperliquid.webp", "/assets/icons/exchanges/cash.webp"]
+		}
+	},
+	{
+		"venue": "lighter",
+		"namespace": "",
+		"meta": { "name": "Lighter", "icon": ["/assets/icons/exchanges/lighter.webp"] }
+	}
+]
