@@ -9,6 +9,7 @@ export default {
 			$workflows: "src/workflows",
 			$components: "src/lib/components",
 			$prisma: "src/lib/generated/prisma",
+			$shadcn: "src/lib/shadcn/components/ui",
 
 			// shadcn/ui
 			"@/*": "src/lib/*"

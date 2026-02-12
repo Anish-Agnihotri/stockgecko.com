@@ -1,7 +1,11 @@
 <script lang="ts">
 	import "../app.css";
+	import * as Tooltip from "$shadcn/tooltip";
 
 	let { children } = $props();
 </script>
 
-{@render children()}
+<!-- Global tooltip provider -->
+<Tooltip.Provider delayDuration={0}>
+	{@render children()}
+</Tooltip.Provider>

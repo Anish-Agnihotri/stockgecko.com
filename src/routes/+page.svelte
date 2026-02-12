@@ -19,7 +19,12 @@
 	<h3 class="mt-4 pt-2 font-semibold">EXCHANGES</h3>
 	<div class="flex flex-row space-x-2">
 		{#each exchanges as exchange}
-			<Icon src={exchange.meta.icon} alt={exchange.meta.name} nested={true} />
+			<Icon
+				src={exchange.meta.icon}
+				alt={exchange.meta.name}
+				nested={true}
+				tooltip={exchange.meta.name}
+			/>
 		{/each}
 	</div>
 </div>
