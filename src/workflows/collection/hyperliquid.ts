@@ -1,5 +1,5 @@
+import { fetch } from "workflow";
 import tickers from "$config/tickers.json";
-import { fetch, getWorkflowMetadata } from "workflow";
 import type { MarketEntryCreateInput } from "$prisma/models";
 import { HttpTransport, InfoClient } from "@nktkas/hyperliquid";
 import { stepInsertMarketEntries } from "$workflows/shared/insert";

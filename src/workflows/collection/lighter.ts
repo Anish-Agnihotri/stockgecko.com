@@ -1,5 +1,4 @@
 import tickers from "$config/tickers.json";
-import { getWorkflowMetadata } from "workflow";
 import { stepFetchJSON } from "$workflows/shared/fetch";
 import { stepInsertMarketEntries } from "$workflows/shared/insert";
 import type { MarketEntryCreateInput } from "$prisma/models";
@@ -84,7 +83,8 @@ export async function collectLighterMarkets(batchId: string): Promise<{
 			midPx: mkt.last_trade_price,
 
 			// Other stats
-			volume: mkt.daily_base_token_volume
+			// TODO: verify that this is in fact a valid mechanism for FX pairs a la USDCAD
+			volume: mkt.daily_quote_token_volume
 
 			// In theory we can capture more statistics here, at least: more price data,
 			// oi, and funding, but it would involve at least N parallel requests, so we
