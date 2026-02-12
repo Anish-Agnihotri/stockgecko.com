@@ -5,7 +5,7 @@ SHELL := /bin/bash
 PRISMA := bunx --bun prisma
 
 # Phony targets
-.PHONY: install dev prisma-format prisma-generate prisma-migrate workflow test-collect test-aggregate
+.PHONY: install dev prisma-format prisma-generate prisma-migrate workflow test-collect
 
 # Default target: local dev run
 all: dev
@@ -37,9 +37,4 @@ workflow:
 # Test: kick off local collection job
 test-collect:
 	@curl -s http://localhost:5173/api/jobs/collect \
-		-H "Authorization: Bearer $$(grep CRON_SECRET .env | cut -d'=' -f2 | tr -d '"')" | jq
-
-# Test: kick off local aggregation job
-test-aggregate:
-	@curl -s http://localhost:5173/api/jobs/aggregate \
 		-H "Authorization: Bearer $$(grep CRON_SECRET .env | cut -d'=' -f2 | tr -d '"')" | jq
