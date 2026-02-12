@@ -1,5 +1,5 @@
 import tickers from "$config/tickers.json";
-import type { MarketEntry } from "$prisma/client";
+import type { PlainMarketEntry } from "$lib/serialize";
 
 // Reverse index (marketKey => {asset, category})
 // "hyperliquid:xyz:NVDA" → { asset: "nvda", category: "stocks" }
@@ -62,10 +62,10 @@ export type Snapshot = {
 
 /**
  * Format market `key` based on if `venue` exists (e.g., HIP-3 DEX name)
- * @param {MarketEntry} e data entry
+ * @param {PlainMarketEntry} e data entry
  * @returns {string} key
  */
-function marketKey(e: MarketEntry): string {
+function marketKey(e: PlainMarketEntry): string {
 	return `${e.venue}${e.namespace ? `:${e.namespace}` : ""}:${e.ticker}`;
 }
 
@@ -73,10 +73,10 @@ function marketKey(e: MarketEntry): string {
  * Given input `markets` data, produces a `Snapshot` to cache (and render)
  * @dev Not the most efficient implementation, but readable and meant to
  *      run in an async workflow, so fine as part of broader E(T)L pipeline.
- * @param {MarketEntry[]} markets batch market information
+ * @param {PlainMarketEntry[]} markets batch market information
  * @returns {Snapshot} generated snapshot data
  */
-export function buildSnapshot(markets: MarketEntry[]): Snapshot {
+export function buildSnapshot(markets: PlainMarketEntry[]): Snapshot {
 	// Quick safety check
 	if (markets.length == 0) {
 		throw new Error("Cannot build snapshot over empty market data");
@@ -102,12 +102,7 @@ export function buildSnapshot(markets: MarketEntry[]): Snapshot {
 		if (!MARKET_TO_ASSET.has(key)) continue;
 
 		// --- 2: Populate market data ---
-		// Parse midPx, volume to dollar value
-		const midPx = market.midPx.toNumber();
-		const volume = market.volume.toNumber();
-
-		// Track market
-		const { venue, namespace, ticker } = market;
+		const { venue, namespace, ticker, midPx, volume } = market;
 		snapshotMarkets[key] = { venue, namespace, ticker, midPx, volume };
 
 		// --- 3: Augment overall asset from market data ---
@@ -115,6 +110,9 @@ export function buildSnapshot(markets: MarketEntry[]): Snapshot {
 		const { asset: assetId, category } = MARKET_TO_ASSET.get(key)!;
 
 		// Collect or initialize asset details
+		// @dev: Note that in a real, production application I would be a tad sketched
+		// 			 by the prospect of using a nullish coalescing assignment operator, but
+		//			 I get to have fun when writing code for myself innit.
 		const asset = (snapshotAssets[assetId] ??= {
 			category,
 

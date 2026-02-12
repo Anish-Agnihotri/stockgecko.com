@@ -1,8 +1,8 @@
 import { fetch } from "workflow";
 import tickers from "$config/tickers.json";
 import type { MarketEntryCreateInput } from "$prisma/models";
+import { stepInsertMarketEntries } from "$workflows/shared/db";
 import { HttpTransport, InfoClient } from "@nktkas/hyperliquid";
-import { stepInsertMarketEntries } from "$workflows/shared/insert";
 import type { AsyncReturn, MethodKeys, MethodAt } from "$lib/types";
 
 // Find and extract `hyperliquid:` prefixed markets in config

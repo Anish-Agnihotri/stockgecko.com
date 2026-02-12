@@ -3,6 +3,7 @@
 // 			matching (a la `$lib/*`) works, but the direct (a la `$db`) doesn't.
 import db from "$lib/db";
 import type { MarketEntryCreateInput } from "$prisma/models";
+import { plainifyEntries, type PlainMarketEntry } from "$lib/serialize";
 
 /**
  * Shared workflow step: insert `MarketEntry[]` records to database via Prisma
@@ -17,4 +18,24 @@ export async function stepInsertMarketEntries(rows: MarketEntryCreateInput[]): P
 
 	// Else, append to database and return appended count
 	return (await db.marketEntry.createMany({ data: rows })).count;
+}
+
+/**
+ * Shared workflow step: collect latest batch of inserted `MarketEntry[]` data as `PlainMarketEntry[]`
+ * @returns {Promise<PlainMarketEntry[]>} latest batch of inserted data
+ */
+export async function stepGetLatestMarketEntries(): Promise<PlainMarketEntry[]> {
+	"use step";
+
+	// Collect most recent `batchId`
+	const { batchId } = await db.marketEntry.findFirstOrThrow({
+		orderBy: { createdAt: "desc" },
+		select: { batchId: true }
+	});
+
+	// Fetch all entries in this batch
+	const entries = await db.marketEntry.findMany({ where: { batchId } });
+
+	// Return serializeable entries (`Decimal` => `number`) for step data persistance
+	return plainifyEntries(entries);
 }

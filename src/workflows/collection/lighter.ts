@@ -1,7 +1,7 @@
 import tickers from "$config/tickers.json";
 import { stepFetchJSON } from "$workflows/shared/fetch";
-import { stepInsertMarketEntries } from "$workflows/shared/insert";
 import type { MarketEntryCreateInput } from "$prisma/models";
+import { stepInsertMarketEntries } from "$workflows/shared/db";
 
 // Lighter API base url
 const L_BASE_URL = "https://mainnet.zklighter.elliot.ai/api/v1";
