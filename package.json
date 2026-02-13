@@ -47,6 +47,7 @@
 	},
 	"dependencies": {
 		"@nktkas/hyperliquid": "^0.31.0",
+		"@paper-design/shaders": "^0.0.71",
 		"@prisma/adapter-pg": "^7.3.0",
 		"@prisma/client": "^7.3.0",
 		"@sveltejs/adapter-vercel": "^6.3.1",
