@@ -5,7 +5,7 @@
 
 <!-- Hero -->
 <div class="flex min-h-96 flex-row justify-center border-b border-b-gecko-shade">
-	<DitherHero class="flex max-w-7xl flex-1 flex-col border-x border-x-gecko-shade">
+	<DitherHero class="flex flex-1 flex-col">
 		<!-- CTA -->
 		<div class="flex flex-1 items-center justify-center">
 			<div class="flex max-w-lg flex-col items-center justify-center px-4 text-center">
@@ -21,8 +21,6 @@
 </div>
 
 <!-- Tabular data -->
-<section class="flex flex-1 flex-row justify-center">
-	<div class="flex w-full max-w-7xl flex-1 flex-col border-x border-x-gecko-shade">
-		<AssetTable />
-	</div>
+<section class="flex max-w-full flex-1 flex-row justify-center">
+	<AssetTable />
 </section>

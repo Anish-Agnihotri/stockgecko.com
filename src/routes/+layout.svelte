@@ -17,7 +17,7 @@
 <!-- Global tooltip provider -->
 <Tooltip.Provider delayDuration={0}>
 	<!-- Setup layout -->
-	<div class="flex flex-col">
+	<div class="flex min-h-dvh flex-col">
 		<!-- Header -->
 		<Header class="order-1 lg:order-2" />
 
@@ -25,8 +25,10 @@
 		<Subheader class="order-2 lg:order-1" />
 
 		<!-- Content -->
-		<main class="order-3 flex flex-1 flex-col">
-			{@render children()}
+		<main class="order-3 flex flex-1 flex-row justify-center">
+			<div class="flex w-full max-w-7xl flex-1 flex-col border-x border-x-gecko-shade">
+				{@render children()}
+			</div>
 		</main>
 
 		<!-- Footer -->
