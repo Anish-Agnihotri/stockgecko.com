@@ -1,5 +1,13 @@
 <script lang="ts">
+	import { page } from "$app/state";
 	let { class: extraClass }: { class?: string } = $props();
+
+	// A little premature for two entries but it makes
+	// active page detection a lot easier.
+	const nav: { title: string; path: string }[] = [
+		{ title: "Venues", path: "/venues" },
+		{ title: "Markets", path: "/markets" }
+	];
 </script>
 
 <header
@@ -17,6 +25,19 @@
 		</div>
 
 		<!-- Nav, search -->
-		<div></div>
+		<div>
+			<!-- Nav -->
+			<div>
+				<ul class="flex gap-4 text-[13px] font-medium lg:text-base [&_li_a]:hover:text-gecko-white">
+					{#each nav as { title, path }}
+						{@const activeClass = path === page.route.id ? "text-gecko-white" : ""}
+
+						<li><a href={path} class={activeClass}>{title}</a></li>
+					{/each}
+				</ul>
+			</div>
+
+			<div></div>
+		</div>
 	</div>
 </header>

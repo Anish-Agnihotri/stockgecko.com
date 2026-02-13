@@ -10,7 +10,7 @@
 		<div class="flex flex-1 items-center justify-center">
 			<div class="flex max-w-lg flex-col items-center justify-center px-4 text-center">
 				<h1 class="text-3xl font-bold text-gecko-white sm:text-5xl">TradFi lives on crypto.</h1>
-				<p class="sm:text-md pt-2 text-sm">
+				<p class="pt-2 text-sm">
 					<!-- FIXME: need number here -->
 					<span>$123,456,789,000</span> and counting of real-world assets have made their way to trading
 					entirely on-chain, 24/7.
