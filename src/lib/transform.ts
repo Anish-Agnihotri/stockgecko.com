@@ -58,6 +58,14 @@ type Snapshot = {
 		assetsByVolume: string[];
 		marketsByVenue: Record<string, string[]>;
 	};
+
+	// Aggregate calculations
+	aggregates: {
+		// Total volume across all markets
+		volume: number;
+		// Venue volumes, sorted by volume share
+		volumeByVenue: { venue: string; volumeShare: number }[];
+	};
 };
 
 // Statistics w/ diffed change across two `Snapshot`(s) of data
@@ -93,6 +101,11 @@ export type DiffedSnapshot = {
 	index: {
 		assetsByVolume: { asset: string; previousIndex: number | null }[];
 		marketsByVenue: Record<string, string[]>;
+	};
+
+	aggregates: Snapshot["aggregates"] & {
+		// Change across two snapshots in total volume
+		volumeChange: number;
 	};
 };
 
@@ -140,6 +153,10 @@ export function buildSnapshot(markets: PlainMarketEntry[]): Snapshot {
 	const snapshotMarkets: Snapshot["markets"] = {};
 	const marketsByVenue: Snapshot["index"]["marketsByVenue"] = {};
 
+	// Setup aggregate measures
+	let totalVolume: number = 0;
+	const venueVolumes = new Map<string, number>();
+
 	// Track markets
 	for (const market of markets) {
 		const key = marketKey(market);
@@ -176,6 +193,10 @@ export function buildSnapshot(markets: PlainMarketEntry[]): Snapshot {
 
 		// --- 4: Populate relevant indexes while we're at it ---
 		(marketsByVenue[market.venue] ??= []).push(key);
+
+		// --- 5: Update aggregate measures ---
+		totalVolume += volume;
+		venueVolumes.set(venue, (venueVolumes.get(venue) ?? 0) + volume);
 	}
 
 	// With markets setup, we can sort by volume
@@ -198,11 +219,20 @@ export function buildSnapshot(markets: PlainMarketEntry[]): Snapshot {
 		}
 	}
 
+	// Compute and sort venues by volume share
+	const volumeByVenue = [...venueVolumes.entries()]
+		.map(([venue, volume]) => ({
+			venue,
+			volumeShare: totalVolume ? volume / totalVolume : 0
+		}))
+		.sort((a, b) => b.volumeShare - a.volumeShare);
+
 	return {
 		meta: snapshotMeta,
 		assets: snapshotAssets,
 		markets: snapshotMarkets,
-		index: { assetsByVolume, marketsByVenue }
+		index: { assetsByVolume, marketsByVenue },
+		aggregates: { volume: totalVolume, volumeByVenue }
 	};
 }
 
@@ -265,5 +295,11 @@ export function buildDiffedSnapshot(previous: Snapshot, current: Snapshot): Diff
 		});
 	}
 
-	return { meta, assets, markets, index };
+	// --- 5: Update aggregates w/ volume diff ---
+	const aggregates: DiffedSnapshot["aggregates"] = {
+		...current.aggregates,
+		volumeChange: change(previous.aggregates.volume, current.aggregates.volume)
+	};
+
+	return { meta, assets, markets, index, aggregates };
 }
