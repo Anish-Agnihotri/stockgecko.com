@@ -274,7 +274,7 @@
 				"ref": ["lighter:USDCAD"]
 			}
 		},
-		"ipo": {
+		"pre-ipo": {
 			"openai": {
 				"meta": { "name": "OpenAI", "icon": ["/assets/icons/ipo/openai.webp"] },
 				"ref": ["hyperliquid:vntl:OPENAI"]

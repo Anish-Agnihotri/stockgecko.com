@@ -6,15 +6,11 @@
 	import exchanges from "$config/exchanges.json";
 	import Numeric from "$components/Numeric.svelte";
 	import type { DiffedSnapshot } from "$lib/transform";
+	import type { ExchangeCfg, TickerCfg } from "$lib/types";
 
 	// Collect data snapshot
 	const getSnapshot = getContext<() => DiffedSnapshot>("snapshot");
 	const snapshot = $derived(getSnapshot());
-
-	// Weaker types for ease (indexing configs)
-	type Meta = { name: string; icon: string[] };
-	type ExchangeCfg = Record<string, Meta>;
-	type TickerCfg = Record<string, Record<string, { meta: Meta }>>;
 </script>
 
 <div class="flex w-full flex-col">
@@ -26,7 +22,7 @@
 		<span class="ml-1 -translate-y-px text-lg">↔</span>
 	</div>
 
-	<Table.Root class="w-full min-w-3xl table-fixed">
+	<Table.Root class="w-full min-w-[850px] table-fixed">
 		<!-- Ranking chg., ranking, asset, midPx, midPx change, vol, vol change, venues -->
 		<Table.Header class="bg-gecko-black">
 			<Table.Row class="border-b-gecko-shade text-xs font-light [&_th]:px-0">
@@ -37,6 +33,7 @@
 				<Table.Head class="w-24">24h</Table.Head>
 				<Table.Head class="w-24">Volume</Table.Head>
 				<Table.Head class="w-24">24h</Table.Head>
+				<Table.Head class="w-28">Class</Table.Head>
 				<Table.Head class="w-30">Venues</Table.Head>
 			</Table.Row>
 		</Table.Header>
@@ -84,6 +81,11 @@
 					<!-- Volume change -->
 					<Table.Cell class="w-20">
 						<Numeric value={asset.volumeChange * 100} format="numeric" change percentage />
+					</Table.Cell>
+
+					<!-- Class -->
+					<Table.Cell class="w-28">
+						<span class="font-mono uppercase">{asset.category}</span>
 					</Table.Cell>
 
 					<!-- Venues -->
