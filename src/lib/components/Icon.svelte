@@ -53,7 +53,10 @@ A few types of icons, closely inspired by Lighter:
 
 	<!-- If tooltip to be rendered, inject content -->
 	{#if tooltip != ""}
-		<Tooltip.Content>
+		<Tooltip.Content
+			class="border border-gecko-shade bg-gecko-black"
+			arrowClasses="border-b border-b-gecko-shade bg-gecko-black"
+		>
 			<span>{tooltip}</span>
 		</Tooltip.Content>
 	{/if}
