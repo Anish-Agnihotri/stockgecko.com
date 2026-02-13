@@ -1,30 +1,21 @@
 <script lang="ts">
-	import tickers from "$config/tickers.json";
-	import exchanges from "$config/exchanges.json";
-	import Icon from "$lib/components/Icon.svelte";
+	import Table from "$components/Table.svelte";
+
+	let { data } = $props();
 </script>
 
-<div class="bg-amber-50 p-10">
-	<!-- Icons -->
-	<h2 class="text-2xl font-bold">Icons</h2>
-	{#each Object.entries(tickers.perps) as [category, assets]}
-		<h3 class="mt-4 pt-2 font-semibold">{category.toUpperCase()}</h3>
-		<div class="flex flex-row space-x-2">
-			{#each Object.entries(assets) as [name, asset]}
-				<Icon src={asset.meta.icon} alt={asset.meta.name} />
-			{/each}
+<main class="flex min-h-[calc(100dvh-108px)] flex-col">
+	<!-- Hero -->
+	<div class="flex min-h-96 flex-row justify-center border-b border-b-gecko-shade">
+		<div class="flex max-w-7xl flex-1 flex-col border-x border-x-gecko-shade px-4">
+			<span>Hero</span>
 		</div>
-	{/each}
-
-	<h3 class="mt-4 pt-2 font-semibold">EXCHANGES</h3>
-	<div class="flex flex-row space-x-2">
-		{#each exchanges as exchange}
-			<Icon
-				src={exchange.meta.icon}
-				alt={exchange.meta.name}
-				nested={true}
-				tooltip={exchange.meta.name}
-			/>
-		{/each}
 	</div>
-</div>
+
+	<!-- Tabular data -->
+	<section class="flex flex-1 flex-row justify-center">
+		<div class="flex max-w-7xl flex-1 border-x border-x-gecko-shade">
+			<Table snapshot={data.snapshot} />
+		</div>
+	</section>
+</main>

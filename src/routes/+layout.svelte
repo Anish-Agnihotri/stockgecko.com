@@ -1,19 +1,21 @@
 <script lang="ts">
 	import "../app.css";
+	import "../shadcn.css";
 	import * as Tooltip from "$shadcn/tooltip";
+	import Header from "$components/Header.svelte";
 
 	// Injected data, page children
-	let { data, children } = $props();
-	console.log(data.snapshot);
+	let { children } = $props();
 </script>
 
 <!-- Global tooltip provider -->
 <Tooltip.Provider delayDuration={0}>
 	<!-- Setup layout -->
 	<div class="flex flex-col">
+		<!-- Header -->
+		<Header />
+
 		<!-- Content -->
-		<main>
-			{@render children()}
-		</main>
+		{@render children()}
 	</div>
 </Tooltip.Provider>

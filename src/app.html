@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="overscroll-none">
 	<head>
 		<!-- General -->
 		<meta charset="utf-8" />
@@ -11,11 +11,19 @@
 		<!-- Favicon -->
 		<link rel="icon" href="%sveltekit.assets%/assets/favicon.svg" />
 
+		<!-- Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400&display=swap"
+			rel="stylesheet"
+		/>
+
 		<!-- Inject Svelte head -->
 		%sveltekit.head%
 	</head>
 
-	<body data-sveltekit-preload-data="hover">
+	<body data-sveltekit-preload-data="hover" class="bg-black font-display text-gecko-gray">
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>
