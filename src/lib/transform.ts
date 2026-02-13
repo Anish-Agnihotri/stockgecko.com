@@ -11,8 +11,8 @@ const MARKET_TO_ASSET = new Map(
 	)
 );
 
-// Generated data snapshot
-export type Snapshot = {
+// Statistics for batch of data
+type Snapshot = {
 	// Snapshot meta details
 	meta: {
 		// Shared execution batch ID
@@ -60,6 +60,42 @@ export type Snapshot = {
 	};
 };
 
+// Statistics w/ diffed change across two `Snapshot`(s) of data
+export type DiffedSnapshot = {
+	meta: Snapshot["meta"] & {
+		// Batch ID of historic batch diffed against
+		diffBatchId: string;
+		// Staleness of historic batch
+		diffUpdatedAt: Date;
+	};
+
+	assets: Record<
+		string,
+		Snapshot["assets"][string] & {
+			// Change across two snapshots in asset median midPx
+			medianMidPxChange: number;
+			// Change across two snapshots in asset volume
+			volumeChange: number;
+		}
+	>;
+
+	markets: Record<
+		string,
+		Snapshot["markets"][string] & {
+			// Change across two snapshots in market midPx
+			midPxChange: number;
+			// Change across two snapshots in market volume
+			volumeChange: number;
+		}
+	>;
+
+	// Updated to include historic index lookup
+	index: {
+		assetsByVolume: { asset: string; previousIndex: number | null }[];
+		marketsByVenue: Record<string, string[]>;
+	};
+};
+
 /**
  * Format market `key` based on if `venue` exists (e.g., HIP-3 DEX name)
  * @param {PlainMarketEntry} e data entry
@@ -70,11 +106,22 @@ function marketKey(e: PlainMarketEntry): string {
 }
 
 /**
- * Given input `markets` data, produces a `Snapshot` to cache (and render)
+ * Simple decimal change where `previous` can be non-existent
+ * @dev Useful in case where calculating `change` for a new market
+ * @param {number | undefined} previous old value
+ * @param {number} current new value
+ * @returns {number} decimal change (`*100` in UI)
+ */
+function change(previous: number | undefined, current: number): number {
+	return previous ? (current - previous) / previous : 0;
+}
+
+/**
+ * Given input `markets` data, produces a `Snapshot` of metrics
  * @dev Not the most efficient implementation, but readable and meant to
  *      run in an async workflow, so fine as part of broader E(T)L pipeline.
- * @param {PlainMarketEntry[]} markets batch market information
- * @returns {Snapshot} generated snapshot data
+ * @param {PlainMarketEntry[]} markets batch of data
+ * @returns {Snapshot} snapshot of metrics
  */
 export function buildSnapshot(markets: PlainMarketEntry[]): Snapshot {
 	// Quick safety check
@@ -157,4 +204,66 @@ export function buildSnapshot(markets: PlainMarketEntry[]): Snapshot {
 		markets: snapshotMarkets,
 		index: { assetsByVolume, marketsByVenue }
 	};
+}
+
+/**
+ * Given two sets of `Snapshot`(s), `previous` and `current` return a `DiffedSnapshot`,
+ * containing additional change in various values from `previous` to `current`
+ * @dev Most useful for tracking {price, volume, ranked position} changes over time
+ * @param {Snapshot} previous old snapshot
+ * @param {Snapshot} current new snapshot
+ * @returns {DiffedSnapshot} base `Snapshot` augmented with change data
+ */
+export function buildDiffedSnapshot(previous: Snapshot, current: Snapshot): DiffedSnapshot {
+	// --- 1: Setup new meta w/ tracked historic `old` batch ---
+	const meta: DiffedSnapshot["meta"] = {
+		...current.meta,
+		diffBatchId: previous.meta.batchId,
+		diffUpdatedAt: previous.meta.updatedAt
+	};
+
+	// --- 2: Diff market data ---
+	const markets: DiffedSnapshot["markets"] = {};
+	for (const [key, market] of Object.entries(current.markets)) {
+		// Note: market may not exist in previous snapshot (new market)
+		const previousMarket = previous.markets[key];
+
+		markets[key] = {
+			...market,
+			midPxChange: change(previousMarket?.midPx, market.midPx),
+			volumeChange: change(previousMarket?.volume, market.volume)
+		};
+	}
+
+	// --- 3: Diff asset data ---
+	const assets: DiffedSnapshot["assets"] = {};
+	for (const [id, asset] of Object.entries(current.assets)) {
+		// Note: asset may not exist in previous snapshot (new asset)
+		const previousAsset = previous.assets[id];
+
+		assets[id] = {
+			...asset,
+			medianMidPxChange: change(previousAsset?.medianMidPx, asset.medianMidPx),
+			volumeChange: change(previousAsset?.volume, asset.volume)
+		};
+	}
+
+	// --- 4: Produce diff-aware indexes ---
+	// No change to `marketsByVenue`, we keep latest markets=>venues indexed
+	const index: DiffedSnapshot["index"] = {
+		marketsByVenue: current.index.marketsByVenue,
+		assetsByVolume: []
+	};
+
+	// But, we do setup a new `assetsByVolume` aware of previous index positions
+	// Previous `assetId` => volume-weighted index mapping
+	const previousRanking = new Map(previous.index.assetsByVolume.map((id, i) => [id, i]));
+	for (const asset of current.index.assetsByVolume) {
+		index.assetsByVolume.push({
+			asset,
+			previousIndex: previousRanking.get(asset) ?? null
+		});
+	}
+
+	return { meta, assets, markets, index };
 }

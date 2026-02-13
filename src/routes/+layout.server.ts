@@ -1,25 +1,10 @@
-import db from "$lib/db";
-import { plainifyEntries } from "$lib/serialize";
+import { loadSnapshot } from "$lib/load";
 import { CRON_SECRET } from "$env/static/private";
-import { buildSnapshot, type Snapshot } from "$lib/transform";
+import type { DiffedSnapshot } from "$lib/transform";
 
-/**
- * Collect `snapshot` state from database
- * @dev Hot cached via ISR
- * @returns {Promise<{snapshot: Snapshot}>} snapshot state
- */
-export async function load(): Promise<{ snapshot: Snapshot }> {
-	// Collect latest batch ID
-	const { batchId } = await db.marketEntry.findFirstOrThrow({
-		orderBy: { updatedAt: "desc" },
-		select: { batchId: true }
-	});
-
-	// Collect full batch of data via batch ID
-	const entries = await db.marketEntry.findMany({ where: { batchId } });
-
-	// Parse and return snapshot data
-	return { snapshot: buildSnapshot(plainifyEntries(entries)) };
+// Collect `snapshot` state from database; hot-cached via ISR
+export async function load(): Promise<{ snapshot: DiffedSnapshot }> {
+	return loadSnapshot();
 }
 
 /** @type {import('@sveltejs/adapter-vercel').Config} */

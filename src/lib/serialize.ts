@@ -1,3 +1,10 @@
+// N.B.: this was previously implemented for Workflow `devalue`
+// handling, but ironically also applies to SvelteKit given
+// `devalue` dependency. Choosing to keep out of convenience and
+// not implementing a custom hook and handling `Decimal` again.
+//
+// ----------------------------------------------------------------
+//
 // Prisma uses `Decimal` for all Postgres numeric types.
 //
 // For data persistance across workflow steps, Workflow uses `devalue`
@@ -10,8 +17,8 @@
 // Instead, given we already convert `toNumber()` during E(T)L, I am
 // okay to compromise with a quick, explicit serialized type.
 //
-// Note: we could totally do this by making a new object too, but I am
-// just having fun.
+// Note: we could totally do this by making a new object too (at expense
+// of keeping updated in two places*), but I am just having fun.
 import type { MarketEntry } from "$prisma/client";
 
 // `MarketEntry` with `Decimal`-types converted to `number`
