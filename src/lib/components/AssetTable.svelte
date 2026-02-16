@@ -102,7 +102,21 @@
 					<Table.Cell class="w-10 text-center!"><Numeric value={rankDelta} change /></Table.Cell>
 
 					<!-- Current ranking -->
-					<Table.Cell class="w-6"><Numeric value={volumeRank + 1} /></Table.Cell>
+					<Table.Cell class="w-6">
+						{@const rank = volumeRank + 1}
+
+						{#if rank <= 3}
+							<img
+								src={`/assets/icons/medals/medal-${rank}.svg`}
+								alt={`#${rank} place medal`}
+								height="16px"
+								width="16px"
+								class="-translate-x-1"
+							/>
+						{:else}
+							<Numeric value={rank} />
+						{/if}
+					</Table.Cell>
 
 					<!-- Asset -->
 					<Table.Cell class="py-0 pr-0 pl-2">
