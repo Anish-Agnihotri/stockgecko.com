@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { getContext } from "svelte";
 	import * as Table from "$shadcn/table";
+	import { goto } from "$app/navigation";
 	import tickers from "$config/tickers.json";
 	import Icon from "$components/Icon.svelte";
 	import exchanges from "$config/exchanges.json";
@@ -94,7 +95,8 @@
 				{@const rankDelta = previousIndex != null ? previousIndex - volumeRank : 0}
 
 				<Table.Row
-					class="h-10 border-b-gecko-shade text-xs transition-none hover:bg-gecko-black-hover [&_td]:px-0 [&_td]:text-left [&_td]:align-middle"
+					onclick={() => goto(`/asset/${assetId}`)}
+					class="h-10 cursor-pointer border-b-gecko-shade text-xs transition-none hover:bg-gecko-black-hover [&_td]:px-0 [&_td]:text-left [&_td]:align-middle"
 				>
 					<!-- Ranking change -->
 					<Table.Cell class="w-10 text-center!"><Numeric value={rankDelta} change /></Table.Cell>
