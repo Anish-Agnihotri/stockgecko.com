@@ -1,0 +1,93 @@
+<script lang="ts">
+	import { getContext } from "svelte";
+	import { goto } from "$app/navigation";
+	import Icon from "$components/Icon.svelte";
+	import * as Command from "$shadcn/command";
+	import tickers from "$config/tickers.json";
+	import exchanges from "$config/exchanges.json";
+	import Numeric from "$components/Numeric.svelte";
+	import type { DiffedSnapshot } from "$lib/transform";
+	import type { ExchangeCfg, TickerCfg } from "$lib/types";
+
+	// Collect data snapshot
+	const getSnapshot = getContext<() => DiffedSnapshot>("snapshot");
+	const snapshot = $derived(getSnapshot());
+
+	// Unified styling
+	const groupClass =
+		"p-0 **:data-command-group-heading:border-b **:data-command-group-heading:border-b-gecko-shade **:data-command-group-heading:bg-gecko-black **:data-command-group-heading:px-3";
+	const itemClass =
+		"flex h-10 cursor-pointer flex-row justify-between rounded-none border-b border-b-gecko-shade px-3 text-xs font-light aria-selected:bg-gecko-black-hover";
+</script>
+
+<Command.Root
+	class="flex flex-col rounded-none **:data-[slot=command-input-wrapper]:h-10 **:data-[slot=command-input-wrapper]:border-gecko-shade [&_svg:first-child]:hidden"
+>
+	<!-- Input field -->
+	<Command.Input placeholder="Search assets, categories, venues..." autofocus />
+
+	<!-- Items list -->
+	<Command.List class="max-h-full lg:max-h-80 lg:min-h-80">
+		<!-- No items found -->
+		<Command.Empty class="text-gecko-gray/50">No results found.</Command.Empty>
+
+		<!-- Iterate asset groups -->
+		{#each Object.entries(tickers.perps as TickerCfg) as [category, assets]}
+			<Command.Group heading={category.toUpperCase()} class={groupClass}>
+				<!-- Iterate assets -->
+				{#each Object.entries(assets) as [id, { meta }]}
+					{@const live = snapshot.assets[id]}
+
+					<Command.Item
+						onSelect={() => goto(`/asset/${id}`)}
+						value="{meta.name} {id} {category}"
+						class={itemClass}
+					>
+						<div class="flex items-center" inert>
+							<Icon src={meta.icon} alt={meta.name} />
+							<h5 class="ml-2 text-gecko-white">{meta.name}</h5>
+							<span class="ml-1 text-gecko-gray">({id.toUpperCase()})</span>
+						</div>
+
+						{#if live}
+							<div class="flex items-center">
+								<Numeric value={live.volume} dollar format="currency" class="text-white" />
+								<Numeric
+									value={live.volumeChange * 100}
+									format="numeric"
+									class="ml-1"
+									change
+									percentage
+								/>
+							</div>
+						{/if}
+					</Command.Item>
+				{/each}
+			</Command.Group>
+		{/each}
+
+		<!-- Iterate venues -->
+		<Command.Group heading="VENUES" class={groupClass}>
+			{#each Object.entries(exchanges as ExchangeCfg) as [id, meta]}
+				{@const [venue, namespace] = id.split(":")}
+
+				<Command.Item
+					onSelect={() => goto(`/venue/${venue}${namespace && `/dex/${namespace}`}`)}
+					value="{meta.name} {id}"
+					class={itemClass}
+				>
+					<div class="flex items-center" inert>
+						<Icon src={meta.icon} alt={meta.name} nested />
+						<h5 class="ml-2 text-gecko-white">{meta.name}</h5>
+					</div>
+
+					<div class="flex items-center">
+						<span class="ml-1 font-mono text-gecko-gray uppercase"
+							>{namespace ? `${venue}:${namespace}` : venue}</span
+						>
+					</div>
+				</Command.Item>
+			{/each}
+		</Command.Group>
+	</Command.List>
+</Command.Root>

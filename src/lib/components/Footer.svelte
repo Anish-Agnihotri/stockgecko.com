@@ -4,7 +4,9 @@
 
 <footer class="flex flex-col bg-black {extraClass}">
 	<section class="flex items-center justify-center border-t border-t-gecko-shade">
-		<div class="flex w-full max-w-7xl flex-col border-x border-gecko-shade px-4 py-10 text-center">
+		<div
+			class="flex w-full max-w-7xl flex-col border-gecko-shade px-4 py-10 text-center lg:border-x"
+		>
 			<!-- Logo -->
 			<div class="flex flex-row lg:justify-center">
 				<a href="/">

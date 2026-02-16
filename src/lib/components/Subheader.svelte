@@ -18,7 +18,7 @@
 	class="flex h-8 flex-row items-center justify-center border-b border-gecko-shade lg:h-11 {extraClass}"
 >
 	<div
-		class="flex h-full w-full max-w-7xl items-center justify-between overflow-x-auto border-x border-gecko-shade px-4 text-xs"
+		class="flex h-full w-full max-w-7xl items-center justify-between overflow-x-auto border-gecko-shade px-4 text-xs lg:border-x"
 	>
 		<!-- Statistics -->
 		<div class="flex min-w-2xl flex-row space-x-4">

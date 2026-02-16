@@ -8,7 +8,7 @@
 	<DitherHero class="flex flex-1 flex-col">
 		<!-- CTA -->
 		<div class="flex flex-1 items-center justify-center">
-			<div class="flex max-w-lg flex-col items-center justify-center px-4 text-center">
+			<div class="flex max-w-lg flex-col items-center justify-center px-8 text-center lg:px-4">
 				<h1 class="text-3xl font-bold text-gecko-white sm:text-5xl">TradFi lives on crypto.</h1>
 				<p class="pt-2 text-sm">
 					<!-- FIXME: need number here -->

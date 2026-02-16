@@ -26,7 +26,7 @@
 
 		<!-- Content -->
 		<main class="order-3 flex flex-1 flex-row justify-center">
-			<div class="flex w-full max-w-7xl flex-1 flex-col border-x border-x-gecko-shade">
+			<div class="flex w-full max-w-7xl flex-1 flex-col border-x-gecko-shade lg:border-x">
 				{@render children()}
 			</div>
 		</main>

@@ -22,7 +22,8 @@
 		<span class="ml-1 -translate-y-px text-lg">↔</span>
 	</div>
 
-	<Table.Root class="w-full min-w-[850px] table-fixed">
+	<!-- FIXME: look into overscroll prevention along x-axis -->
+	<Table.Root class="w-full min-w-220 table-fixed">
 		<!-- Ranking chg., ranking, asset, midPx, midPx change, vol, vol change, venues -->
 		<Table.Header class="bg-gecko-black">
 			<Table.Row class="border-b-gecko-shade text-xs font-light [&_th]:px-0">

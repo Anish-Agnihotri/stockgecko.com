@@ -53,7 +53,6 @@
 		"@prisma/client": "^7.3.0",
 		"@sveltejs/adapter-vercel": "^6.3.1",
 		"dotenv": "^17.2.4",
-		"fuse.js": "^7.1.0",
 		"pg": "^8.18.0",
 		"workflow": "^4.1.0-beta.54"
 	}
