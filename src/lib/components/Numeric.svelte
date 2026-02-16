@@ -73,7 +73,7 @@
 	}
 
 	// Color render
-	const colorClass =
+	const colorClass = $derived(
 		// If want to render change + non-0 change
 		change && value !== 0
 			? // Red/green rendering
@@ -81,7 +81,8 @@
 				? "text-gecko-green"
 				: "text-gecko-red"
 			: // Default muted
-				"text-gecko-muted";
+				"text-gecko-muted"
+	);
 </script>
 
 <span class="{colorClass} {extraClass}">

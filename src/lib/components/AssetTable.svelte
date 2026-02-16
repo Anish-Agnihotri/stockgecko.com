@@ -11,6 +11,55 @@
 	// Collect data snapshot
 	const getSnapshot = getContext<() => DiffedSnapshot>("snapshot");
 	const snapshot = $derived(getSnapshot());
+
+	// Setup sortable table
+	type AssetKey = keyof DiffedSnapshot["assets"][0];
+	let sortKey: AssetKey = $state("volume");
+	let sortDirection: 1 | -1 = $state(-1);
+
+	/**
+	 * Toggle column sort direction
+	 * @param {AssetKey} key to sort on
+	 */
+	function toggleSort(key: AssetKey) {
+		if (sortKey === key) {
+			// Reverse direction
+			sortDirection *= -1;
+		} else {
+			// Else, set new sort key
+			sortKey = key;
+			sortDirection = -1;
+		}
+	}
+
+	// Sorted rows
+	const rows = $derived(() => {
+		// Sort by `sortKey`
+		return [...snapshot.index.assetsByVolume].sort((a, b) => {
+			const valA = snapshot.assets[a.asset][sortKey!];
+			const valB = snapshot.assets[b.asset][sortKey!];
+			const cmp =
+				typeof valA === "string"
+					? // String sort (category)
+						(valA as string).localeCompare(valB as string)
+					: // Numeric value sort
+						(valA as number) - (valB as number);
+			return cmp * sortDirection;
+		});
+	});
+
+	// Setup columns/headers
+	const COLUMNS: { width: number | null; title: string; sortKey: AssetKey | null }[] = [
+		{ width: 10, title: "", sortKey: null },
+		{ width: 6, title: "", sortKey: null },
+		{ width: null, title: "Asset", sortKey: null },
+		{ width: 24, title: "Mid Price", sortKey: null },
+		{ width: 24, title: "24h", sortKey: "medianMidPxChange" },
+		{ width: 24, title: "Volume", sortKey: "volume" },
+		{ width: 24, title: "24h", sortKey: "volumeChange" },
+		{ width: 28, title: "Class", sortKey: "category" },
+		{ width: 30, title: "Venues", sortKey: null }
+	];
 </script>
 
 <div class="flex w-full flex-col">
@@ -24,27 +73,25 @@
 
 	<!-- FIXME: look into overscroll prevention along x-axis -->
 	<Table.Root class="w-full min-w-220 table-fixed">
-		<!-- Ranking chg., ranking, asset, midPx, midPx change, vol, vol change, venues -->
 		<Table.Header class="bg-gecko-black">
 			<Table.Row class="border-b-gecko-shade text-xs font-light [&_th]:px-0">
-				<Table.Head class="w-10"></Table.Head>
-				<Table.Head class="w-6"></Table.Head>
-				<Table.Head>Asset</Table.Head>
-				<Table.Head class="w-24">Mid Price</Table.Head>
-				<Table.Head class="w-24">24h</Table.Head>
-				<Table.Head class="w-24">Volume</Table.Head>
-				<Table.Head class="w-24">24h</Table.Head>
-				<Table.Head class="w-28">Class</Table.Head>
-				<Table.Head class="w-30">Venues</Table.Head>
+				{#each COLUMNS as { width, title, sortKey: key }}
+					<Table.Head
+						class="{width ? `w-${width}` : ''}{key ? ' cursor-pointer select-none' : ''}"
+						onclick={key ? () => toggleSort(key) : undefined}
+						>{title} {sortKey === key ? (sortDirection === 1 ? "↑" : "↓") : ""}</Table.Head
+					>
+				{/each}
 			</Table.Row>
 		</Table.Header>
 
 		<Table.Body>
-			{#each snapshot.index.assetsByVolume as { asset: assetId, previousIndex }, i}
+			{#each rows() as { asset: assetId, previousIndex }}
 				<!-- Collect asset data + metadata -->
 				{@const asset = snapshot.assets[assetId]}
 				{@const { name, icon } = (tickers.perps as TickerCfg)[asset.category][assetId].meta}
-				{@const rankDelta = previousIndex != null ? previousIndex - i : 0}
+				{@const volumeRank = snapshot.index.assetsByVolume.findIndex((r) => r.asset === assetId)}
+				{@const rankDelta = previousIndex != null ? previousIndex - volumeRank : 0}
 
 				<Table.Row
 					class="h-10 border-b-gecko-shade text-xs transition-none hover:bg-gecko-black-hover [&_td]:px-0 [&_td]:text-left [&_td]:align-middle"
@@ -53,10 +100,10 @@
 					<Table.Cell class="w-10 text-center!"><Numeric value={rankDelta} change /></Table.Cell>
 
 					<!-- Current ranking -->
-					<Table.Cell class="w-6"><Numeric value={i + 1} /></Table.Cell>
+					<Table.Cell class="w-6"><Numeric value={volumeRank + 1} /></Table.Cell>
 
 					<!-- Asset -->
-					<Table.Cell class="pr-0 pl-2">
+					<Table.Cell class="py-0 pr-0 pl-2">
 						<span class="flex items-center">
 							<Icon src={icon} alt={name} />
 							<span class="ml-2 text-gecko-white">{name}</span>
