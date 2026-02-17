@@ -55,8 +55,8 @@
 		{ width: 6, title: "", sortKey: null },
 		{ width: null, title: "Asset", sortKey: null },
 		{ width: 26, title: "Mid Price", sortKey: null },
-		{ width: 24, title: "24h", sortKey: "medianMidPxChange" },
-		{ width: 26, title: "Volume", sortKey: "volume" },
+		{ width: 20, title: "24h", sortKey: "medianMidPxChange" },
+		{ width: 20, title: "Volume", sortKey: "volume" },
 		{ width: 24, title: "24h", sortKey: "volumeChange" },
 		{ width: 28, title: "Class", sortKey: "category" },
 		{ width: 36, title: "Venues", sortKey: null }
@@ -145,7 +145,7 @@
 					</Table.Cell>
 
 					<!-- Volume -->
-					<Table.Cell class="w-26">
+					<Table.Cell class="w-20">
 						<Numeric
 							value={asset.volume}
 							format="currency"
@@ -155,7 +155,7 @@
 					</Table.Cell>
 
 					<!-- Volume change -->
-					<Table.Cell class="w-20">
+					<Table.Cell class="w-24">
 						<Numeric value={asset.volumeChange * 100} format="numeric" change percentage />
 					</Table.Cell>
 

@@ -19,7 +19,7 @@
 	const [BILLION, MILLION, THOUSAND] = [1e9, 1e6, 1e3];
 
 	// Setup currency symbols
-	const CURRENCY_SYMBOLS = {
+	const CURRENCY_SYMBOLS: Record<string, string> = {
 		USD: "$",
 		EUR: "€",
 		HKD: "HK$",
