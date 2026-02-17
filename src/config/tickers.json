@@ -199,19 +199,23 @@
 				"ref": ["lighter:QQQ"]
 			},
 			"hsihkd": {
-				"meta": { "name": "Hang Seng", "icon": ["/assets/icons/indices/hsi.webp"] },
+				"meta": { "name": "Hang Seng", "icon": ["/assets/icons/indices/hsi.webp"], "quote": "HKD" },
 				"ref": ["ostium:30"]
 			},
 			"daxeur": {
-				"meta": { "name": "DAX", "icon": ["/assets/icons/indices/dax.webp"] },
+				"meta": { "name": "DAX", "icon": ["/assets/icons/indices/dax.webp"], "quote": "EUR" },
 				"ref": ["ostium:15"]
 			},
 			"ftsegbp": {
-				"meta": { "name": "FTSE 100", "icon": ["/assets/icons/indices/ftse.webp"] },
+				"meta": { "name": "FTSE 100", "icon": ["/assets/icons/indices/ftse.webp"], "quote": "GBP" },
 				"ref": ["ostium:14"]
 			},
 			"nikjpy": {
-				"meta": { "name": "Nikkei 225", "icon": ["/assets/icons/indices/nikkei.webp"] },
+				"meta": {
+					"name": "Nikkei 225",
+					"icon": ["/assets/icons/indices/nikkei.webp"],
+					"quote": "JPY"
+				},
 				"ref": ["ostium:13"]
 			},
 			"spx": {

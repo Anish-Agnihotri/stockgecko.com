@@ -54,12 +54,12 @@
 		{ width: 10, title: "", sortKey: null },
 		{ width: 6, title: "", sortKey: null },
 		{ width: null, title: "Asset", sortKey: null },
-		{ width: 24, title: "Mid Price", sortKey: null },
+		{ width: 26, title: "Mid Price", sortKey: null },
 		{ width: 24, title: "24h", sortKey: "medianMidPxChange" },
-		{ width: 24, title: "Volume", sortKey: "volume" },
+		{ width: 26, title: "Volume", sortKey: "volume" },
 		{ width: 24, title: "24h", sortKey: "volumeChange" },
 		{ width: 28, title: "Class", sortKey: "category" },
-		{ width: 30, title: "Venues", sortKey: null }
+		{ width: 36, title: "Venues", sortKey: null }
 	];
 </script>
 
@@ -73,7 +73,7 @@
 	</div>
 
 	<!-- FIXME: look into overscroll prevention along x-axis -->
-	<Table.Root class="w-full min-w-220 table-fixed">
+	<Table.Root class="w-full min-w-230 table-fixed">
 		<Table.Header class="bg-gecko-black">
 			<Table.Row class="border-b-gecko-shade text-xs font-light [&_th]:px-0">
 				{#each COLUMNS as { width, title, sortKey: key }}
@@ -90,7 +90,7 @@
 			{#each rows() as { asset: assetId, previousIndex }}
 				<!-- Collect asset data + metadata -->
 				{@const asset = snapshot.assets[assetId]}
-				{@const { name, icon } = (tickers.perps as TickerCfg)[asset.category][assetId].meta}
+				{@const { name, icon, quote } = (tickers.perps as TickerCfg)[asset.category][assetId].meta}
 				{@const volumeRank = snapshot.index.assetsByVolume.findIndex((r) => r.asset === assetId)}
 				{@const rankDelta = previousIndex != null ? previousIndex - volumeRank : 0}
 
@@ -119,17 +119,24 @@
 					</Table.Cell>
 
 					<!-- Asset -->
-					<Table.Cell class="py-0 pr-0 pl-2">
+					<Table.Cell class="py-0 pr-0">
 						<span class="flex items-center">
-							<Icon src={icon} alt={name} />
+							<div class="flex w-7 items-center justify-center">
+								<Icon src={icon} alt={name} />
+							</div>
 							<span class="ml-2 text-gecko-white">{name}</span>
 							<span class="ml-1 text-gecko-gray">{assetId.toUpperCase()}</span>
 						</span>
 					</Table.Cell>
 
 					<!-- Mid price -->
-					<Table.Cell class="w-24">
-						<Numeric value={asset.medianMidPx} format="numeric" dollar class="text-gecko-white" />
+					<Table.Cell class="w-26">
+						<Numeric
+							value={asset.medianMidPx}
+							format="numeric"
+							currency={quote ?? "USD"}
+							class="text-gecko-white"
+						/>
 					</Table.Cell>
 
 					<!-- Mid price change -->
@@ -138,8 +145,13 @@
 					</Table.Cell>
 
 					<!-- Volume -->
-					<Table.Cell class="w-24">
-						<Numeric value={asset.volume} format="currency" dollar class="text-gecko-white" />
+					<Table.Cell class="w-26">
+						<Numeric
+							value={asset.volume}
+							format="currency"
+							currency="USD"
+							class="text-gecko-white"
+						/>
 					</Table.Cell>
 
 					<!-- Volume change -->
@@ -153,7 +165,7 @@
 					</Table.Cell>
 
 					<!-- Venues -->
-					<Table.Cell class="w-30">
+					<Table.Cell class="w-36">
 						<span class="flex flex-row items-center gap-0.5">
 							{#each asset.marketIds as marketId}
 								{@const { venue, namespace } = snapshot.markets[marketId]}

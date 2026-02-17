@@ -28,7 +28,7 @@
 				>24h Volume: <Numeric
 					value={snapshot.aggregates.volume}
 					format="currency"
-					dollar
+					currency="USD"
 					class="text-gecko-white"
 				/><Numeric
 					value={snapshot.aggregates.volumeChange * 100}

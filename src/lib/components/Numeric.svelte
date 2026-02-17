@@ -2,14 +2,14 @@
 	let {
 		value,
 		class: extraClass = "",
-		dollar = false,
+		currency = null,
 		change = false,
 		format = "none",
 		percentage = false
 	}: {
 		value: number;
 		class?: string;
-		dollar?: boolean;
+		currency?: string | null;
 		change?: boolean;
 		format?: "none" | "numeric" | "currency";
 		percentage?: boolean;
@@ -51,8 +51,26 @@
 		// If positive change, prefix `+`
 		if (change && value > 0) f += "+";
 
-		// If dollar, prefix dollar sign
-		if (dollar) f += "$";
+		// If currency, prefix based on type
+		switch (currency) {
+			case "USD":
+				f += "$";
+				break;
+			case "EUR":
+				f += "€";
+				break;
+			case "HKD":
+				f += "HK$";
+				break;
+			case "GBP":
+				f += "£";
+				break;
+			case "JPY":
+				f += "¥";
+				break;
+			default:
+				break;
+		}
 
 		// Format based on `format` type
 		switch (format) {

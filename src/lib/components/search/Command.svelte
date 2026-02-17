@@ -50,8 +50,8 @@
 						</div>
 
 						{#if live}
-							<div class="flex items-center">
-								<Numeric value={live.volume} dollar format="currency" class="text-white" />
+							<div class="flex items-center [&_span]:w-22 [&_span]:text-right">
+								<Numeric value={live.volume} currency="USD" format="currency" class="text-white" />
 								<Numeric
 									value={live.volumeChange * 100}
 									format="numeric"
