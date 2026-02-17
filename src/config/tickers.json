@@ -292,7 +292,8 @@
 			"JPY": {
 				"meta": {
 					"name": "USDJPY",
-					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/JPY.webp"]
+					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/JPY.webp"],
+					"quote": "JPY"
 				},
 				"ref": ["hyperliquid:xyz:JPY", "lighter:USDJPY", "ostium:4"]
 			},
@@ -306,14 +307,16 @@
 			"KRW": {
 				"meta": {
 					"name": "USDKRW",
-					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/KRW.webp"]
+					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/KRW.webp"],
+					"quote": "KRW"
 				},
 				"ref": ["lighter:USDKRW"]
 			},
 			"CHF": {
 				"meta": {
 					"name": "USDCHF",
-					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/CHF.webp"]
+					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/CHF.webp"],
+					"quote": "CHF"
 				},
 				"ref": ["lighter:USDCHF", "ostium:25"]
 			},
@@ -334,14 +337,16 @@
 			"CAD": {
 				"meta": {
 					"name": "USDCAD",
-					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/CAD.webp"]
+					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/CAD.webp"],
+					"quote": "CAD"
 				},
 				"ref": ["lighter:USDCAD", "ostium:16"]
 			},
 			"MXN": {
 				"meta": {
 					"name": "USDMXN",
-					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/MXN.webp"]
+					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/MXN.webp"],
+					"quote": "MXN"
 				},
 				"ref": ["ostium:17"]
 			}

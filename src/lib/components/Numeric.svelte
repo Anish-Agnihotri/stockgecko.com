@@ -18,6 +18,19 @@
 	// Setup denominators
 	const [BILLION, MILLION, THOUSAND] = [1e9, 1e6, 1e3];
 
+	// Setup currency symbols
+	const CURRENCY_SYMBOLS = {
+		USD: "$",
+		EUR: "€",
+		HKD: "HK$",
+		GBP: "£",
+		JPY: "¥",
+		CAD: "CA$",
+		KRW: "₩",
+		CHF: "₣",
+		MXN: "MX$"
+	};
+
 	/**
 	 * Format number as US-denominated currency (2 fixed decimals, commas)
 	 * @param {number} n to format
@@ -52,24 +65,8 @@
 		if (change && value > 0) f += "+";
 
 		// If currency, prefix based on type
-		switch (currency) {
-			case "USD":
-				f += "$";
-				break;
-			case "EUR":
-				f += "€";
-				break;
-			case "HKD":
-				f += "HK$";
-				break;
-			case "GBP":
-				f += "£";
-				break;
-			case "JPY":
-				f += "¥";
-				break;
-			default:
-				break;
+		if (currency) {
+			f += CURRENCY_SYMBOLS[currency];
 		}
 
 		// Format based on `format` type
