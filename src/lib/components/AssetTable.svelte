@@ -8,6 +8,7 @@
 	import Numeric from "$components/Numeric.svelte";
 	import type { DiffedSnapshot } from "$lib/transform";
 	import type { ExchangeCfg, TickerCfg } from "$lib/types";
+	import IconScroll from "./IconScroll.svelte";
 
 	// Collect data snapshot
 	const getSnapshot = getContext<() => DiffedSnapshot>("snapshot");
@@ -59,7 +60,8 @@
 		{ width: 20, title: "Volume", sortKey: "volume" },
 		{ width: 24, title: "24h", sortKey: "volumeChange" },
 		{ width: 28, title: "Class", sortKey: "category" },
-		{ width: 36, title: "Venues", sortKey: null }
+		{ width: 25, title: "Venues", sortKey: null },
+		{ width: 3, title: "", sortKey: null }
 	];
 </script>
 
@@ -73,7 +75,7 @@
 	</div>
 
 	<!-- FIXME: look into overscroll prevention along x-axis -->
-	<Table.Root class="w-full min-w-230 table-fixed">
+	<Table.Root class="w-full min-w-225 table-fixed">
 		<Table.Header class="bg-gecko-black">
 			<Table.Row class="border-b-gecko-shade text-xs font-light [&_th]:px-0">
 				{#each COLUMNS as { width, title, sortKey: key }}
@@ -165,16 +167,19 @@
 					</Table.Cell>
 
 					<!-- Venues -->
-					<Table.Cell class="w-36">
-						<span class="flex flex-row items-center gap-0.5">
+					<Table.Cell class="w-25">
+						<IconScroll>
 							{#each asset.marketIds as marketId}
 								{@const { venue, namespace } = snapshot.markets[marketId]}
 								{@const { name, icon } = (exchanges as ExchangeCfg)[`${venue}:${namespace}`]}
 
 								<Icon src={icon} alt={name} tooltip={name} nested />
 							{/each}
-						</span>
+						</IconScroll>
 					</Table.Cell>
+
+					<!-- Empty sizer -->
+					<Table.Cell class="w-3"></Table.Cell>
 				</Table.Row>
 			{/each}
 		</Table.Body>
