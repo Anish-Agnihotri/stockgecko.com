@@ -6,8 +6,15 @@ import { getWorkflowMetadata } from "workflow";
 // Note: you actually can't make the background job generic because
 // of the way serialization is handled between steps (your `collect*Markets`
 // function fails to serialize).
+import { collectOstiumMarkets } from "$workflows/collection/ostium";
 import { collectLighterMarkets } from "$workflows/collection/lighter";
 import { collectHyperliquidMarkets } from "$workflows/collection/hyperliquid";
+
+// Background runner: Ostium
+async function backgroundOstium(batchId: string): Promise<string> {
+	"use step";
+	return (await start(collectOstiumMarkets, [batchId])).runId;
+}
 
 // Background runner: Lighter
 async function backgroundLighter(batchId: string): Promise<string> {
@@ -31,6 +38,7 @@ export async function collectMarkets() {
 	const { workflowRunId: batchId } = getWorkflowMetadata();
 
 	// Run in parallel
+	await backgroundOstium(batchId);
 	await backgroundLighter(batchId);
 	await backgroundHyperliquid(batchId);
 }

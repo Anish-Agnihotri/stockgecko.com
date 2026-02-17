@@ -7,7 +7,8 @@
 					"hyperliquid:xyz:NVDA",
 					"hyperliquid:cash:NVDA",
 					"hyperliquid:flx:NVDA",
-					"lighter:NVDA"
+					"lighter:NVDA",
+					"ostium:18"
 				]
 			},
 			"mu": {
@@ -16,7 +17,7 @@
 			},
 			"hood": {
 				"meta": { "name": "Robinhood", "icon": ["/assets/icons/stocks/robinhood.webp"] },
-				"ref": ["hyperliquid:xyz:HOOD", "hyperliquid:cash:HOOD", "lighter:HOOD"]
+				"ref": ["hyperliquid:xyz:HOOD", "hyperliquid:cash:HOOD", "lighter:HOOD", "ostium:32"]
 			},
 			"sndk": {
 				"meta": { "name": "Sandisk", "icon": ["/assets/icons/stocks/sandisk.webp"] },
@@ -29,7 +30,8 @@
 					"hyperliquid:cash:TSLA",
 					"hyperliquid:flx:TSLA",
 					"hyperliquid:km:TSLA",
-					"lighter:TSLA"
+					"lighter:TSLA",
+					"ostium:22"
 				]
 			},
 			"intc": {
@@ -38,15 +40,15 @@
 			},
 			"mstr": {
 				"meta": { "name": "MicroStrategy", "icon": ["/assets/icons/stocks/microstrategy.webp"] },
-				"ref": ["hyperliquid:xyz:MSTR", "lighter:MSTR"]
+				"ref": ["hyperliquid:xyz:MSTR", "lighter:MSTR", "ostium:33"]
 			},
 			"pltr": {
 				"meta": { "name": "Palantir", "icon": ["/assets/icons/stocks/palantir.webp"] },
-				"ref": ["hyperliquid:xyz:PLTR", "lighter:PLTR"]
+				"ref": ["hyperliquid:xyz:PLTR", "lighter:PLTR", "ostium:44"]
 			},
 			"coin": {
 				"meta": { "name": "Coinbase", "icon": ["/assets/icons/stocks/coinbase.webp"] },
-				"ref": ["hyperliquid:xyz:COIN", "hyperliquid:flx:COIN", "lighter:COIN"]
+				"ref": ["hyperliquid:xyz:COIN", "hyperliquid:flx:COIN", "lighter:COIN", "ostium:31"]
 			},
 			"googl": {
 				"meta": { "name": "Google", "icon": ["/assets/icons/stocks/google.webp"] },
@@ -54,32 +56,33 @@
 					"hyperliquid:xyz:GOOGL",
 					"hyperliquid:cash:GOOGL",
 					"hyperliquid:km:GOOGL",
-					"lighter:GOOGL"
+					"lighter:GOOGL",
+					"ostium:19"
 				]
 			},
 			"msft": {
 				"meta": { "name": "Microsoft", "icon": ["/assets/icons/stocks/microsoft.webp"] },
-				"ref": ["hyperliquid:xyz:MSFT", "hyperliquid:cash:MSFT", "lighter:MSFT"]
+				"ref": ["hyperliquid:xyz:MSFT", "hyperliquid:cash:MSFT", "lighter:MSFT", "ostium:24"]
 			},
 			"amzn": {
 				"meta": { "name": "Amazon", "icon": ["/assets/icons/stocks/amazon.webp"] },
-				"ref": ["hyperliquid:xyz:AMZN", "hyperliquid:cash:AMZN", "lighter:AMZN"]
+				"ref": ["hyperliquid:xyz:AMZN", "hyperliquid:cash:AMZN", "lighter:AMZN", "ostium:20"]
 			},
 			"amd": {
 				"meta": { "name": "AMD", "icon": ["/assets/icons/stocks/amd.webp"] },
-				"ref": ["hyperliquid:xyz:AMD", "lighter:AMD"]
+				"ref": ["hyperliquid:xyz:AMD", "lighter:AMD", "ostium:45"]
 			},
 			"orcl": {
 				"meta": { "name": "Oracle", "icon": ["/assets/icons/stocks/oracle.webp"] },
-				"ref": ["hyperliquid:xyz:ORCL"]
+				"ref": ["hyperliquid:xyz:ORCL", "ostium:47"]
 			},
 			"rivn": {
 				"meta": { "name": "Rivian", "icon": ["/assets/icons/stocks/rivian.webp"] },
-				"ref": ["hyperliquid:xyz:RIVN"]
+				"ref": ["hyperliquid:xyz:RIVN", "ostium:48"]
 			},
 			"meta": {
 				"meta": { "name": "Meta", "icon": ["/assets/icons/stocks/meta.webp"] },
-				"ref": ["hyperliquid:xyz:META", "hyperliquid:cash:META", "lighter:META"]
+				"ref": ["hyperliquid:xyz:META", "hyperliquid:cash:META", "lighter:META", "ostium:21"]
 			},
 			"usar": {
 				"meta": { "name": "USAR", "icon": ["/assets/icons/stocks/usar.webp"] },
@@ -99,15 +102,39 @@
 			},
 			"aapl": {
 				"meta": { "name": "Apple", "icon": ["/assets/icons/stocks/apple.webp"] },
-				"ref": ["hyperliquid:xyz:AAPL", "hyperliquid:km:AAPL", "lighter:AAPL"]
+				"ref": ["hyperliquid:xyz:AAPL", "hyperliquid:km:AAPL", "lighter:AAPL", "ostium:23"]
 			},
 			"crcl": {
 				"meta": { "name": "Circle", "icon": ["/assets/icons/stocks/circle.webp"] },
-				"ref": ["hyperliquid:flx:CRCL", "lighter:CRCL"]
+				"ref": ["hyperliquid:flx:CRCL", "lighter:CRCL", "ostium:34"]
 			},
 			"bmnr": {
 				"meta": { "name": "Bitmine", "icon": ["/assets/icons/stocks/bitmine.webp"] },
-				"ref": ["lighter:BMNR"]
+				"ref": ["lighter:BMNR", "ostium:35"]
+			},
+			"cvx": {
+				"meta": { "name": "Chevron", "icon": ["/assets/icons/stocks/chevron.webp"] },
+				"ref": ["ostium:51"]
+			},
+			"xom": {
+				"meta": { "name": "Exxon Mobil", "icon": ["/assets/icons/stocks/exxon.webp"] },
+				"ref": ["ostium:50"]
+			},
+			"cost": {
+				"meta": { "name": "Costco", "icon": ["/assets/icons/stocks/costco.webp"] },
+				"ref": ["ostium:49"]
+			},
+			"nflx": {
+				"meta": { "name": "Netflix", "icon": ["/assets/icons/stocks/netflix.webp"] },
+				"ref": ["ostium:46"]
+			},
+			"glxy": {
+				"meta": { "name": "Galaxy Digital", "icon": ["/assets/icons/stocks/galaxy.webp"] },
+				"ref": ["ostium:37"]
+			},
+			"sbet": {
+				"meta": { "name": "SharpLink", "icon": ["/assets/icons/stocks/sharplink.webp"] },
+				"ref": ["ostium:36"]
 			}
 		},
 		"indices": {
@@ -164,12 +191,44 @@
 				"ref": ["hyperliquid:vntl:BIOTECH"]
 			},
 			"spy": {
-				"meta": { "name": "S&P 500", "icon": ["/assets/icons/indices/spy.webp"] },
+				"meta": { "name": "S&P 500", "icon": ["/assets/icons/indices/sp500.webp"] },
 				"ref": ["lighter:SPY"]
 			},
 			"qqq": {
 				"meta": { "name": "QQQ", "icon": ["/assets/icons/indices/qqq.webp"] },
 				"ref": ["lighter:QQQ"]
+			},
+			"hsihkd": {
+				"meta": { "name": "Hang Seng", "icon": ["/assets/icons/indices/hsi.webp"] },
+				"ref": ["ostium:30"]
+			},
+			"daxeur": {
+				"meta": { "name": "DAX", "icon": ["/assets/icons/indices/dax.webp"] },
+				"ref": ["ostium:15"]
+			},
+			"ftsegbp": {
+				"meta": { "name": "FTSE 100", "icon": ["/assets/icons/indices/ftse.webp"] },
+				"ref": ["ostium:14"]
+			},
+			"nikjpy": {
+				"meta": { "name": "Nikkei 225", "icon": ["/assets/icons/indices/nikkei.webp"] },
+				"ref": ["ostium:13"]
+			},
+			"spx": {
+				"meta": { "name": "S&P 500", "icon": ["/assets/icons/indices/sp500.webp"] },
+				"ref": ["ostium:10"]
+			},
+			"dji": {
+				"meta": { "name": "Dow Jones", "icon": ["/assets/icons/indices/dji.webp"] },
+				"ref": ["ostium:11"]
+			},
+			"ndx": {
+				"meta": { "name": "NASDAQ 100", "icon": ["/assets/icons/indices/ndx.webp"] },
+				"ref": ["ostium:12"]
+			},
+			"ura": {
+				"meta": { "name": "Global X Uranium", "icon": ["/assets/icons/indices/ura.webp"] },
+				"ref": ["ostium:52"]
 			}
 		},
 		"commodities": {
@@ -179,7 +238,8 @@
 					"hyperliquid:xyz:SILVER",
 					"hyperliquid:flx:SILVER",
 					"hyperliquid:km:SILVER",
-					"lighter:XAG"
+					"lighter:XAG",
+					"ostium:8"
 				]
 			},
 			"gold": {
@@ -188,20 +248,21 @@
 					"hyperliquid:xyz:GOLD",
 					"hyperliquid:flx:GOLD",
 					"hyperliquid:km:GOLD",
-					"lighter:XAU"
+					"lighter:XAU",
+					"ostium:5"
 				]
 			},
 			"copper": {
 				"meta": { "name": "Copper", "icon": ["/assets/icons/commodities/copper.webp"] },
-				"ref": ["hyperliquid:xyz:COPPER", "hyperliquid:flx:COPPER", "lighter:XCU"]
+				"ref": ["hyperliquid:xyz:COPPER", "hyperliquid:flx:COPPER", "lighter:XCU", "ostium:6"]
 			},
 			"oil": {
 				"meta": { "name": "Crude Oil", "icon": ["/assets/icons/commodities/oil.webp"] },
-				"ref": ["hyperliquid:xyz:CL", "hyperliquid:flx:OIL", "hyperliquid:km:USOIL"]
+				"ref": ["hyperliquid:xyz:CL", "hyperliquid:flx:OIL", "hyperliquid:km:USOIL", "ostium:7"]
 			},
 			"platinum": {
 				"meta": { "name": "Platinum", "icon": ["/assets/icons/commodities/platinum.webp"] },
-				"ref": ["hyperliquid:xyz:PLATINUM", "hyperliquid:flx:PLATINUM"]
+				"ref": ["hyperliquid:xyz:PLATINUM", "hyperliquid:flx:PLATINUM", "ostium:29"]
 			},
 			"natgas": {
 				"meta": { "name": "Natural Gas", "icon": ["/assets/icons/commodities/natgas.webp"] },
@@ -213,7 +274,7 @@
 			},
 			"palladium": {
 				"meta": { "name": "Palladium", "icon": ["/assets/icons/commodities/palladium.webp"] },
-				"ref": ["hyperliquid:flx:PALLADIUM"]
+				"ref": ["hyperliquid:flx:PALLADIUM", "ostium:28"]
 			}
 		},
 		"fx": {
@@ -222,21 +283,21 @@
 					"name": "EURUSD",
 					"icon": ["/assets/icons/fx/EUR.webp", "/assets/icons/fx/USD.webp"]
 				},
-				"ref": ["hyperliquid:xyz:EUR", "lighter:EURUSD"]
+				"ref": ["hyperliquid:xyz:EUR", "lighter:EURUSD", "ostium:2"]
 			},
 			"JPY": {
 				"meta": {
 					"name": "USDJPY",
 					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/JPY.webp"]
 				},
-				"ref": ["hyperliquid:xyz:JPY", "lighter:USDJPY"]
+				"ref": ["hyperliquid:xyz:JPY", "lighter:USDJPY", "ostium:4"]
 			},
 			"GBP": {
 				"meta": {
 					"name": "GBPUSD",
 					"icon": ["/assets/icons/fx/GBP.webp", "/assets/icons/fx/USD.webp"]
 				},
-				"ref": ["lighter:GBPUSD"]
+				"ref": ["lighter:GBPUSD", "ostium:3"]
 			},
 			"KRW": {
 				"meta": {
@@ -250,28 +311,35 @@
 					"name": "USDCHF",
 					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/CHF.webp"]
 				},
-				"ref": ["lighter:USDCHF"]
+				"ref": ["lighter:USDCHF", "ostium:25"]
 			},
 			"AUD": {
 				"meta": {
 					"name": "AUDUSD",
 					"icon": ["/assets/icons/fx/AUD.webp", "/assets/icons/fx/USD.webp"]
 				},
-				"ref": ["lighter:AUDUSD"]
+				"ref": ["lighter:AUDUSD", "ostium:26"]
 			},
 			"NZD": {
 				"meta": {
 					"name": "NZDUSD",
 					"icon": ["/assets/icons/fx/NZD.webp", "/assets/icons/fx/USD.webp"]
 				},
-				"ref": ["lighter:NZDUSD"]
+				"ref": ["lighter:NZDUSD", "ostium:27"]
 			},
 			"CAD": {
 				"meta": {
 					"name": "USDCAD",
 					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/CAD.webp"]
 				},
-				"ref": ["lighter:USDCAD"]
+				"ref": ["lighter:USDCAD", "ostium:16"]
+			},
+			"MXN": {
+				"meta": {
+					"name": "USDMXN",
+					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/MXN.webp"]
+				},
+				"ref": ["ostium:17"]
 			}
 		},
 		"pre-ipo": {

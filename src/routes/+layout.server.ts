@@ -4,7 +4,7 @@ import type { DiffedSnapshot } from "$lib/transform";
 
 // Collect `snapshot` state from database; hot-cached via ISR
 export async function load(): Promise<{ snapshot: DiffedSnapshot }> {
-	return loadSnapshot();
+	return await loadSnapshot();
 }
 
 /** @type {import('@sveltejs/adapter-vercel').Config} */
