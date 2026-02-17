@@ -10,7 +10,7 @@
 	const home = () => goto("/", { replaceState: true });
 
 	// 10 seconds in the future
-	const future = +new Date() + 10_0000;
+	const future = +new Date() + 10_000;
 
 	// Trigger home redirect automatically after 10s
 	onMount(() => {
