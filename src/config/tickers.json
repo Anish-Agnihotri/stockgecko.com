@@ -8,7 +8,8 @@
 					"hyperliquid:cash:NVDA",
 					"hyperliquid:flx:NVDA",
 					"lighter:NVDA",
-					"ostium:18"
+					"ostium:18",
+					"qfex:NVDA-USD"
 				]
 			},
 			"mu": {
@@ -31,7 +32,8 @@
 					"hyperliquid:flx:TSLA",
 					"hyperliquid:km:TSLA",
 					"lighter:TSLA",
-					"ostium:22"
+					"ostium:22",
+					"qfex:TSLA-USD"
 				]
 			},
 			"intc": {
@@ -44,7 +46,7 @@
 			},
 			"pltr": {
 				"meta": { "name": "Palantir", "icon": ["/assets/icons/stocks/palantir.webp"] },
-				"ref": ["hyperliquid:xyz:PLTR", "lighter:PLTR", "ostium:44"]
+				"ref": ["hyperliquid:xyz:PLTR", "lighter:PLTR", "ostium:44", "qfex:PLTR-USD"]
 			},
 			"coin": {
 				"meta": { "name": "Coinbase", "icon": ["/assets/icons/stocks/coinbase.webp"] },
@@ -62,7 +64,13 @@
 			},
 			"msft": {
 				"meta": { "name": "Microsoft", "icon": ["/assets/icons/stocks/microsoft.webp"] },
-				"ref": ["hyperliquid:xyz:MSFT", "hyperliquid:cash:MSFT", "lighter:MSFT", "ostium:24"]
+				"ref": [
+					"hyperliquid:xyz:MSFT",
+					"hyperliquid:cash:MSFT",
+					"lighter:MSFT",
+					"ostium:24",
+					"qfex:MSFT-USD"
+				]
 			},
 			"amzn": {
 				"meta": { "name": "Amazon", "icon": ["/assets/icons/stocks/amazon.webp"] },
@@ -82,7 +90,13 @@
 			},
 			"meta": {
 				"meta": { "name": "Meta", "icon": ["/assets/icons/stocks/meta.webp"] },
-				"ref": ["hyperliquid:xyz:META", "hyperliquid:cash:META", "lighter:META", "ostium:21"]
+				"ref": [
+					"hyperliquid:xyz:META",
+					"hyperliquid:cash:META",
+					"lighter:META",
+					"ostium:21",
+					"qfex:META-USD"
+				]
 			},
 			"usar": {
 				"meta": { "name": "USAR", "icon": ["/assets/icons/stocks/usar.webp"] },
@@ -98,11 +112,17 @@
 			},
 			"crwv": {
 				"meta": { "name": "CoreWeave", "icon": ["/assets/icons/stocks/coreweave.webp"] },
-				"ref": ["hyperliquid:xyz:CRWV"]
+				"ref": ["hyperliquid:xyz:CRWV", "qfex:CRWV-USD"]
 			},
 			"aapl": {
 				"meta": { "name": "Apple", "icon": ["/assets/icons/stocks/apple.webp"] },
-				"ref": ["hyperliquid:xyz:AAPL", "hyperliquid:km:AAPL", "lighter:AAPL", "ostium:23"]
+				"ref": [
+					"hyperliquid:xyz:AAPL",
+					"hyperliquid:km:AAPL",
+					"lighter:AAPL",
+					"ostium:23",
+					"qfex:AAPL-USD"
+				]
 			},
 			"crcl": {
 				"meta": { "name": "Circle", "icon": ["/assets/icons/stocks/circle.webp"] },
@@ -135,6 +155,10 @@
 			"sbet": {
 				"meta": { "name": "SharpLink", "icon": ["/assets/icons/stocks/sharplink.webp"] },
 				"ref": ["ostium:36"]
+			},
+			"rklb": {
+				"meta": { "name": "Rocket Lab", "icon": ["/assets/icons/stocks/rocketlab.webp"] },
+				"ref": ["qfex:RKLB-USD"]
 			}
 		},
 		"indices": {
@@ -149,6 +173,10 @@
 			"us500": {
 				"meta": { "name": "US500", "icon": ["/assets/icons/indices/us500.webp"] },
 				"ref": ["hyperliquid:km:US500"]
+			},
+			"us100": {
+				"meta": { "name": "QFEX 100", "icon": ["/assets/icons/indices/us100.webp"] },
+				"ref": ["qfex:US100-USD"]
 			},
 			"ustech": {
 				"meta": { "name": "US Tech", "icon": ["/assets/icons/indices/ustech.webp"] },
@@ -232,7 +260,7 @@
 			},
 			"ura": {
 				"meta": { "name": "Global X Uranium", "icon": ["/assets/icons/indices/ura.webp"] },
-				"ref": ["ostium:52"]
+				"ref": ["ostium:52", "qfex:URANIUM-USD"]
 			}
 		},
 		"commodities": {
@@ -243,7 +271,8 @@
 					"hyperliquid:flx:SILVER",
 					"hyperliquid:km:SILVER",
 					"lighter:XAG",
-					"ostium:8"
+					"ostium:8",
+					"qfex:SILVER-USD"
 				]
 			},
 			"gold": {
@@ -253,7 +282,8 @@
 					"hyperliquid:flx:GOLD",
 					"hyperliquid:km:GOLD",
 					"lighter:XAU",
-					"ostium:5"
+					"ostium:5",
+					"qfex:GOLD-USD"
 				]
 			},
 			"copper": {
@@ -287,7 +317,7 @@
 					"name": "EURUSD",
 					"icon": ["/assets/icons/fx/EUR.webp", "/assets/icons/fx/USD.webp"]
 				},
-				"ref": ["hyperliquid:xyz:EUR", "lighter:EURUSD", "ostium:2"]
+				"ref": ["hyperliquid:xyz:EUR", "lighter:EURUSD", "ostium:2", "qfex:EUR-USD"]
 			},
 			"JPY": {
 				"meta": {
@@ -302,7 +332,7 @@
 					"name": "GBPUSD",
 					"icon": ["/assets/icons/fx/GBP.webp", "/assets/icons/fx/USD.webp"]
 				},
-				"ref": ["lighter:GBPUSD", "ostium:3"]
+				"ref": ["lighter:GBPUSD", "ostium:3", "qfex:GBP-USD"]
 			},
 			"KRW": {
 				"meta": {

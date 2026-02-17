@@ -21,5 +21,6 @@
 		"icon": ["/assets/icons/exchanges/hyperliquid.webp", "/assets/icons/exchanges/cash.webp"]
 	},
 	"lighter:": { "name": "Lighter", "icon": ["/assets/icons/exchanges/lighter.webp"] },
-	"ostium:": { "name": "Ostium", "icon": ["/assets/icons/exchanges/ostium.webp"] }
+	"ostium:": { "name": "Ostium", "icon": ["/assets/icons/exchanges/ostium.webp"] },
+	"qfex:": { "name": "QFEX", "icon": ["/assets/icons/exchanges/qfex.webp"] }
 }

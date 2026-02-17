@@ -6,9 +6,16 @@ import { getWorkflowMetadata } from "workflow";
 // Note: you actually can't make the background job generic because
 // of the way serialization is handled between steps (your `collect*Markets`
 // function fails to serialize).
+import { collectQFEXMarkets } from "$workflows/collection/qfex";
 import { collectOstiumMarkets } from "$workflows/collection/ostium";
 import { collectLighterMarkets } from "$workflows/collection/lighter";
 import { collectHyperliquidMarkets } from "$workflows/collection/hyperliquid";
+
+// Background runner: QFEX
+async function backgroundQFEX(batchId: string): Promise<string> {
+	"use step";
+	return (await start(collectQFEXMarkets, [batchId])).runId;
+}
 
 // Background runner: Ostium
 async function backgroundOstium(batchId: string): Promise<string> {
@@ -38,6 +45,7 @@ export async function collectMarkets() {
 	const { workflowRunId: batchId } = getWorkflowMetadata();
 
 	// Run in parallel
+	await backgroundQFEX(batchId);
 	await backgroundOstium(batchId);
 	await backgroundLighter(batchId);
 	await backgroundHyperliquid(batchId);
