@@ -1,19 +1,9 @@
 import { fetch } from "workflow";
-import tickers from "$config/tickers.json";
 import type { MarketEntryCreateInput } from "$prisma/models";
 import { stepInsertMarketEntries } from "$workflows/shared/db";
 import { HttpTransport, InfoClient } from "@nktkas/hyperliquid";
+import { stepValidateMarkets } from "$workflows/shared/validate";
 import type { AsyncReturn, MethodKeys, MethodAt } from "$lib/types";
-
-// Find and extract `hyperliquid:` prefixed markets in config
-// Drop `hyperliquid:` prefix and collect just market ticker (e.g., `xyz:XYZ100`)
-const LOCAL_MARKETS: ReadonlySet<string> = new Set(
-	JSON.stringify(tickers)
-		// Match all tickers starting with `hyperliquid:`
-		.match(/hyperliquid:[^"\\]+/g)
-		// Drop `hyperliquid:` prefix to do direct check
-		?.map((s) => s.replace("hyperliquid:", "")) ?? []
-);
 
 /**
  * Generic Hyperliquid API `/info` call via typed `@nktas/hyperliquid.InfoClient` method
@@ -64,26 +54,16 @@ export async function collectHyperliquidMarkets(batchId: string): Promise<{
 		return acc;
 	}, new Set<string>());
 
-	// Compare the `LOCAL_MARKETS` we want to capture (stocks, indices, etc.)
-	// Against the full set of valid markets to ensure it is a strict subset
-	if (!LOCAL_MARKETS.isSubsetOf(validMarkets)) {
-		// Throw error tracking missing markets
-		const missing: readonly string[] = [...LOCAL_MARKETS].filter((m) => !validMarkets.has(m));
-		throw new Error(`Hyperliquid config not strict subset: ${missing.join(", ")}`);
-	}
+	// Validate config
+	await stepValidateMarkets("hyperliquid", validMarkets);
 
-	// At this point, we have a set of valid markets we would like to collect
-	// The effecient mechanism is to collect the full DEX data for relevant DEXES
+	// We filter over all valid DEXes and collect data optimisticaly,
+	// even if said DEXes do not contain relevant tracked data.
 	//
-	// Optionally, we could further filter for relevant markets against `LOCAL_MARKETS`,
-	// but this is probably a pre-mature optimization and it helps us to keep unrelated
-	// market data in the event that a new, relevant market is added to the config (and
-	// then we have pre-existing, historic data if it was subset of a tracked DEX).
-	//
-	// So, we filter for relevant DEXs to collect by grabbing the `dex` component
-	// of `hyperliquid:dex:market`
+	// This way, in the future where they add new markets, we can drop in
+	// add with historic data.
 	const relevantDexNames: readonly string[] = [
-		...new Set([...LOCAL_MARKETS].map((market) => market.split(":")[0]))
+		...new Set([...validMarkets].map((market) => market.split(":")[0]))
 	];
 
 	// Fanout: fetch data for each dex in parallel

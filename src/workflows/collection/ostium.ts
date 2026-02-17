@@ -1,8 +1,8 @@
 import { Decimal } from "decimal.js";
-import tickers from "$config/tickers.json";
 import { stepFetchJSON } from "$workflows/shared/fetch";
 import type { MarketEntryCreateInput } from "$prisma/models";
 import { stepInsertMarketEntries } from "$workflows/shared/db";
+import { stepValidateMarkets } from "$workflows/shared/validate";
 
 // Setup proxy base URL
 const PROXY_BASE = process.env.VERCEL_PROJECT_PRODUCTION_URL
@@ -14,15 +14,6 @@ const O_BASE_URL = "https://app.ostium.com/api";
 
 // Ostium metadata backend base URL
 export const OM_BASE_URL = "https://metadata-backend.ostium.io";
-
-// Find and extract `ostium:` prefixed markets in config
-const LOCAL_MARKETS: ReadonlySet<string> = new Set(
-	JSON.stringify(tickers)
-		// Match all tickers starting with `ostium:`
-		.match(/ostium:[^"\\]+/g)
-		// Drop `ostium:` prefix
-		?.map((s) => s.replace("ostium:", "")) ?? []
-);
 
 // API: `/pairs` response data subset
 type PairsResponse = {
@@ -63,15 +54,8 @@ export async function collectOstiumMarkets(batchId: string): Promise<{
 	// Fetch all Ostium pairs
 	const pairs = await stepFetchJSON<PairsResponse>(`${O_BASE_URL}/pairs`);
 
-	// Build set of valid Ostium markets
-	const validMarkets: ReadonlySet<string> = new Set([...pairs.map((p) => p.id)]);
-
-	// Validate local configuration is subset of valid markets
-	if (!LOCAL_MARKETS.isSubsetOf(validMarkets)) {
-		// Throw error tracking missing markets
-		const missing: readonly string[] = [...LOCAL_MARKETS].filter((m) => !validMarkets.has(m));
-		throw new Error(`Ostium config not strict subset: ${missing.join(", ")}`);
-	}
+	// Validate config
+	await stepValidateMarkets("ostium", new Set([...pairs.map((p) => p.id)]));
 
 	// Also collect volume and price data for all markets
 	// Proxy via internal `/api/proxy` endpoint which loads extra Comodo AAA CA

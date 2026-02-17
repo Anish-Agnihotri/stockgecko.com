@@ -1,19 +1,10 @@
-import tickers from "$config/tickers.json";
 import { stepFetchJSON } from "$workflows/shared/fetch";
 import type { MarketEntryCreateInput } from "$prisma/models";
 import { stepInsertMarketEntries } from "$workflows/shared/db";
+import { stepValidateMarkets } from "$workflows/shared/validate";
 
 // Lighter API base url
 const L_BASE_URL = "https://mainnet.zklighter.elliot.ai/api/v1";
-
-// Find and extract `lighter:` prefixed markets in config
-const LOCAL_MARKETS: ReadonlySet<string> = new Set(
-	JSON.stringify(tickers)
-		// Match all tickers starting with `lighter:`
-		.match(/lighter:[^"\\]+/g)
-		// Drop `lighter:` prefix
-		?.map((s) => s.replace("lighter:", "")) ?? []
-);
 
 // `/exchangeStats` response data
 // https://apidocs.lighter.xyz/reference/exchangestats
@@ -50,17 +41,8 @@ export async function collectLighterMarkets(batchId: string): Promise<{
 		throw new Error(`Lighter exchangeStats failed with code: ${stats.code}`);
 	}
 
-	// Build set of valid lighter markets
-	const validMarkets: ReadonlySet<string> = new Set([
-		...stats.order_book_stats.map((s) => s.symbol)
-	]);
-
-	// Validate local configuration is subset of valid markets
-	if (!LOCAL_MARKETS.isSubsetOf(validMarkets)) {
-		// Throw error tracking missing markets
-		const missing: readonly string[] = [...LOCAL_MARKETS].filter((m) => !validMarkets.has(m));
-		throw new Error(`Lighter config not strict subset: ${missing.join(", ")}`);
-	}
+	// Validate config
+	await stepValidateMarkets("lighter", new Set([...stats.order_book_stats.map((s) => s.symbol)]));
 
 	// Parse collected responses
 	const rows: MarketEntryCreateInput[] = [];
