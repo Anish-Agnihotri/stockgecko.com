@@ -4,11 +4,16 @@ import { stepFetchJSON } from "$workflows/shared/fetch";
 import type { MarketEntryCreateInput } from "$prisma/models";
 import { stepInsertMarketEntries } from "$workflows/shared/db";
 
+// Setup proxy base URL
+const PROXY_BASE = process.env.VERCEL_PROJECT_PRODUCTION_URL
+	? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+	: `http://localhost:5173`;
+
 // Ostium API base URL
 const O_BASE_URL = "https://app.ostium.com/api";
 
 // Ostium metadata backend base URL
-const OM_BASE_URL = "https://metadata-backend.ostium.io";
+export const OM_BASE_URL = "https://metadata-backend.ostium.io";
 
 // Find and extract `ostium:` prefixed markets in config
 const LOCAL_MARKETS: ReadonlySet<string> = new Set(
@@ -69,8 +74,13 @@ export async function collectOstiumMarkets(batchId: string): Promise<{
 	}
 
 	// Also collect volume and price data for all markets
-	const vol = await stepFetchJSON<VolumeResponse>(`${OM_BASE_URL}/volume/all`);
-	const px = await stepFetchJSON<LatestPricesResponse>(`${OM_BASE_URL}/PricePublish/latest-prices`);
+	// Proxy via internal `/api/proxy` endpoint which loads extra Comodo AAA CA
+	const vol = await stepFetchJSON<VolumeResponse>(
+		`${PROXY_BASE}/api/proxy?url=${encodeURIComponent(OM_BASE_URL + "/volume/all")}`
+	);
+	const px = await stepFetchJSON<LatestPricesResponse>(
+		`${PROXY_BASE}/api/proxy?url=${encodeURIComponent(OM_BASE_URL + "/PricePublish/latest-prices")}`
+	);
 
 	// Setup lookup tables from volume, price data
 	const pairIdToVolume = new Map(
