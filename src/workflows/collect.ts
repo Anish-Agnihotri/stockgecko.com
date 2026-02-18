@@ -8,6 +8,7 @@ import { getWorkflowMetadata } from "workflow";
 // function fails to serialize).
 import { collectQFEXMarkets } from "$workflows/collection/qfex";
 import { collectOstiumMarkets } from "$workflows/collection/ostium";
+import { collectBinanceMarkets } from "$workflows/collection/binance";
 import { collectLighterMarkets } from "$workflows/collection/lighter";
 import { collectHyperliquidMarkets } from "$workflows/collection/hyperliquid";
 
@@ -29,6 +30,12 @@ async function backgroundLighter(batchId: string): Promise<string> {
 	return (await start(collectLighterMarkets, [batchId])).runId;
 }
 
+// Background runner: Binance
+async function backgroundBinance(batchId: string): Promise<string> {
+	"use step";
+	return (await start(collectBinanceMarkets, [batchId])).runId;
+}
+
 // Background runner: Hyperliquid
 async function backgroundHyperliquid(batchId: string): Promise<string> {
 	"use step";
@@ -48,5 +55,6 @@ export async function collectMarkets() {
 	await backgroundQFEX(batchId);
 	await backgroundOstium(batchId);
 	await backgroundLighter(batchId);
+	await backgroundBinance(batchId);
 	await backgroundHyperliquid(batchId);
 }

@@ -18,7 +18,13 @@
 			},
 			"hood": {
 				"meta": { "name": "Robinhood", "icon": ["/assets/icons/stocks/robinhood.webp"] },
-				"ref": ["hyperliquid:xyz:HOOD", "hyperliquid:cash:HOOD", "lighter:HOOD", "ostium:32"]
+				"ref": [
+					"hyperliquid:xyz:HOOD",
+					"hyperliquid:cash:HOOD",
+					"lighter:HOOD",
+					"ostium:32",
+					"binance:HOODUSDT"
+				]
 			},
 			"sndk": {
 				"meta": { "name": "Sandisk", "icon": ["/assets/icons/stocks/sandisk.webp"] },
@@ -33,24 +39,37 @@
 					"hyperliquid:km:TSLA",
 					"lighter:TSLA",
 					"ostium:22",
-					"qfex:TSLA-USD"
+					"qfex:TSLA-USD",
+					"binance:TSLAUSDT"
 				]
 			},
 			"intc": {
 				"meta": { "name": "Intel", "icon": ["/assets/icons/stocks/intel.webp"] },
-				"ref": ["hyperliquid:xyz:INTC", "hyperliquid:cash:INTC", "lighter:INTC"]
+				"ref": ["hyperliquid:xyz:INTC", "hyperliquid:cash:INTC", "lighter:INTC", "binance:INTCUSDT"]
 			},
 			"mstr": {
 				"meta": { "name": "MicroStrategy", "icon": ["/assets/icons/stocks/microstrategy.webp"] },
-				"ref": ["hyperliquid:xyz:MSTR", "lighter:MSTR", "ostium:33"]
+				"ref": ["hyperliquid:xyz:MSTR", "lighter:MSTR", "ostium:33", "binance:MSTRUSDT"]
 			},
 			"pltr": {
 				"meta": { "name": "Palantir", "icon": ["/assets/icons/stocks/palantir.webp"] },
-				"ref": ["hyperliquid:xyz:PLTR", "lighter:PLTR", "ostium:44", "qfex:PLTR-USD"]
+				"ref": [
+					"hyperliquid:xyz:PLTR",
+					"lighter:PLTR",
+					"ostium:44",
+					"qfex:PLTR-USD",
+					"binance:PLTRUSDT"
+				]
 			},
 			"coin": {
 				"meta": { "name": "Coinbase", "icon": ["/assets/icons/stocks/coinbase.webp"] },
-				"ref": ["hyperliquid:xyz:COIN", "hyperliquid:flx:COIN", "lighter:COIN", "ostium:31"]
+				"ref": [
+					"hyperliquid:xyz:COIN",
+					"hyperliquid:flx:COIN",
+					"lighter:COIN",
+					"ostium:31",
+					"binance:COINUSDT"
+				]
 			},
 			"googl": {
 				"meta": { "name": "Google", "icon": ["/assets/icons/stocks/google.webp"] },
@@ -74,7 +93,13 @@
 			},
 			"amzn": {
 				"meta": { "name": "Amazon", "icon": ["/assets/icons/stocks/amazon.webp"] },
-				"ref": ["hyperliquid:xyz:AMZN", "hyperliquid:cash:AMZN", "lighter:AMZN", "ostium:20"]
+				"ref": [
+					"hyperliquid:xyz:AMZN",
+					"hyperliquid:cash:AMZN",
+					"lighter:AMZN",
+					"ostium:20",
+					"binace:AMZNUSDT"
+				]
 			},
 			"amd": {
 				"meta": { "name": "AMD", "icon": ["/assets/icons/stocks/amd.webp"] },
@@ -126,7 +151,7 @@
 			},
 			"crcl": {
 				"meta": { "name": "Circle", "icon": ["/assets/icons/stocks/circle.webp"] },
-				"ref": ["hyperliquid:flx:CRCL", "lighter:CRCL", "ostium:34"]
+				"ref": ["hyperliquid:flx:CRCL", "lighter:CRCL", "ostium:34", "binance:CRCLUSDT"]
 			},
 			"bmnr": {
 				"meta": { "name": "Bitmine", "icon": ["/assets/icons/stocks/bitmine.webp"] },
@@ -272,7 +297,8 @@
 					"hyperliquid:km:SILVER",
 					"lighter:XAG",
 					"ostium:8",
-					"qfex:SILVER-USD"
+					"qfex:SILVER-USD",
+					"binance:XAGUSDT"
 				]
 			},
 			"gold": {
@@ -283,7 +309,8 @@
 					"hyperliquid:km:GOLD",
 					"lighter:XAU",
 					"ostium:5",
-					"qfex:GOLD-USD"
+					"qfex:GOLD-USD",
+					"binance:XAUUSDT"
 				]
 			},
 			"copper": {
@@ -296,7 +323,12 @@
 			},
 			"platinum": {
 				"meta": { "name": "Platinum", "icon": ["/assets/icons/commodities/platinum.webp"] },
-				"ref": ["hyperliquid:xyz:PLATINUM", "hyperliquid:flx:PLATINUM", "ostium:29"]
+				"ref": [
+					"hyperliquid:xyz:PLATINUM",
+					"hyperliquid:flx:PLATINUM",
+					"ostium:29",
+					"binance:XPTUSDT"
+				]
 			},
 			"natgas": {
 				"meta": { "name": "Natural Gas", "icon": ["/assets/icons/commodities/natgas.webp"] },
@@ -308,7 +340,7 @@
 			},
 			"palladium": {
 				"meta": { "name": "Palladium", "icon": ["/assets/icons/commodities/palladium.webp"] },
-				"ref": ["hyperliquid:flx:PALLADIUM", "ostium:28"]
+				"ref": ["hyperliquid:flx:PALLADIUM", "ostium:28", "binance:XPDUSDT"]
 			}
 		},
 		"fx": {
