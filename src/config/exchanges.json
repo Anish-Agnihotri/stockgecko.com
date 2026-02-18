@@ -23,5 +23,6 @@
 	"lighter:": { "name": "Lighter", "icon": ["/assets/icons/exchanges/lighter.webp"] },
 	"ostium:": { "name": "Ostium", "icon": ["/assets/icons/exchanges/ostium.webp"] },
 	"qfex:": { "name": "QFEX", "icon": ["/assets/icons/exchanges/qfex.webp"] },
-	"binance:": { "name": "Binance", "icon": ["/assets/icons/exchanges/binance.webp"] }
+	"binance:": { "name": "Binance", "icon": ["/assets/icons/exchanges/binance.webp"] },
+	"aster:": { "name": "Aster", "icon": ["/assets/icons/exchanges/aster.webp"] }
 }

@@ -9,12 +9,13 @@
 					"hyperliquid:flx:NVDA",
 					"lighter:NVDA",
 					"ostium:18",
-					"qfex:NVDA-USD"
+					"qfex:NVDA-USD",
+					"aster:NVDAUSDT"
 				]
 			},
 			"mu": {
 				"meta": { "name": "Micron", "icon": ["/assets/icons/stocks/micron.webp"] },
-				"ref": ["hyperliquid:xyz:MU"]
+				"ref": ["hyperliquid:xyz:MU", "aster:MUUSDT"]
 			},
 			"hood": {
 				"meta": { "name": "Robinhood", "icon": ["/assets/icons/stocks/robinhood.webp"] },
@@ -23,12 +24,13 @@
 					"hyperliquid:cash:HOOD",
 					"lighter:HOOD",
 					"ostium:32",
-					"binance:HOODUSDT"
+					"binance:HOODUSDT",
+					"aster:HOODUSDT"
 				]
 			},
 			"sndk": {
 				"meta": { "name": "Sandisk", "icon": ["/assets/icons/stocks/sandisk.webp"] },
-				"ref": ["hyperliquid:xyz:SNDK", "lighter:SNDK"]
+				"ref": ["hyperliquid:xyz:SNDK", "lighter:SNDK", "aster:SNDKUSDT"]
 			},
 			"tsla": {
 				"meta": { "name": "Tesla", "icon": ["/assets/icons/stocks/tesla.webp"] },
@@ -40,12 +42,19 @@
 					"lighter:TSLA",
 					"ostium:22",
 					"qfex:TSLA-USD",
-					"binance:TSLAUSDT"
+					"binance:TSLAUSDT",
+					"aster:TSLAUSDT"
 				]
 			},
 			"intc": {
 				"meta": { "name": "Intel", "icon": ["/assets/icons/stocks/intel.webp"] },
-				"ref": ["hyperliquid:xyz:INTC", "hyperliquid:cash:INTC", "lighter:INTC", "binance:INTCUSDT"]
+				"ref": [
+					"hyperliquid:xyz:INTC",
+					"hyperliquid:cash:INTC",
+					"lighter:INTC",
+					"binance:INTCUSDT",
+					"aster:INTCUSDT"
+				]
 			},
 			"mstr": {
 				"meta": { "name": "MicroStrategy", "icon": ["/assets/icons/stocks/microstrategy.webp"] },
@@ -78,7 +87,8 @@
 					"hyperliquid:cash:GOOGL",
 					"hyperliquid:km:GOOGL",
 					"lighter:GOOGL",
-					"ostium:19"
+					"ostium:19",
+					"aster:GOOGUSDT"
 				]
 			},
 			"msft": {
@@ -88,7 +98,8 @@
 					"hyperliquid:cash:MSFT",
 					"lighter:MSFT",
 					"ostium:24",
-					"qfex:MSFT-USD"
+					"qfex:MSFT-USD",
+					"aster:MSFTUSDT"
 				]
 			},
 			"amzn": {
@@ -98,7 +109,8 @@
 					"hyperliquid:cash:AMZN",
 					"lighter:AMZN",
 					"ostium:20",
-					"binace:AMZNUSDT"
+					"binace:AMZNUSDT",
+					"aster:AMZNUSDT"
 				]
 			},
 			"amd": {
@@ -120,7 +132,8 @@
 					"hyperliquid:cash:META",
 					"lighter:META",
 					"ostium:21",
-					"qfex:META-USD"
+					"qfex:META-USD",
+					"aster:METAUSDT"
 				]
 			},
 			"usar": {
@@ -146,7 +159,8 @@
 					"hyperliquid:km:AAPL",
 					"lighter:AAPL",
 					"ostium:23",
-					"qfex:AAPL-USD"
+					"qfex:AAPL-USD",
+					"aster:AAPLUSDT"
 				]
 			},
 			"crcl": {
@@ -249,7 +263,7 @@
 			},
 			"qqq": {
 				"meta": { "name": "QQQ", "icon": ["/assets/icons/indices/qqq.webp"] },
-				"ref": ["lighter:QQQ"]
+				"ref": ["lighter:QQQ", "aster:QQQUSDT"]
 			},
 			"hsihkd": {
 				"meta": { "name": "Hang Seng", "icon": ["/assets/icons/indices/hsi.webp"], "quote": "HKD" },
@@ -298,7 +312,8 @@
 					"lighter:XAG",
 					"ostium:8",
 					"qfex:SILVER-USD",
-					"binance:XAGUSDT"
+					"binance:XAGUSDT",
+					"aster:XAGUSDT"
 				]
 			},
 			"gold": {
@@ -310,12 +325,19 @@
 					"lighter:XAU",
 					"ostium:5",
 					"qfex:GOLD-USD",
-					"binance:XAUUSDT"
+					"binance:XAUUSDT",
+					"aster:XAUUSDT"
 				]
 			},
 			"copper": {
 				"meta": { "name": "Copper", "icon": ["/assets/icons/commodities/copper.webp"] },
-				"ref": ["hyperliquid:xyz:COPPER", "hyperliquid:flx:COPPER", "lighter:XCU", "ostium:6"]
+				"ref": [
+					"hyperliquid:xyz:COPPER",
+					"hyperliquid:flx:COPPER",
+					"lighter:XCU",
+					"ostium:6",
+					"aster:XCUUSDT"
+				]
 			},
 			"oil": {
 				"meta": { "name": "Crude Oil", "icon": ["/assets/icons/commodities/oil.webp"] },
@@ -327,7 +349,8 @@
 					"hyperliquid:xyz:PLATINUM",
 					"hyperliquid:flx:PLATINUM",
 					"ostium:29",
-					"binance:XPTUSDT"
+					"binance:XPTUSDT",
+					"aster:XPTUSDT"
 				]
 			},
 			"natgas": {
@@ -340,7 +363,7 @@
 			},
 			"palladium": {
 				"meta": { "name": "Palladium", "icon": ["/assets/icons/commodities/palladium.webp"] },
-				"ref": ["hyperliquid:flx:PALLADIUM", "ostium:28", "binance:XPDUSDT"]
+				"ref": ["hyperliquid:flx:PALLADIUM", "ostium:28", "binance:XPDUSDT", "aster:XPDUSDT"]
 			}
 		},
 		"fx": {

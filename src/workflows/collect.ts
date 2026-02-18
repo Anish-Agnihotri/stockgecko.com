@@ -7,6 +7,7 @@ import { getWorkflowMetadata } from "workflow";
 // of the way serialization is handled between steps (your `collect*Markets`
 // function fails to serialize).
 import { collectQFEXMarkets } from "$workflows/collection/qfex";
+import { collectAsterMarkets } from "$workflows/collection/aster";
 import { collectOstiumMarkets } from "$workflows/collection/ostium";
 import { collectBinanceMarkets } from "$workflows/collection/binance";
 import { collectLighterMarkets } from "$workflows/collection/lighter";
@@ -16,6 +17,12 @@ import { collectHyperliquidMarkets } from "$workflows/collection/hyperliquid";
 async function backgroundQFEX(batchId: string): Promise<string> {
 	"use step";
 	return (await start(collectQFEXMarkets, [batchId])).runId;
+}
+
+// Background runner: Aster
+async function backgroundAster(batchId: string): Promise<string> {
+	"use step";
+	return (await start(collectAsterMarkets, [batchId])).runId;
 }
 
 // Background runner: Ostium
@@ -53,6 +60,7 @@ export async function collectMarkets() {
 
 	// Run in parallel
 	await backgroundQFEX(batchId);
+	await backgroundAster(batchId);
 	await backgroundOstium(batchId);
 	await backgroundLighter(batchId);
 	await backgroundBinance(batchId);

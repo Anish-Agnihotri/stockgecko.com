@@ -26,28 +26,41 @@ type HistoricTickerResponse = {
 }[];
 
 /**
- * Collects relevant QFEX market data
- * @returns execution diagnostics
+ * Executes workflow collection for BinanceLike markets (following USD-margined futures API format)
+ * @dev Mostly useful to de-duplicate implementation across Aster, which follows identical API format
+ * @param {string} batchId workflow batchId to drill
+ * @param {string} venuePrefix to match markets
+ * @param {string} apiURL API base URL to query
+ * @param {ReadonlySet<string>} subTypes to filter `/exchangeInfo` response for
+ * @param {boolean} proxy if proxying through non-geoblocked locale
+ * @returns {Promise<{ insertedMarkets: number }>} standard execution diagnostics
  */
-export async function collectBinanceMarkets(batchId: string): Promise<{
+export async function collectBinanceLikeMarkets(
+	batchId: string,
+	venuePrefix: string,
+	apiURL: string,
+	subTypes: ReadonlySet<string>,
+	proxy: boolean
+): Promise<{
 	insertedMarkets: number;
 }> {
-	"use workflow";
+	"use step";
 
-	// Fetch Binance Futures API pairs
-	const { symbols } = await stepFetchJSON<ExchangeInfoResponse>(`${B_API_URL}/exchangeInfo`, true);
+	// Fetch Futures API pairs
+	const { symbols } = await stepFetchJSON<ExchangeInfoResponse>(`${apiURL}/exchangeInfo`, proxy);
 
-	// Filter for actively-`TRADING` symbols only and `TradFi` perps only
-	// In the case of Binance, we must pre-filter effectively given expansive perp set
-	const tradSymbols = symbols.filter(
-		({ status, underlyingSubType }) => status === "TRADING" && underlyingSubType.includes("TradFi")
+	// Filter for actively-`TRADING` symbols only and only of the `subTypes` to collect
+	// Predominantly, this is useful for `Binance` itself, where we have to pre-filter effectively given expansive perp set
+	const filteredSymbols = symbols.filter(
+		({ status, underlyingSubType }) =>
+			status === "TRADING" && new Set(underlyingSubType).intersection(subTypes).size > 0
 	);
 
 	// Validate config
-	await stepValidateMarkets("binance", new Set(tradSymbols.map(({ symbol }) => symbol)));
+	await stepValidateMarkets(venuePrefix, new Set(filteredSymbols.map(({ symbol }) => symbol)));
 
 	// Collect 24hr historic ticker data and create lookup
-	const historic = await stepFetchJSON<HistoricTickerResponse>(`${B_API_URL}/ticker/24hr`, true);
+	const historic = await stepFetchJSON<HistoricTickerResponse>(`${apiURL}/ticker/24hr`, proxy);
 	const symbolToHistoricData = new Map(
 		historic.map((x) => [x.symbol, { lastPx: Number(x.lastPrice), volume: Number(x.quoteVolume) }])
 	);
@@ -55,13 +68,13 @@ export async function collectBinanceMarkets(batchId: string): Promise<{
 	// Parse collected responses
 	const rows: MarketEntryCreateInput[] = [];
 
-	// Collect data only for TradFi-subtype markets
-	tradSymbols.forEach((sym) => {
+	// Collect data only for filtered-subtype markets
+	filteredSymbols.forEach((sym) => {
 		rows.push({
 			batchId,
 
 			// Market parameters
-			venue: "binance",
+			venue: venuePrefix,
 			namespace: "",
 			ticker: sym.symbol,
 
@@ -82,4 +95,16 @@ export async function collectBinanceMarkets(batchId: string): Promise<{
 
 	// Return workflow execution diagnostics
 	return { insertedMarkets: insertedCount };
+}
+
+/**
+ * Collects relevant Binance market data
+ * @returns execution diagnostics
+ */
+export async function collectBinanceMarkets(batchId: string): Promise<{
+	insertedMarkets: number;
+}> {
+	"use workflow";
+
+	return await collectBinanceLikeMarkets(batchId, "binance", B_API_URL, new Set(["TradFi"]), true);
 }
