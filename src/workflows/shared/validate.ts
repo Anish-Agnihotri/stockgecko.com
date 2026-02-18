@@ -5,11 +5,12 @@ import tickers from "$config/tickers.json";
  * @dev No async work, but step functions must be async/return a promise
  * @param {string} venuePrefix venue name to filter `tickers` for
  * @param {ReadonlySet<string>} validMarkets to check against
+ * @return {Promise<ReadonlySet<string>>} validated, filtered local set
  */
 export async function stepValidateMarkets(
 	venuePrefix: string,
 	validMarkets: ReadonlySet<string>
-): Promise<void> {
+): Promise<ReadonlySet<string>> {
 	"use step";
 
 	// Find and extract prefixed markets in config
@@ -27,4 +28,6 @@ export async function stepValidateMarkets(
 		const missing: readonly string[] = [...localMarkets].filter((m) => !validMarkets.has(m));
 		throw new Error(`${venuePrefix} config not strict subset: ${missing.join(", ")}`);
 	}
+
+	return localMarkets;
 }

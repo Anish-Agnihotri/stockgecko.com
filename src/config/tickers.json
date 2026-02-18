@@ -10,7 +10,8 @@
 					"lighter:NVDA",
 					"ostium:18",
 					"qfex:NVDA-USD",
-					"aster:NVDAUSDT"
+					"aster:NVDAUSDT",
+					"edgex:NVDAUSD"
 				]
 			},
 			"mu": {
@@ -25,7 +26,8 @@
 					"lighter:HOOD",
 					"ostium:32",
 					"binance:HOODUSDT",
-					"aster:HOODUSDT"
+					"aster:HOODUSDT",
+					"edgex:HOODUSD"
 				]
 			},
 			"sndk": {
@@ -43,7 +45,8 @@
 					"ostium:22",
 					"qfex:TSLA-USD",
 					"binance:TSLAUSDT",
-					"aster:TSLAUSDT"
+					"aster:TSLAUSDT",
+					"edgex:TSLAUSD"
 				]
 			},
 			"intc": {
@@ -58,7 +61,13 @@
 			},
 			"mstr": {
 				"meta": { "name": "MicroStrategy", "icon": ["/assets/icons/stocks/microstrategy.webp"] },
-				"ref": ["hyperliquid:xyz:MSTR", "lighter:MSTR", "ostium:33", "binance:MSTRUSDT"]
+				"ref": [
+					"hyperliquid:xyz:MSTR",
+					"lighter:MSTR",
+					"ostium:33",
+					"binance:MSTRUSDT",
+					"edgex:MSTRUSD"
+				]
 			},
 			"pltr": {
 				"meta": { "name": "Palantir", "icon": ["/assets/icons/stocks/palantir.webp"] },
@@ -67,7 +76,8 @@
 					"lighter:PLTR",
 					"ostium:44",
 					"qfex:PLTR-USD",
-					"binance:PLTRUSDT"
+					"binance:PLTRUSDT",
+					"edgex:PLTRUSD"
 				]
 			},
 			"coin": {
@@ -77,7 +87,8 @@
 					"hyperliquid:flx:COIN",
 					"lighter:COIN",
 					"ostium:31",
-					"binance:COINUSDT"
+					"binance:COINUSDT",
+					"edgex:COINUSD"
 				]
 			},
 			"googl": {
@@ -110,12 +121,13 @@
 					"lighter:AMZN",
 					"ostium:20",
 					"binace:AMZNUSDT",
-					"aster:AMZNUSDT"
+					"aster:AMZNUSDT",
+					"edgex:AMZNUSD"
 				]
 			},
 			"amd": {
 				"meta": { "name": "AMD", "icon": ["/assets/icons/stocks/amd.webp"] },
-				"ref": ["hyperliquid:xyz:AMD", "lighter:AMD", "ostium:45"]
+				"ref": ["hyperliquid:xyz:AMD", "lighter:AMD", "ostium:45", "edgex:AMDUSD"]
 			},
 			"orcl": {
 				"meta": { "name": "Oracle", "icon": ["/assets/icons/stocks/oracle.webp"] },
@@ -133,7 +145,8 @@
 					"lighter:META",
 					"ostium:21",
 					"qfex:META-USD",
-					"aster:METAUSDT"
+					"aster:METAUSDT",
+					"edgex:METAUSD"
 				]
 			},
 			"usar": {
@@ -160,12 +173,19 @@
 					"lighter:AAPL",
 					"ostium:23",
 					"qfex:AAPL-USD",
-					"aster:AAPLUSDT"
+					"aster:AAPLUSDT",
+					"edgex:AAPLUSD"
 				]
 			},
 			"crcl": {
 				"meta": { "name": "Circle", "icon": ["/assets/icons/stocks/circle.webp"] },
-				"ref": ["hyperliquid:flx:CRCL", "lighter:CRCL", "ostium:34", "binance:CRCLUSDT"]
+				"ref": [
+					"hyperliquid:flx:CRCL",
+					"lighter:CRCL",
+					"ostium:34",
+					"binance:CRCLUSDT",
+					"edgex:CRCLUSD"
+				]
 			},
 			"bmnr": {
 				"meta": { "name": "Bitmine", "icon": ["/assets/icons/stocks/bitmine.webp"] },
@@ -259,11 +279,11 @@
 			},
 			"spy": {
 				"meta": { "name": "S&P 500", "icon": ["/assets/icons/indices/sp500.webp"] },
-				"ref": ["lighter:SPY"]
+				"ref": ["lighter:SPY", "edgex:SPYUSD"]
 			},
 			"qqq": {
 				"meta": { "name": "QQQ", "icon": ["/assets/icons/indices/qqq.webp"] },
-				"ref": ["lighter:QQQ", "aster:QQQUSDT"]
+				"ref": ["lighter:QQQ", "aster:QQQUSDT", "edgex:QQQUSD"]
 			},
 			"hsihkd": {
 				"meta": { "name": "Hang Seng", "icon": ["/assets/icons/indices/hsi.webp"], "quote": "HKD" },
@@ -300,6 +320,14 @@
 			"ura": {
 				"meta": { "name": "Global X Uranium", "icon": ["/assets/icons/indices/ura.webp"] },
 				"ref": ["ostium:52", "qfex:URANIUM-USD"]
+			},
+			"slv": {
+				"meta": { "name": "iShares Silver Trust", "icon": ["/assets/icons/indices/slv.webp"] },
+				"ref": ["edgex:SLVUSD"]
+			},
+			"iau": {
+				"meta": { "name": "iShares Gold Trust", "icon": ["/assets/icons/indices/iau.webp"] },
+				"ref": ["edgex:IAUUSD"]
 			}
 		},
 		"commodities": {
@@ -313,7 +341,8 @@
 					"ostium:8",
 					"qfex:SILVER-USD",
 					"binance:XAGUSDT",
-					"aster:XAGUSDT"
+					"aster:XAGUSDT",
+					"edgex:SILVERUSD"
 				]
 			},
 			"gold": {
@@ -326,7 +355,8 @@
 					"ostium:5",
 					"qfex:GOLD-USD",
 					"binance:XAUUSDT",
-					"aster:XAUUSDT"
+					"aster:XAUUSDT",
+					"edgex:XAUTUSD"
 				]
 			},
 			"copper": {
@@ -336,12 +366,19 @@
 					"hyperliquid:flx:COPPER",
 					"lighter:XCU",
 					"ostium:6",
-					"aster:XCUUSDT"
+					"aster:XCUUSDT",
+					"edgex:COPPERUSD"
 				]
 			},
 			"oil": {
 				"meta": { "name": "Crude Oil", "icon": ["/assets/icons/commodities/oil.webp"] },
-				"ref": ["hyperliquid:xyz:CL", "hyperliquid:flx:OIL", "hyperliquid:km:USOIL", "ostium:7"]
+				"ref": [
+					"hyperliquid:xyz:CL",
+					"hyperliquid:flx:OIL",
+					"hyperliquid:km:USOIL",
+					"ostium:7",
+					"edgex:CLUSD"
+				]
 			},
 			"platinum": {
 				"meta": { "name": "Platinum", "icon": ["/assets/icons/commodities/platinum.webp"] },
@@ -355,7 +392,7 @@
 			},
 			"natgas": {
 				"meta": { "name": "Natural Gas", "icon": ["/assets/icons/commodities/natgas.webp"] },
-				"ref": ["hyperliquid:xyz:NATGAS"]
+				"ref": ["hyperliquid:xyz:NATGAS", "edgex:NATGASUSD"]
 			},
 			"uranium": {
 				"meta": { "name": "Uranium", "icon": ["/assets/icons/commodities/uranium.webp"] },
