@@ -1,9 +1,11 @@
+import type { Config } from "@sveltejs/adapter-vercel";
 import COMODO_CERT from "$lib/certs/comodo-aaa.pem?raw";
 import { json, type RequestHandler } from "@sveltejs/kit";
 import { OM_BASE_URL } from "$workflows/collection/ostium";
+import { B_BASE_URL } from "$workflows/collection/binance";
 
 // Allowed proxyable origins
-const ALLOWED_ORIGINS = new Set([OM_BASE_URL]);
+const ALLOWED_ORIGINS = new Set([OM_BASE_URL, B_BASE_URL]);
 
 // Response headers to strip (hop-by-hop, compression encoding)
 const STRIP_HEADERS = new Set([
@@ -69,3 +71,8 @@ export const POST = handler;
 export const PUT = handler;
 export const PATCH = handler;
 export const DELETE = handler;
+
+// Force proxy to run in a non-US region to circumvent geoblock
+export const config: Config = {
+	regions: ["lhr1"]
+};

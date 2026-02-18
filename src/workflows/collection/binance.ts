@@ -5,7 +5,8 @@ import { stepInsertMarketEntries } from "$workflows/shared/db";
 import { stepValidateMarkets } from "$workflows/shared/validate";
 
 // Binance USD{T,C}-margined futures API base url
-const B_BASE_URL = "https://fapi.binance.com/fapi/v1";
+export const B_BASE_URL = "https://fapi.binance.com";
+const B_API_URL = `${B_BASE_URL}/fapi/v1`;
 
 // `/exchangeInfo` response subset
 type ExchangeInfoResponse = {
@@ -34,7 +35,7 @@ export async function collectBinanceMarkets(batchId: string): Promise<{
 	"use workflow";
 
 	// Fetch Binance Futures API pairs
-	const { symbols } = await stepFetchJSON<ExchangeInfoResponse>(`${B_BASE_URL}/exchangeInfo`);
+	const { symbols } = await stepFetchJSON<ExchangeInfoResponse>(`${B_API_URL}/exchangeInfo`, true);
 
 	// Filter for actively-`TRADING` symbols only and `TradFi` perps only
 	// In the case of Binance, we must pre-filter effectively given expansive perp set
@@ -46,7 +47,7 @@ export async function collectBinanceMarkets(batchId: string): Promise<{
 	await stepValidateMarkets("binance", new Set(tradSymbols.map(({ symbol }) => symbol)));
 
 	// Collect 24hr historic ticker data and create lookup
-	const historic = await stepFetchJSON<HistoricTickerResponse>(`${B_BASE_URL}/ticker/24hr`);
+	const historic = await stepFetchJSON<HistoricTickerResponse>(`${B_API_URL}/ticker/24hr`, true);
 	const symbolToHistoricData = new Map(
 		historic.map((x) => [x.symbol, { lastPx: Number(x.lastPrice), volume: Number(x.quoteVolume) }])
 	);

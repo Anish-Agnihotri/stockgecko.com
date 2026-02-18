@@ -1,19 +1,32 @@
 import { FatalError, fetch, getStepMetadata, RetryableError } from "workflow";
 
+// Proxy base URL (bypasses cert limitations + non-US execution)
+const PROXY_BASE = process.env.VERCEL_PROJECT_PRODUCTION_URL
+	? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+	: `http://localhost:5173`;
+
 /**
  * `fetch` helper for typed requests with custom step failure retry logic
  * @param {string} url to fetch
+ * @param {boolean} proxy `true` if proxying through `/api/proxy`
  * @param {RequestInit} init Optional request parameters
  * @returns {Promise<T>} fetched JSON response
  */
-export async function stepFetchJSON<T>(url: string, init?: RequestInit): Promise<T> {
+export async function stepFetchJSON<T>(
+	url: string,
+	proxy: boolean = false,
+	init?: RequestInit
+): Promise<T> {
 	"use step";
 
 	// Collect attempt metadata
 	const { attempt } = getStepMetadata();
 
+	// Setup proxied url
+	const reqURL = proxy ? `${PROXY_BASE}/api/proxy?url=${encodeURIComponent(url)}` : url;
+
 	// Execute request
-	const res = await fetch(url, init);
+	const res = await fetch(reqURL, init);
 
 	// If rate-limited, sane logic for workflow retry
 	if (res.status === 429) {
