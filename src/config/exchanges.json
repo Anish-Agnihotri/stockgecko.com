@@ -25,5 +25,6 @@
 	"qfex:": { "name": "QFEX", "icon": ["/assets/icons/exchanges/qfex.webp"] },
 	"binance:": { "name": "Binance", "icon": ["/assets/icons/exchanges/binance.webp"] },
 	"aster:": { "name": "Aster", "icon": ["/assets/icons/exchanges/aster.webp"] },
-	"edgex:": { "name": "edgeX", "icon": ["/assets/icons/exchanges/edgeX.webp"] }
+	"edgex:": { "name": "edgeX", "icon": ["/assets/icons/exchanges/edgeX.webp"] },
+	"extended:": { "name": "Extended", "icon": ["/assets/icons/exchanges/extended.webp"] }
 }

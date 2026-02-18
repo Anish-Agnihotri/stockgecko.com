@@ -12,6 +12,7 @@ import { collectAsterMarkets } from "$workflows/collection/aster";
 import { collectOstiumMarkets } from "$workflows/collection/ostium";
 import { collectBinanceMarkets } from "$workflows/collection/binance";
 import { collectLighterMarkets } from "$workflows/collection/lighter";
+import { collectExtendedMarkets } from "$workflows/collection/extended";
 import { collectHyperliquidMarkets } from "$workflows/collection/hyperliquid";
 
 // Background runner: QFEX
@@ -50,6 +51,12 @@ async function backgroundBinance(batchId: string): Promise<string> {
 	return (await start(collectBinanceMarkets, [batchId])).runId;
 }
 
+// Background runner: Extended
+async function backgroundExtended(batchId: string): Promise<string> {
+	"use step";
+	return (await start(collectExtendedMarkets, [batchId])).runId;
+}
+
 // Background runner: Hyperliquid
 async function backgroundHyperliquid(batchId: string): Promise<string> {
 	"use step";
@@ -72,5 +79,6 @@ export async function collectMarkets() {
 	await backgroundOstium(batchId);
 	await backgroundLighter(batchId);
 	await backgroundBinance(batchId);
+	await backgroundExtended(batchId);
 	await backgroundHyperliquid(batchId);
 }

@@ -11,7 +11,8 @@
 					"ostium:18",
 					"qfex:NVDA-USD",
 					"aster:NVDAUSDT",
-					"edgex:NVDAUSD"
+					"edgex:NVDAUSD",
+					"extended:NVDA-USD"
 				]
 			},
 			"mu": {
@@ -27,7 +28,8 @@
 					"ostium:32",
 					"binance:HOODUSDT",
 					"aster:HOODUSDT",
-					"edgex:HOODUSD"
+					"edgex:HOODUSD",
+					"extended:HOOD-USD"
 				]
 			},
 			"sndk": {
@@ -46,7 +48,8 @@
 					"qfex:TSLA-USD",
 					"binance:TSLAUSDT",
 					"aster:TSLAUSDT",
-					"edgex:TSLAUSD"
+					"edgex:TSLAUSD",
+					"extended:TSLA-USD"
 				]
 			},
 			"intc": {
@@ -66,7 +69,8 @@
 					"lighter:MSTR",
 					"ostium:33",
 					"binance:MSTRUSDT",
-					"edgex:MSTRUSD"
+					"edgex:MSTRUSD",
+					"extended:MSTR-USD"
 				]
 			},
 			"pltr": {
@@ -88,7 +92,8 @@
 					"lighter:COIN",
 					"ostium:31",
 					"binance:COINUSDT",
-					"edgex:COINUSD"
+					"edgex:COINUSD",
+					"extended:COIN-USD"
 				]
 			},
 			"googl": {
@@ -99,7 +104,8 @@
 					"hyperliquid:km:GOOGL",
 					"lighter:GOOGL",
 					"ostium:19",
-					"aster:GOOGUSDT"
+					"aster:GOOGUSDT",
+					"extended:GOOG-USD"
 				]
 			},
 			"msft": {
@@ -122,12 +128,19 @@
 					"ostium:20",
 					"binace:AMZNUSDT",
 					"aster:AMZNUSDT",
-					"edgex:AMZNUSD"
+					"edgex:AMZNUSD",
+					"extended:AMZN-USD"
 				]
 			},
 			"amd": {
 				"meta": { "name": "AMD", "icon": ["/assets/icons/stocks/amd.webp"] },
-				"ref": ["hyperliquid:xyz:AMD", "lighter:AMD", "ostium:45", "edgex:AMDUSD"]
+				"ref": [
+					"hyperliquid:xyz:AMD",
+					"lighter:AMD",
+					"ostium:45",
+					"edgex:AMDUSD",
+					"extended:AMD-USD"
+				]
 			},
 			"orcl": {
 				"meta": { "name": "Oracle", "icon": ["/assets/icons/stocks/oracle.webp"] },
@@ -307,7 +320,7 @@
 			},
 			"spx": {
 				"meta": { "name": "S&P 500", "icon": ["/assets/icons/indices/sp500.webp"] },
-				"ref": ["ostium:10"]
+				"ref": ["ostium:10", "extended:SPX-USD"]
 			},
 			"dji": {
 				"meta": { "name": "Dow Jones", "icon": ["/assets/icons/indices/dji.webp"] },
@@ -315,7 +328,7 @@
 			},
 			"ndx": {
 				"meta": { "name": "NASDAQ 100", "icon": ["/assets/icons/indices/ndx.webp"] },
-				"ref": ["ostium:12"]
+				"ref": ["ostium:12", "extended:NDX-USD"]
 			},
 			"ura": {
 				"meta": { "name": "Global X Uranium", "icon": ["/assets/icons/indices/ura.webp"] },
@@ -342,7 +355,8 @@
 					"qfex:SILVER-USD",
 					"binance:XAGUSDT",
 					"aster:XAGUSDT",
-					"edgex:SILVERUSD"
+					"edgex:SILVERUSD",
+					"extended:XAG-USD"
 				]
 			},
 			"gold": {
@@ -356,7 +370,8 @@
 					"qfex:GOLD-USD",
 					"binance:XAUUSDT",
 					"aster:XAUUSDT",
-					"edgex:XAUTUSD"
+					"edgex:XAUTUSD",
+					"extended:XAU-USD"
 				]
 			},
 			"copper": {
@@ -367,7 +382,8 @@
 					"lighter:XCU",
 					"ostium:6",
 					"aster:XCUUSDT",
-					"edgex:COPPERUSD"
+					"edgex:COPPERUSD",
+					"extended:XCU-USD"
 				]
 			},
 			"oil": {
@@ -377,7 +393,8 @@
 					"hyperliquid:flx:OIL",
 					"hyperliquid:km:USOIL",
 					"ostium:7",
-					"edgex:CLUSD"
+					"edgex:CLUSD",
+					"extended:XBR-USD"
 				]
 			},
 			"platinum": {
@@ -387,12 +404,13 @@
 					"hyperliquid:flx:PLATINUM",
 					"ostium:29",
 					"binance:XPTUSDT",
-					"aster:XPTUSDT"
+					"aster:XPTUSDT",
+					"extended:XPT-USD"
 				]
 			},
 			"natgas": {
 				"meta": { "name": "Natural Gas", "icon": ["/assets/icons/commodities/natgas.webp"] },
-				"ref": ["hyperliquid:xyz:NATGAS", "edgex:NATGASUSD"]
+				"ref": ["hyperliquid:xyz:NATGAS", "edgex:NATGASUSD", "extended:NATGAS-USD"]
 			},
 			"uranium": {
 				"meta": { "name": "Uranium", "icon": ["/assets/icons/commodities/uranium.webp"] },
@@ -409,7 +427,13 @@
 					"name": "EURUSD",
 					"icon": ["/assets/icons/fx/EUR.webp", "/assets/icons/fx/USD.webp"]
 				},
-				"ref": ["hyperliquid:xyz:EUR", "lighter:EURUSD", "ostium:2", "qfex:EUR-USD"]
+				"ref": [
+					"hyperliquid:xyz:EUR",
+					"lighter:EURUSD",
+					"ostium:2",
+					"qfex:EUR-USD",
+					"extended:EUR-USD"
+				]
 			},
 			"JPY": {
 				"meta": {
