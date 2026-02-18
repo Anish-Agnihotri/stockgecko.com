@@ -1,4 +1,3 @@
-import { Decimal } from "decimal.js";
 import { stepFetchJSON } from "$workflows/shared/fetch";
 import type { MarketEntryCreateInput } from "$prisma/models";
 import { stepInsertMarketEntries } from "$workflows/shared/db";
@@ -17,13 +16,18 @@ type SymbolsMetricsResponse = {
 	}[];
 };
 
+// API: `/refdata` response data subset
+type RefdataResponse = {
+	data: {
+		symbol: string;
+		default_max_leverage: number;
+	}[];
+};
+
 /**
  * Collects relevant QFEX market data
- * @returns execution diagnostics
  */
-export async function collectQFEXMarkets(batchId: string): Promise<{
-	insertedMarkets: number;
-}> {
+export async function collectQFEXMarkets(batchId: string) {
 	"use workflow";
 
 	// Fetch all QFEX pairs and metrics
@@ -32,34 +36,22 @@ export async function collectQFEXMarkets(batchId: string): Promise<{
 	// Validate config
 	await stepValidateMarkets("qfex", new Set(data.map(({ symbol }) => symbol)));
 
-	// Parse collected responses
-	const rows: MarketEntryCreateInput[] = [];
+	// Fetch ref data to collect `maxLeverage`
+	const { data: ref } = await stepFetchJSON<RefdataResponse>(`${Q_BASE_URL}/refdata`);
+	const lev = new Map(ref.map(({ symbol, default_max_leverage: l }) => [symbol, l]));
 
 	// Store all data, irrespective of config filtering
-	data.forEach((mkt) => {
-		rows.push({
-			batchId,
-
-			// Market parameters
-			venue: "qfex",
-			namespace: "",
-			ticker: mkt.symbol,
-
-			// Price data
-			midPx: mkt.current_mark_price,
-
-			// Volume, OI
-			volume: mkt.volume_24h_usd_notional,
-			oi: new Decimal(mkt.current_mark_price).mul(new Decimal(mkt.open_interest)).toNumber()
-
-			// We can collect `maxLeverage`, etc. from other endpoints, but
-			// can circle back later when we augment additional data.
-		});
-	});
+	const rows: MarketEntryCreateInput[] = data.map((mkt) => ({
+		batchId,
+		venue: "qfex",
+		namespace: "",
+		ticker: mkt.symbol,
+		refPx: mkt.current_mark_price,
+		volume: mkt.volume_24h_usd_notional,
+		oi: mkt.current_mark_price * mkt.open_interest,
+		maxLeverage: lev.get(mkt.symbol) ?? 0
+	}));
 
 	// Insert collected data to database
-	const insertedCount = await stepInsertMarketEntries(rows);
-
-	// Return workflow execution diagnostics
-	return { insertedMarkets: insertedCount };
+	await stepInsertMarketEntries(rows);
 }

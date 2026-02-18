@@ -5,14 +5,11 @@ const A_API_URL = "https://fapi.asterdex.com/fapi/v1";
 
 /**
  * Collects relevant Aster market data
- * @returns execution diagnostics
  */
-export async function collectAsterMarkets(batchId: string): Promise<{
-	insertedMarkets: number;
-}> {
+export async function collectAsterMarkets(batchId: string) {
 	"use workflow";
 
-	return await collectBinanceLikeMarkets(
+	await collectBinanceLikeMarkets(
 		batchId,
 		"aster",
 		A_API_URL,

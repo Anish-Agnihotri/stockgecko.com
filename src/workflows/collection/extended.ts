@@ -26,11 +26,8 @@ type MarketsResponse = {
 
 /**
  * Collects relevant Extended market data
- * @returns execution diagnostics
  */
-export async function collectExtendedMarkets(batchId: string): Promise<{
-	insertedMarkets: number;
-}> {
+export async function collectExtendedMarkets(batchId: string) {
 	"use workflow";
 
 	// Fetch all Extended markets
@@ -42,35 +39,18 @@ export async function collectExtendedMarkets(batchId: string): Promise<{
 	// Validate config
 	await stepValidateMarkets("extended", new Set(filtered.map(({ uiName }) => uiName)));
 
-	// Parse collected responses
-	const rows: MarketEntryCreateInput[] = [];
-
 	// Iterate over filtered, active, TradFi markets
-	filtered.forEach((mkt) => {
-		rows.push({
-			batchId,
-
-			// Market data
-			venue: "extended",
-			namespace: "",
-			ticker: mkt.uiName,
-
-			// Price ref
-			midPx: Number(mkt.marketStats.lastPrice),
-			markPx: Number(mkt.marketStats.markPrice),
-
-			// Volume
-			volume: Number(mkt.marketStats.dailyVolume),
-
-			// Stats
-			oi: Number(mkt.marketStats.openInterest),
-			maxLeverage: Number(mkt.tradingConfig.maxLeverage)
-		});
-	});
+	const rows: MarketEntryCreateInput[] = filtered.map((mkt) => ({
+		batchId,
+		venue: "extended",
+		namespace: "",
+		ticker: mkt.uiName,
+		refPx: Number(mkt.marketStats.lastPrice),
+		volume: Number(mkt.marketStats.dailyVolume),
+		oi: Number(mkt.marketStats.openInterest),
+		maxLeverage: Number(mkt.tradingConfig.maxLeverage)
+	}));
 
 	// Insert collected data to database
-	const insertedCount = await stepInsertMarketEntries(rows);
-
-	// Return workflow execution diagnostics
-	return { insertedMarkets: insertedCount };
+	await stepInsertMarketEntries(rows);
 }

@@ -18,7 +18,7 @@ type Snapshot = {
 		// Shared execution batch ID
 		batchId: string;
 		// Snapshot data staleness
-		updatedAt: Date;
+		createdAt: Date;
 	};
 
 	// Individual assets
@@ -27,10 +27,12 @@ type Snapshot = {
 		{
 			// Asset category
 			category: string;
-			// Median midPx
-			medianMidPx: number;
+			// Median refPx
+			medianRefPx: number;
 			// Total volume
 			volume: number;
+			// Total OI
+			oi: number;
 			// Indices of associated markets
 			marketIds: string[];
 		}
@@ -46,10 +48,12 @@ type Snapshot = {
 			namespace: string;
 			// Asset ticker
 			ticker: string;
-			// midPx
-			midPx: number;
+			// refPx
+			refPx: number;
 			// Market volume
 			volume: number;
+			// Market OI
+			oi: number;
 		}
 	>;
 
@@ -63,8 +67,10 @@ type Snapshot = {
 	aggregates: {
 		// Total volume across all markets
 		volume: number;
-		// Venue volumes, sorted by volume share
-		volumeByVenue: { venue: string; volumeShare: number }[];
+		// Total OI across all markets
+		oi: number;
+		// Venue OIs, sorted by OI share
+		oiByVenue: { venue: string; oiShare: number }[];
 	};
 };
 
@@ -74,26 +80,30 @@ export type DiffedSnapshot = {
 		// Batch ID of historic batch diffed against
 		diffBatchId: string;
 		// Staleness of historic batch
-		diffUpdatedAt: Date;
+		diffCreatedAt: Date;
 	};
 
 	assets: Record<
 		string,
 		Snapshot["assets"][string] & {
-			// Change across two snapshots in asset median midPx
-			medianMidPxChange: number;
+			// Change across two snapshots in asset median refPx
+			medianRefPxChange: number;
 			// Change across two snapshots in asset volume
 			volumeChange: number;
+			// Change across two snapshots in asset OI
+			oiChange: number;
 		}
 	>;
 
 	markets: Record<
 		string,
 		Snapshot["markets"][string] & {
-			// Change across two snapshots in market midPx
-			midPxChange: number;
+			// Change across two snapshots in market refPx
+			refPxChange: number;
 			// Change across two snapshots in market volume
 			volumeChange: number;
+			// Change across two snapshots in market OI
+			oiChange: number;
 		}
 	>;
 
@@ -106,6 +116,8 @@ export type DiffedSnapshot = {
 	aggregates: Snapshot["aggregates"] & {
 		// Change across two snapshots in total volume
 		volumeChange: number;
+		// Changea cross two snapshots in total OI
+		oiChange: number;
 	};
 };
 
@@ -145,7 +157,7 @@ export function buildSnapshot(markets: PlainMarketEntry[]): Snapshot {
 	// Setup meta (shared, batch collected)
 	const snapshotMeta: Snapshot["meta"] = {
 		batchId: markets[0].batchId,
-		updatedAt: markets[0].updatedAt
+		createdAt: markets[0].createdAt
 	};
 
 	// Setup assets, markets, market-by-venue index
@@ -155,7 +167,8 @@ export function buildSnapshot(markets: PlainMarketEntry[]): Snapshot {
 
 	// Setup aggregate measures
 	let totalVolume: number = 0;
-	const venueVolumes = new Map<string, number>();
+	let totalOI: number = 0;
+	const venueOIs = new Map<string, number>();
 
 	// Track markets
 	for (const market of markets) {
@@ -166,8 +179,8 @@ export function buildSnapshot(markets: PlainMarketEntry[]): Snapshot {
 		if (!MARKET_TO_ASSET.has(key)) continue;
 
 		// --- 2: Populate market data ---
-		const { venue, namespace, ticker, midPx, volume } = market;
-		snapshotMarkets[key] = { venue, namespace, ticker, midPx, volume };
+		const { venue, namespace, ticker, refPx, volume, oi } = market;
+		snapshotMarkets[key] = { venue, namespace, ticker, refPx, volume, oi };
 
 		// --- 3: Augment overall asset from market data ---
 		// Collect, must exist given above validation
@@ -181,14 +194,16 @@ export function buildSnapshot(markets: PlainMarketEntry[]): Snapshot {
 			category,
 
 			// If initializing, we simply empty setup
-			medianMidPx: 0,
+			medianRefPx: 0,
 			volume: 0,
+			oi: 0,
 			marketIds: []
 		});
 
-		// Then, increment volume, track current market
-		// Notw: we cannot calculate the median price
+		// Then, increment volume, oi, track current market
+		// Note: we cannot calculate the median price
 		asset.volume += volume;
+		asset.oi += oi;
 		asset.marketIds.push(key);
 
 		// --- 4: Populate relevant indexes while we're at it ---
@@ -196,7 +211,8 @@ export function buildSnapshot(markets: PlainMarketEntry[]): Snapshot {
 
 		// --- 5: Update aggregate measures ---
 		totalVolume += volume;
-		venueVolumes.set(venue, (venueVolumes.get(venue) ?? 0) + volume);
+		totalOI += oi;
+		venueOIs.set(venue, (venueOIs.get(venue) ?? 0) + oi);
 	}
 
 	// With markets setup, we can sort by volume
@@ -208,31 +224,31 @@ export function buildSnapshot(markets: PlainMarketEntry[]): Snapshot {
 	for (const asset of Object.values(snapshotAssets)) {
 		// Collect `midPx` of each market, filter out zeroes, sort
 		const prices = asset.marketIds
-			.map((id) => snapshotMarkets[id].midPx)
+			.map((id) => snapshotMarkets[id].refPx)
 			.filter((p) => p > 0)
 			.sort((a, b) => a - b);
 
 		// Calculate and store median
 		if (prices.length > 0) {
 			const mid = prices.length >> 1;
-			asset.medianMidPx = prices.length % 2 ? prices[mid] : (prices[mid - 1] + prices[mid]) / 2;
+			asset.medianRefPx = prices.length % 2 ? prices[mid] : (prices[mid - 1] + prices[mid]) / 2;
 		}
 	}
 
-	// Compute and sort venues by volume share
-	const volumeByVenue = [...venueVolumes.entries()]
-		.map(([venue, volume]) => ({
+	// Compute and sort venues by OI share
+	const oiByVenue = [...venueOIs.entries()]
+		.map(([venue, oi]) => ({
 			venue,
-			volumeShare: totalVolume ? volume / totalVolume : 0
+			oiShare: totalOI ? oi / totalOI : 0
 		}))
-		.sort((a, b) => b.volumeShare - a.volumeShare);
+		.sort((a, b) => b.oiShare - a.oiShare);
 
 	return {
 		meta: snapshotMeta,
 		assets: snapshotAssets,
 		markets: snapshotMarkets,
 		index: { assetsByVolume, marketsByVenue },
-		aggregates: { volume: totalVolume, volumeByVenue }
+		aggregates: { volume: totalVolume, oiByVenue, oi: totalOI }
 	};
 }
 
@@ -249,7 +265,7 @@ export function buildDiffedSnapshot(previous: Snapshot, current: Snapshot): Diff
 	const meta: DiffedSnapshot["meta"] = {
 		...current.meta,
 		diffBatchId: previous.meta.batchId,
-		diffUpdatedAt: previous.meta.updatedAt
+		diffCreatedAt: previous.meta.createdAt
 	};
 
 	// --- 2: Diff market data ---
@@ -260,8 +276,9 @@ export function buildDiffedSnapshot(previous: Snapshot, current: Snapshot): Diff
 
 		markets[key] = {
 			...market,
-			midPxChange: change(previousMarket?.midPx, market.midPx),
-			volumeChange: change(previousMarket?.volume, market.volume)
+			refPxChange: change(previousMarket?.refPx, market.refPx),
+			volumeChange: change(previousMarket?.volume, market.volume),
+			oiChange: change(previousMarket?.oi, market.oi)
 		};
 	}
 
@@ -273,8 +290,9 @@ export function buildDiffedSnapshot(previous: Snapshot, current: Snapshot): Diff
 
 		assets[id] = {
 			...asset,
-			medianMidPxChange: change(previousAsset?.medianMidPx, asset.medianMidPx),
-			volumeChange: change(previousAsset?.volume, asset.volume)
+			medianRefPxChange: change(previousAsset?.medianRefPx, asset.medianRefPx),
+			volumeChange: change(previousAsset?.volume, asset.volume),
+			oiChange: change(previousAsset?.oi, asset.oi)
 		};
 	}
 
@@ -298,7 +316,8 @@ export function buildDiffedSnapshot(previous: Snapshot, current: Snapshot): Diff
 	// --- 5: Update aggregates w/ volume diff ---
 	const aggregates: DiffedSnapshot["aggregates"] = {
 		...current.aggregates,
-		volumeChange: change(previous.aggregates.volume, current.aggregates.volume)
+		volumeChange: change(previous.aggregates.volume, current.aggregates.volume),
+		oiChange: change(previous.aggregates.oi, current.aggregates.oi)
 	};
 
 	return { meta, assets, markets, index, aggregates };

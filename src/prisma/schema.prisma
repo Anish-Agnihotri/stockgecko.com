@@ -19,25 +19,37 @@ model MarketEntry {
   namespace String
   ticker    String
 
-  // Price reference
-  midPx     Decimal
-  markPx    Decimal?
-  oraclePx  Decimal?
-  prevDayPx Decimal?
+  // Reference price
+  // ---
+  // Available options:
+  // - Aster: lastPrice, openPrice, highPrice, lowPrice
+  // - Binance: lastPrice, openPrice, highPrice, lowPrice
+  // - EdgeX: high, low, open, close, lastPrice, indexPrice, oraclePrice, markPrice
+  // - Extended: dailyLow, dailyHigh, lastPrice, askPrice, bidPrice, markPrice, indexPrice
+  // - Hyperliquid: prevDayPx, oraclePx, markPx, midPx
+  // - Lighter: daily_price_low, daily_price_high, last_trade_price
+  // - Ostium: bid, mid, ask, lastTradePrice
+  // - QFEX: current_mark_price
+  // - Vest: openPrice, closePrice, highPrice, lowPrice, markPrice, indexPrice
+  // ---
+  // Thus, we use:
+  // - `lastPrice` where available (7/9)
+  // - `midPx` as proxy, reasonably liquid markets (Hyperliquid)
+  // - `markPx` (QFEX)
+  refPx Decimal
 
-  // Stats
-  oi      Decimal?
-  funding Decimal?
+  // Open Interest (dollar notional)
+  oi Decimal
 
-  // Volume (in dollars)
+  // Volume (dollar notional)
   volume Decimal
 
-  // Market reference data
+  // Max market leverage
   maxLeverage Decimal?
 
-  // Timestamp record
+  // Timestamp (write-once)
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
-  @@index([venue, namespace, ticker])
+  @@index([batchId])
+  @@index([venue, namespace, ticker, createdAt])
 }

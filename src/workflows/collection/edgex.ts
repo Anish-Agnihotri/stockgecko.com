@@ -36,11 +36,8 @@ type GetTickerResponse = {
 
 /**
  * Collects relevant edgeX market data
- * @returns execution diagnostics
  */
-export async function collectEdgeXMarkets(batchId: string): Promise<{
-	insertedMarkets: number;
-}> {
+export async function collectEdgeXMarkets(batchId: string) {
 	"use workflow";
 
 	// Fetch all EdgeX contracts
@@ -69,7 +66,7 @@ export async function collectEdgeXMarkets(batchId: string): Promise<{
 	// @dev: note that we can avoid this by grabbing kLine data in bulk via `getMultiContractKline`
 	// a la: https://pro.edgex.exchange/api/v1/public/quote/getMultiContractKline?contractIdList=10000278,10000234&klineType=MINUTE_15&filterEndKlineTimeExclusive=1771428659000&priceType=LAST_PRICE&size=100
 	// but this will not include open interest data.
-	const settled = await Promise.all(
+	const response = await Promise.all(
 		[...nameToMeta.values()].map(({ id }) =>
 			stepFetchJSON<GetTickerResponse>(
 				`${E_API_URL}/quote/getTicker?period=LAST_DAY_1&contractId=${id}`
@@ -77,38 +74,23 @@ export async function collectEdgeXMarkets(batchId: string): Promise<{
 		)
 	);
 
-	// Parse collected responses
-	const rows: MarketEntryCreateInput[] = [];
-
-	// Iterate over settled responses, throw for failure
-	settled.forEach((resp) => {
+	// Iterate over responses
+	const rows: MarketEntryCreateInput[] = response.map((resp) => {
 		const mkt = resp.data[0];
 
 		// Else, parse row
-		rows.push({
+		return {
 			batchId,
-
-			// Market data
 			venue: "edgex",
 			namespace: "",
 			ticker: mkt.contractName,
-
-			// Price ref
-			midPx: Number(mkt.lastPrice),
-			markPx: Number(mkt.markPrice),
-			oraclePx: Number(mkt.oraclePrice),
-
-			// Volume
+			refPx: Number(mkt.lastPrice),
 			volume: Number(mkt.value),
-
-			// Stats
-			oi: new Decimal(mkt.openInterest).mul(new Decimal(mkt.lastPrice)).toNumber()
-		});
+			oi: new Decimal(mkt.openInterest).mul(new Decimal(mkt.lastPrice)).toNumber(),
+			maxLeverage: nameToMeta.get(mkt.contractName)?.maxLeverage ?? 0
+		};
 	});
 
 	// Insert collected data to database
-	const insertedCount = await stepInsertMarketEntries(rows);
-
-	// Return workflow execution diagnostics
-	return { insertedMarkets: insertedCount };
+	await stepInsertMarketEntries(rows);
 }

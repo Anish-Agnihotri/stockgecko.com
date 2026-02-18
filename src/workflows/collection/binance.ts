@@ -39,7 +39,6 @@ type OpenInterestResponse = {
  * @param {string} apiURL API base URL to query
  * @param {ReadonlySet<string>} subTypes to filter `/exchangeInfo` response for
  * @param {boolean} proxy if proxying through non-geoblocked locale
- * @returns {Promise<{ insertedMarkets: number }>} standard execution diagnostics
  */
 export async function collectBinanceLikeMarkets(
 	batchId: string,
@@ -47,9 +46,7 @@ export async function collectBinanceLikeMarkets(
 	apiURL: string,
 	subTypes: ReadonlySet<string>,
 	proxy: boolean
-): Promise<{
-	insertedMarkets: number;
-}> {
+) {
 	"use step";
 
 	// Fetch Futures API pairs
@@ -59,7 +56,7 @@ export async function collectBinanceLikeMarkets(
 	// Predominantly, this is useful for `Binance` itself, where we have to pre-filter effectively given expansive perp set
 	const filteredSymbols = symbols.filter(
 		({ status, underlyingSubType }) =>
-			status === "TRADING" && new Set(underlyingSubType).intersection(subTypes).size > 0
+			status === "TRADING" && underlyingSubType.some((t) => subTypes.has(t))
 	);
 
 	// Validate config
@@ -80,51 +77,31 @@ export async function collectBinanceLikeMarkets(
 	);
 	const symbolToOI = new Map(response.map(({ symbol, openInterest }) => [symbol, openInterest]));
 
-	// Parse collected responses
-	const rows: MarketEntryCreateInput[] = [];
-
 	// Collect data only for filtered-subtype markets
-	filteredSymbols.forEach((sym) => {
+	const rows: MarketEntryCreateInput[] = filteredSymbols.map((sym) => {
 		// @dev: again not really mid price, but I imagine these markets are trading often
-		const midPx = symbolToHistoricData.get(sym.symbol)?.lastPx ?? 0;
+		const refPx = symbolToHistoricData.get(sym.symbol)?.lastPx ?? 0;
 
-		rows.push({
+		return {
 			batchId,
-
-			// Market parameters
 			venue: venuePrefix,
 			namespace: "",
 			ticker: sym.symbol,
-
-			// Price data
-			midPx,
-
-			// Volume
+			refPx,
 			volume: symbolToHistoricData.get(sym.symbol)?.volume ?? 0,
-
-			// OI
-			oi: new Decimal(symbolToOI.get(sym.symbol) ?? 0).mul(new Decimal(midPx)).toNumber(),
-
-			// Leverage
+			oi: new Decimal(symbolToOI.get(sym.symbol) ?? 0).mul(new Decimal(refPx)).toNumber(),
 			maxLeverage: new Decimal(100).div(new Decimal(sym.requiredMarginPercent)).toNumber()
-		});
+		};
 	});
 
-	// Insert collected data to database
-	const insertedCount = await stepInsertMarketEntries(rows);
-
-	// Return workflow execution diagnostics
-	return { insertedMarkets: insertedCount };
+	// Insert data to DB
+	await stepInsertMarketEntries(rows);
 }
 
 /**
  * Collects relevant Binance market data
- * @returns execution diagnostics
  */
-export async function collectBinanceMarkets(batchId: string): Promise<{
-	insertedMarkets: number;
-}> {
+export async function collectBinanceMarkets(batchId: string) {
 	"use workflow";
-
-	return await collectBinanceLikeMarkets(batchId, "binance", B_API_URL, new Set(["TradFi"]), true);
+	await collectBinanceLikeMarkets(batchId, "binance", B_API_URL, new Set(["TradFi"]), true);
 }

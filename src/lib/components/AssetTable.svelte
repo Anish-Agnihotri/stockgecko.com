@@ -57,8 +57,10 @@
 		{ width: null, title: "Asset", sortKey: null },
 		{ width: 20, title: "Volume", sortKey: "volume" },
 		{ width: 24, title: "24h", sortKey: "volumeChange" },
-		{ width: 26, title: "Mid Price", sortKey: null },
-		{ width: 20, title: "24h", sortKey: "medianMidPxChange" },
+		{ width: 20, title: "OI", sortKey: "oi" },
+		{ width: 24, title: "24h", sortKey: "oiChange" },
+		{ width: 26, title: "Price", sortKey: null },
+		{ width: 20, title: "24h", sortKey: "medianRefPxChange" },
 		{ width: 28, title: "Class", sortKey: "category" },
 		{ width: 25, title: "Venues", sortKey: null },
 		{ width: 3, title: "", sortKey: null }
@@ -68,14 +70,14 @@
 <div class="flex w-full flex-col">
 	<!-- Scrollable handler on mobile -->
 	<div
-		class="flex items-center justify-end border-b border-b-gecko-shade bg-gecko-black px-2 py-0.5 font-mono text-xs text-gecko-gray/30 uppercase md:hidden"
+		class="flex items-center justify-end border-b border-b-gecko-shade bg-gecko-black px-2 py-0.5 font-mono text-xs text-gecko-gray/30 uppercase lg:hidden"
 	>
 		<span>Scrollable</span>
 		<span class="ml-1 -translate-y-px text-lg">↔</span>
 	</div>
 
 	<!-- FIXME: look into overscroll prevention along x-axis -->
-	<Table.Root class="w-full min-w-215 table-fixed">
+	<Table.Root class="w-full min-w-260 table-fixed">
 		<Table.Header class="bg-gecko-black">
 			<Table.Row class="border-b-gecko-shade text-xs font-light [&_th]:px-0">
 				{#each COLUMNS as { width, title, sortKey: key }}
@@ -146,10 +148,20 @@
 						<Numeric value={asset.volumeChange * 100} format="numeric" change percentage />
 					</Table.Cell>
 
-					<!-- Mid price -->
+					<!-- OI -->
+					<Table.Cell class="w-20">
+						<Numeric value={asset.oi} format="currency" currency="USD" class="text-gecko-white" />
+					</Table.Cell>
+
+					<!-- OI change -->
+					<Table.Cell class="w-24">
+						<Numeric value={asset.oiChange * 100} format="numeric" change percentage />
+					</Table.Cell>
+
+					<!-- Ref price -->
 					<Table.Cell class="w-26">
 						<Numeric
-							value={asset.medianMidPx}
+							value={asset.medianRefPx}
 							format="numeric"
 							currency={quote ?? "USD"}
 							class="text-gecko-white"
@@ -158,7 +170,7 @@
 
 					<!-- Mid price change -->
 					<Table.Cell class="w-20">
-						<Numeric value={asset.medianMidPxChange * 100} format="numeric" change percentage />
+						<Numeric value={asset.medianRefPxChange * 100} format="numeric" change percentage />
 					</Table.Cell>
 
 					<!-- Class -->

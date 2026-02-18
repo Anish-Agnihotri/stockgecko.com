@@ -33,11 +33,8 @@ type MetaAndAssetCtxsResponse = [
 
 /**
  * Collect relevant Hyperliquid market data
- * @returns execution diagnostics
  */
-export async function collectHyperliquidMarkets(batchId: string): Promise<{
-	insertedMarkets: number;
-}> {
+export async function collectHyperliquidMarkets(batchId: string) {
 	"use workflow";
 
 	// Fetch perp meta info
@@ -60,7 +57,7 @@ export async function collectHyperliquidMarkets(batchId: string): Promise<{
 	// add with historic data.
 	const dexs: readonly string[] = [
 		...new Set(
-			[...validMarkets]
+			validMarkets
 				// Ignore non-HIP-3 dex data
 				.filter((market) => market.includes(":"))
 				// Grab just HIP-3 dex name
@@ -79,14 +76,11 @@ export async function collectHyperliquidMarkets(batchId: string): Promise<{
 		)
 	);
 
-	// Parse collected responses
-	const rows: MarketEntryCreateInput[] = [];
-
 	// Iterate over response
-	response.forEach(([{ universe }, metrics]) => {
+	const rows: MarketEntryCreateInput[] = response.flatMap(([{ universe }, metrics]) => {
 		// If no values, continue
-		if (universe.length == 0) {
-			return;
+		if (universe.length === 0) {
+			return [];
 		}
 
 		// Grab dex name
@@ -98,31 +92,23 @@ export async function collectHyperliquidMarkets(batchId: string): Promise<{
 			throw new Error(`Markets length does not match metrics length (dex: ${dex})`);
 		}
 
-		rows.push(
-			...universe.map((market, i) => ({
-				batchId,
-
-				// Market parameters
-				venue: "hyperliquid",
-				namespace: dex,
-				ticker: market.name.split(":")[1],
-				maxLeverage: market.maxLeverage,
-
-				// Market metrics
-				midPx: metrics[i].midPx ?? 0,
-				markPx: metrics[i].markPx,
-				oraclePx: metrics[i].oraclePx,
-				volume: metrics[i].dayNtlVlm,
-
-				// OI (default denominated in units not dollar notional)
-				oi: new Decimal(metrics[i].openInterest).mul(metrics[i].midPx ?? 0).toNumber()
-			}))
+		return (
+			universe
+				.map((market, i) => ({
+					batchId,
+					venue: "hyperliquid",
+					namespace: dex,
+					ticker: market.name.split(":")[1],
+					maxLeverage: market.maxLeverage,
+					refPx: metrics[i].midPx ?? 0,
+					volume: Number(metrics[i].dayNtlVlm),
+					oi: new Decimal(metrics[i].openInterest).mul(metrics[i].midPx ?? 0).toNumber()
+				}))
+				// Filter out markets w/ no price
+				.filter(({ refPx }) => refPx != 0)
 		);
 	});
 
 	// Insert collected data to database
-	const insertedMarkets = await stepInsertMarketEntries(rows);
-
-	// Return execution diagnostics
-	return { insertedMarkets };
+	await stepInsertMarketEntries(rows);
 }

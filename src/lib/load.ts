@@ -14,16 +14,16 @@ export async function loadSnapshot(): Promise<{ snapshot: DiffedSnapshot }> {
 	const { prevEntries, currEntries } = await db.$transaction(async (tx) => {
 		// Collect latest batch ID
 		// This will fail if collection workflow has not run for first time yet
-		const { batchId: currBatchId, updatedAt: currUpdatedAt } =
+		const { batchId: currBatchId, createdAt: currCreatedAt } =
 			await tx.marketEntry.findFirstOrThrow({
-				orderBy: { updatedAt: "desc" },
-				select: { batchId: true, updatedAt: true }
+				orderBy: { createdAt: "desc" },
+				select: { batchId: true, createdAt: true }
 			});
 
 		// Collect batch ID closest to 24 hours ago
-		const lte = new Date(currUpdatedAt.getTime() - ONE_DAY_MS);
+		const lte = new Date(currCreatedAt.getTime() - ONE_DAY_MS);
 		const prev = await tx.marketEntry.findFirst({
-			where: { updatedAt: { lte } },
+			where: { createdAt: { lte } },
 			orderBy: { createdAt: "desc" },
 			select: { batchId: true }
 		});

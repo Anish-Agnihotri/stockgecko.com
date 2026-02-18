@@ -39,64 +39,44 @@ type LatestPricesResponse = {
 
 /**
  * Collects relevant Ostium market data
- * @returns execution diagnostics
  */
-export async function collectOstiumMarkets(batchId: string): Promise<{
-	insertedMarkets: number;
-}> {
+export async function collectOstiumMarkets(batchId: string) {
 	"use workflow";
 
 	// Fetch all Ostium pairs
 	const pairs = await stepFetchJSON<PairsResponse>(`${O_BASE_URL}/pairs`);
 
 	// Validate config
-	await stepValidateMarkets("ostium", new Set([...pairs.map((p) => p.id)]));
+	await stepValidateMarkets("ostium", new Set(pairs.map((p) => p.id)));
 
 	// Also collect volume and price data for all markets
 	// Proxy via internal `/api/proxy` endpoint which loads extra Comodo AAA CA
-	const vol = await stepFetchJSON<VolumeResponse>(OM_BASE_URL + "/volume/all", true);
-	const px = await stepFetchJSON<LatestPricesResponse>(
-		OM_BASE_URL + "/PricePublish/latest-prices",
-		true
-	);
+	const [vol, px] = await Promise.all([
+		stepFetchJSON<VolumeResponse>(OM_BASE_URL + "/volume/all", true),
+		stepFetchJSON<LatestPricesResponse>(OM_BASE_URL + "/PricePublish/latest-prices", true)
+	]);
 
 	// Setup lookup tables from volume, price data
-	const pairIdToVolume = new Map(
-		Object.values(vol.data).map((x) => [x.pair_id, x.last_24h_volume])
-	);
+	const pairIdToVolume = new Map(vol.data.map((x) => [x.pair_id, x.last_24h_volume]));
 	const feedIdToMidPx = new Map(px.map((x) => [x.feed_id, x.mid]));
 
-	// Parse collected responses
-	const rows: MarketEntryCreateInput[] = [];
-
 	// Store all data, irrespective of config filtering
-	pairs.forEach((pair) => {
-		rows.push({
-			batchId,
-
-			// Market parameters
-			venue: "ostium",
-			namespace: "",
-			ticker: pair.id,
-
-			// Mid price
-			midPx: feedIdToMidPx.get(pair.feed) ?? 0,
-
-			// Market stats, data
-			oi: new Decimal(pair.longOI)
-				.add(new Decimal(pair.shortOI))
-				.mul(new Decimal(pair.lastTradePrice))
-				// ((longOI + shortOI) * lastTradePrice) / normalized by (1e18 + 1e18)
-				.div(1e36)
-				.toNumber(),
-			volume: pairIdToVolume.get(pair.id) ?? 0,
-			maxLeverage: new Decimal(pair.group.maxLeverage).div(100).toNumber()
-		});
-	});
+	const rows: MarketEntryCreateInput[] = pairs.map((pair) => ({
+		batchId,
+		venue: "ostium",
+		namespace: "",
+		ticker: pair.id,
+		refPx: feedIdToMidPx.get(pair.feed) ?? 0,
+		oi: new Decimal(pair.longOI)
+			.add(new Decimal(pair.shortOI))
+			.mul(new Decimal(pair.lastTradePrice))
+			// ((longOI + shortOI) * lastTradePrice) / normalized by (1e18 + 1e18)
+			.div(1e36)
+			.toNumber(),
+		volume: pairIdToVolume.get(pair.id) ?? 0,
+		maxLeverage: new Decimal(pair.group.maxLeverage).div(100).toNumber()
+	}));
 
 	// Insert collected data to database
-	const insertedCount = await stepInsertMarketEntries(rows);
-
-	// Return workflow execution diagnostics
-	return { insertedMarkets: insertedCount };
+	await stepInsertMarketEntries(rows);
 }

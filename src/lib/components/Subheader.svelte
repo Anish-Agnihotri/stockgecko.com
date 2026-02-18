@@ -21,11 +21,25 @@
 		class="flex h-full w-full max-w-7xl items-center justify-between overflow-x-auto border-gecko-shade px-4 text-xs lg:border-x"
 	>
 		<!-- Statistics -->
-		<div class="flex min-w-2xl flex-row space-x-4">
+		<div class="flex min-w-3xl flex-row space-x-4">
 			<span>Assets: <Numeric value={assets} class="text-gecko-white" /></span>
 			<span>Markets: <Numeric value={markets} class="text-gecko-white" /></span>
 			<span
-				>24h Volume: <Numeric
+				>OI: <Numeric
+					value={snapshot.aggregates.oi}
+					format="currency"
+					currency="USD"
+					class="text-gecko-white"
+				/><Numeric
+					value={snapshot.aggregates.oiChange * 100}
+					format="numeric"
+					class="ml-1"
+					change
+					percentage
+				/></span
+			>
+			<span
+				>Volume: <Numeric
 					value={snapshot.aggregates.volume}
 					format="currency"
 					currency="USD"
@@ -41,13 +55,13 @@
 
 			<!-- @dev: Requires at least two distinct venues -->
 			<span
-				>Dominance: <span class="ml-1 inline-flex gap-2"
-					>{#each snapshot.aggregates.volumeByVenue.slice(0, 2) as { venue, volumeShare }}
+				>OI Dominance: <span class="ml-1 inline-flex gap-2"
+					>{#each snapshot.aggregates.oiByVenue.slice(0, 2) as { venue, oiShare }}
 						<!-- Tad ugly but proper capitalization -->
 						<span class="text-gecko-white"
 							>{venue.at(0)?.toUpperCase() + venue.slice(1)}
 							<Numeric
-								value={volumeShare * 100}
+								value={oiShare * 100}
 								format="numeric"
 								percentage
 								class="text-gecko-gray!"
