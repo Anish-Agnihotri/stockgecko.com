@@ -34,6 +34,7 @@ type Snapshot = {
 			// Total OI
 			oi: number;
 			// Indices of associated markets
+			// @dev: Sorted by volume, descending
 			marketIds: string[];
 		}
 	>;
@@ -222,6 +223,10 @@ export function buildSnapshot(markets: PlainMarketEntry[]): Snapshot {
 
 	// Finally, we can compute median price for each asset
 	for (const asset of Object.values(snapshotAssets)) {
+		// Sort marketIds by volume (descending)
+		// @dev: this is better ordering for tabular venue representation
+		asset.marketIds.sort((a, b) => snapshotMarkets[b].volume - snapshotMarkets[a].volume);
+
 		// Collect `midPx` of each market, filter out zeroes, sort
 		const prices = asset.marketIds
 			.map((id) => snapshotMarkets[id].refPx)
