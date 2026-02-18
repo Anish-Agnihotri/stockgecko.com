@@ -25,6 +25,12 @@ type HistoricTickerResponse = {
 	quoteVolume: string;
 }[];
 
+// `/openInterest` response subset
+type OpenInterestResponse = {
+	symbol: string;
+	openInterest: string;
+};
+
 /**
  * Executes workflow collection for BinanceLike markets (following USD-margined futures API format)
  * @dev Mostly useful to de-duplicate implementation across Aster, which follows identical API format
@@ -65,11 +71,23 @@ export async function collectBinanceLikeMarkets(
 		historic.map((x) => [x.symbol, { lastPx: Number(x.lastPrice), volume: Number(x.quoteVolume) }])
 	);
 
+	// Fanout: open interest collection, by market
+	// Then, create OI lookup
+	const response = await Promise.all(
+		filteredSymbols.map(({ symbol }) =>
+			stepFetchJSON<OpenInterestResponse>(`${apiURL}/openInterest?symbol=${symbol}`, proxy)
+		)
+	);
+	const symbolToOI = new Map(response.map(({ symbol, openInterest }) => [symbol, openInterest]));
+
 	// Parse collected responses
 	const rows: MarketEntryCreateInput[] = [];
 
 	// Collect data only for filtered-subtype markets
 	filteredSymbols.forEach((sym) => {
+		// @dev: again not really mid price, but I imagine these markets are trading often
+		const midPx = symbolToHistoricData.get(sym.symbol)?.lastPx ?? 0;
+
 		rows.push({
 			batchId,
 
@@ -79,11 +97,13 @@ export async function collectBinanceLikeMarkets(
 			ticker: sym.symbol,
 
 			// Price data
-			// @dev: again not really mid price, but I imagine these markets are trading often
-			midPx: symbolToHistoricData.get(sym.symbol)?.lastPx ?? 0,
+			midPx,
 
 			// Volume
 			volume: symbolToHistoricData.get(sym.symbol)?.volume ?? 0,
+
+			// OI
+			oi: new Decimal(symbolToOI.get(sym.symbol) ?? 0).mul(new Decimal(midPx)).toNumber(),
 
 			// Leverage
 			maxLeverage: new Decimal(100).div(new Decimal(sym.requiredMarginPercent)).toNumber()

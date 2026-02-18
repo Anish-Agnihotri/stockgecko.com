@@ -37,6 +37,16 @@ type TickerLatestResponse = {
 	}[];
 };
 
+// API: `/oi` response data subset
+// @dev: undocumented API endpoint
+type OIResponse = {
+	ois: {
+		symbol: string;
+		longOi: string;
+		shortOi: string;
+	}[];
+};
+
 /**
  * Collects relevant Vest market data
  * @returns execution diagnostics
@@ -55,9 +65,10 @@ export async function collectVestMarkets(batchId: string): Promise<{
 	// Validate config
 	await stepValidateMarkets("vest", new Set(trading.map((s) => s.symbol)));
 
-	// Fetch Vest latest + 24hr ticker data
+	// Fetch Vest latest + 24hr ticker + OI data
 	const historic = await stepFetchJSON<Ticker24hrResponse>(`${V_BASE_URL}/ticker/24hr`);
 	const latest = await stepFetchJSON<TickerLatestResponse>(`${V_BASE_URL}/ticker/latest`);
+	const oi = await stepFetchJSON<OIResponse>(`${V_BASE_URL}/oi`);
 
 	// Setup lookup tables from ticker data
 	const symbolToVolume = new Map(historic.tickers.map((t) => [t.symbol, Number(t.quoteVolume)]));
@@ -67,12 +78,15 @@ export async function collectVestMarkets(batchId: string): Promise<{
 			{ mark: Number(t.markPrice), index: Number(t.indexPrice) }
 		])
 	);
+	const symbolToOI = new Map(oi.ois.map((o) => [o.symbol, { long: o.longOi, short: o.shortOi }]));
 
 	// Parse collected responses
 	const rows: MarketEntryCreateInput[] = [];
 
 	// Iterate over all filtered markets
 	trading.forEach((market) => {
+		const midPx = symbolToPrice.get(market.symbol)?.mark ?? 0;
+
 		rows.push({
 			batchId,
 
@@ -82,11 +96,17 @@ export async function collectVestMarkets(batchId: string): Promise<{
 			ticker: market.symbol,
 
 			// Price data
-			midPx: symbolToPrice.get(market.symbol)?.mark ?? 0,
+			midPx,
 			oraclePx: symbolToPrice.get(market.symbol)?.index,
 
 			// Volume
 			volume: symbolToVolume.get(market.symbol) ?? 0,
+
+			// OI
+			oi: new Decimal(symbolToOI.get(market.symbol)?.long ?? 0)
+				.add(new Decimal(symbolToOI.get(market.symbol)?.short ?? 0))
+				.mul(new Decimal(midPx))
+				.toNumber(),
 
 			// Max leverage: 1 / initMarginRatio
 			maxLeverage: new Decimal(1).div(new Decimal(market.initMarginRatio)).toNumber()
