@@ -197,7 +197,8 @@
 					"lighter:CRCL",
 					"ostium:34",
 					"binance:CRCLUSDT",
-					"edgex:CRCLUSD"
+					"edgex:CRCLUSD",
+					"hyperliquid:xyz:CRCL"
 				]
 			},
 			"bmnr": {
@@ -218,7 +219,7 @@
 			},
 			"nflx": {
 				"meta": { "name": "Netflix", "icon": ["/assets/icons/stocks/netflix.webp"] },
-				"ref": ["ostium:46"]
+				"ref": ["ostium:46", "hyperliquid:xyz:NFLX"]
 			},
 			"glxy": {
 				"meta": { "name": "Galaxy Digital", "icon": ["/assets/icons/stocks/galaxy.webp"] },
@@ -253,6 +254,10 @@
 			"ustech": {
 				"meta": { "name": "US Tech", "icon": ["/assets/icons/indices/ustech.webp"] },
 				"ref": ["hyperliquid:km:USTECH"]
+			},
+			"usbond": {
+				"meta": { "name": "US Bond", "icon": ["/assets/icons/indices/usbond.webp"] },
+				"ref": ["hyperliquid:km:USBOND"]
 			},
 			"mag7": {
 				"meta": { "name": "MAG7", "icon": ["/assets/icons/indices/mag7.webp"] },
@@ -350,6 +355,7 @@
 					"hyperliquid:xyz:SILVER",
 					"hyperliquid:flx:SILVER",
 					"hyperliquid:km:SILVER",
+					"hyperliquid:cash:SILVER",
 					"lighter:XAG",
 					"ostium:8",
 					"qfex:SILVER-USD",
@@ -365,6 +371,7 @@
 					"hyperliquid:xyz:GOLD",
 					"hyperliquid:flx:GOLD",
 					"hyperliquid:km:GOLD",
+					"hyperliquid:cash:GOLD",
 					"lighter:XAU",
 					"ostium:5",
 					"qfex:GOLD-USD",
