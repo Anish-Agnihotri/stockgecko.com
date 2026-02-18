@@ -23,8 +23,7 @@
 						currency="USD"
 						format="numeric"
 						class="text-gecko-gray!"
-					/> and counting of real-world assets have changed hands, entirely on-chain, in the last day
-					alone.
+					/> and counting of real-world assets have been traded, on crypto venues, in the last day alone.
 				</p>
 			</div>
 		</div>

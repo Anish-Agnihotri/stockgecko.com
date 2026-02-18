@@ -55,10 +55,10 @@
 		{ width: 10, title: "", sortKey: null },
 		{ width: 6, title: "", sortKey: null },
 		{ width: null, title: "Asset", sortKey: null },
-		{ width: 26, title: "Mid Price", sortKey: null },
-		{ width: 20, title: "24h", sortKey: "medianMidPxChange" },
 		{ width: 20, title: "Volume", sortKey: "volume" },
 		{ width: 24, title: "24h", sortKey: "volumeChange" },
+		{ width: 26, title: "Mid Price", sortKey: null },
+		{ width: 20, title: "24h", sortKey: "medianMidPxChange" },
 		{ width: 28, title: "Class", sortKey: "category" },
 		{ width: 25, title: "Venues", sortKey: null },
 		{ width: 3, title: "", sortKey: null }
@@ -75,7 +75,7 @@
 	</div>
 
 	<!-- FIXME: look into overscroll prevention along x-axis -->
-	<Table.Root class="w-full min-w-225 table-fixed">
+	<Table.Root class="w-full min-w-215 table-fixed">
 		<Table.Header class="bg-gecko-black">
 			<Table.Row class="border-b-gecko-shade text-xs font-light [&_th]:px-0">
 				{#each COLUMNS as { width, title, sortKey: key }}
@@ -131,21 +131,6 @@
 						</span>
 					</Table.Cell>
 
-					<!-- Mid price -->
-					<Table.Cell class="w-26">
-						<Numeric
-							value={asset.medianMidPx}
-							format="numeric"
-							currency={quote ?? "USD"}
-							class="text-gecko-white"
-						/>
-					</Table.Cell>
-
-					<!-- Mid price change -->
-					<Table.Cell class="w-20">
-						<Numeric value={asset.medianMidPxChange * 100} format="numeric" change percentage />
-					</Table.Cell>
-
 					<!-- Volume -->
 					<Table.Cell class="w-20">
 						<Numeric
@@ -159,6 +144,21 @@
 					<!-- Volume change -->
 					<Table.Cell class="w-24">
 						<Numeric value={asset.volumeChange * 100} format="numeric" change percentage />
+					</Table.Cell>
+
+					<!-- Mid price -->
+					<Table.Cell class="w-26">
+						<Numeric
+							value={asset.medianMidPx}
+							format="numeric"
+							currency={quote ?? "USD"}
+							class="text-gecko-white"
+						/>
+					</Table.Cell>
+
+					<!-- Mid price change -->
+					<Table.Cell class="w-20">
+						<Numeric value={asset.medianMidPxChange * 100} format="numeric" change percentage />
 					</Table.Cell>
 
 					<!-- Class -->
