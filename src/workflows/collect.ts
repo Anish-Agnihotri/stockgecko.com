@@ -6,6 +6,7 @@ import { getWorkflowMetadata } from "workflow";
 // Note: you actually can't make the background job generic because
 // of the way serialization is handled between steps (your `collect*Markets`
 // function fails to serialize).
+import { collectVestMarkets } from "$workflows/collection/vest";
 import { collectQFEXMarkets } from "$workflows/collection/qfex";
 import { collectEdgeXMarkets } from "$workflows/collection/edgex";
 import { collectAsterMarkets } from "$workflows/collection/aster";
@@ -14,6 +15,12 @@ import { collectBinanceMarkets } from "$workflows/collection/binance";
 import { collectLighterMarkets } from "$workflows/collection/lighter";
 import { collectExtendedMarkets } from "$workflows/collection/extended";
 import { collectHyperliquidMarkets } from "$workflows/collection/hyperliquid";
+
+// Background runner: Vest
+async function backgroundVest(batchId: string): Promise<string> {
+	"use step";
+	return (await start(collectVestMarkets, [batchId])).runId;
+}
 
 // Background runner: QFEX
 async function backgroundQFEX(batchId: string): Promise<string> {
@@ -73,6 +80,7 @@ export async function collectMarkets() {
 	const { workflowRunId: batchId } = getWorkflowMetadata();
 
 	// Run in parallel
+	await backgroundVest(batchId);
 	await backgroundQFEX(batchId);
 	await backgroundEdgeX(batchId);
 	await backgroundAster(batchId);

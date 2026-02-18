@@ -26,5 +26,6 @@
 	"binance:": { "name": "Binance", "icon": ["/assets/icons/exchanges/binance.webp"] },
 	"aster:": { "name": "Aster", "icon": ["/assets/icons/exchanges/aster.webp"] },
 	"edgex:": { "name": "edgeX", "icon": ["/assets/icons/exchanges/edgeX.webp"] },
-	"extended:": { "name": "Extended", "icon": ["/assets/icons/exchanges/extended.webp"] }
+	"extended:": { "name": "Extended", "icon": ["/assets/icons/exchanges/extended.webp"] },
+	"vest:": { "name": "Vest", "icon": ["/assets/icons/exchanges/vest.webp"] }
 }
