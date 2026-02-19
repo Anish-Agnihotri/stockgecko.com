@@ -3,7 +3,7 @@ import type { PlainMarketEntry } from "$lib/serialize";
 
 // Reverse index (marketKey => {asset, category})
 // "hyperliquid:xyz:NVDA" → { asset: "nvda", category: "stocks" }
-const MARKET_TO_ASSET = new Map(
+export const MARKET_TO_ASSET = new Map(
 	Object.entries(tickers.perps).flatMap(([category, assets]) =>
 		Object.entries(assets).flatMap(([asset, markets]) =>
 			markets.ref.map((market) => [market, { asset, category }] as const)
