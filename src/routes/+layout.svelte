@@ -8,10 +8,10 @@
 	import Subheader from "$components/Subheader.svelte";
 
 	// Injected data, page children
-	let { data, children } = $props();
+	let props = $props();
 
 	// Set snapshot reference in Svelte component tree context to prevent drilling
-	setContext("snapshot", () => data.snapshot);
+	setContext("snapshot", () => props.data.snapshot);
 </script>
 
 <!-- Global tooltip provider -->
@@ -27,7 +27,7 @@
 		<!-- Content -->
 		<main class="order-3 flex flex-1 flex-row justify-center">
 			<div class="flex w-full max-w-7xl flex-1 flex-col border-x-gecko-shade lg:border-x">
-				{@render children()}
+				{@render props.children()}
 			</div>
 		</main>
 

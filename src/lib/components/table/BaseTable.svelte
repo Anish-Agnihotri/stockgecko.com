@@ -19,9 +19,23 @@
 
 	// Collect props
 	let { columns, sortKey, sortDirection, onSort, minWidth, children }: Props = $props();
+
+	// Dynamically add table bottom border if page does not scroll
+	let showBorder = $state(true);
+	$effect(() => {
+		const check = () => {
+			showBorder = document.documentElement.scrollHeight <= window.innerHeight;
+		};
+
+		// Initial check + keep track
+		check();
+		const observer = new ResizeObserver(check);
+		observer.observe(document.body);
+		return () => observer.disconnect();
+	});
 </script>
 
-<div class="flex w-full flex-col">
+<div class="flex w-full flex-col {showBorder ? 'border-b border-b-gecko-shade ' : ''}">
 	<!-- Scrollable handler on mobile (defaults to `lg` breakpoint) -->
 	<div
 		class="flex items-center justify-end border-b border-b-gecko-shade bg-gecko-black px-2 py-0.5 font-mono text-xs text-gecko-gray/30 uppercase lg:hidden"

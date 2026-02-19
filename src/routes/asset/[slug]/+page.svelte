@@ -11,26 +11,12 @@
 	let { data }: PageProps = $props();
 
 	// Collect asset meta
-	const { meta }: { meta: Meta } = new Map(
-		Object.values(tickers.perps).flatMap((x) => Object.entries(x))
-	).get(data.asset)!;
+	const meta: Meta = $derived(
+		new Map(Object.values(tickers.perps).flatMap((x) => Object.entries(x))).get(data.asset)!.meta
+	);
 
 	// Asset data
-	const asset = data.snapshot.assets[data.asset];
-
-	// Dynamically add table bottom border if page does not scroll
-	let showBorder = $state(true);
-	$effect(() => {
-		const check = () => {
-			showBorder = document.documentElement.scrollHeight <= window.innerHeight;
-		};
-
-		// Initial check + keep track
-		check();
-		const observer = new ResizeObserver(check);
-		observer.observe(document.body);
-		return () => observer.disconnect();
-	});
+	const asset = $derived(data.snapshot.assets[data.asset]);
 </script>
 
 <!-- Asset header -->
@@ -50,9 +36,7 @@
 			</div>
 
 			<!-- Description -->
-			{#if meta.description}
-				<p class="mt-3 text-xs text-gecko-gray/75 md:text-sm">{meta.description}</p>
-			{/if}
+			<p class="mt-3 text-xs text-gecko-gray/75 md:text-sm">{meta.description}</p>
 		</div>
 	</Grid>
 </div>
@@ -90,7 +74,5 @@
 
 <!-- Market table -->
 <div class="flex flex-1 flex-col md:border-t md:border-t-gecko-shade">
-	<div class="flex {showBorder ? 'border-b border-b-gecko-shade ' : ''}">
-		<MarketTable filter={{ assetId: data.asset }} />
-	</div>
+	<MarketTable filter={{ assetId: data.asset }} />
 </div>

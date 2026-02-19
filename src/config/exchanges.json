@@ -1,31 +1,72 @@
 {
-	"hyperliquid:": { "name": "Hyperliquid", "icon": ["/assets/icons/exchanges/hyperliquid.webp"] },
+	"hyperliquid:": {
+		"name": "Hyperliquid",
+		"description": "Hyperliquid is a performant blockchain built with the vision of a fully onchain open financial system. Liquidity, user applications, and trading activity synergize on a unified platform that will ultimately house all of finance.",
+		"icon": ["/assets/icons/exchanges/hyperliquid.webp"]
+	},
 	"hyperliquid:xyz": {
 		"name": "Trade[XYZ]",
+		"description": "The XYZ protocol is a HIP-3 DEX that defines market listings, oracle sources, leverage limits, and other parameters for XYZ markets. XYZ markets exist for a range of asset classes, including equities, indices/ETF's, and commodities.",
 		"icon": ["/assets/icons/exchanges/hyperliquid.webp", "/assets/icons/exchanges/xyz.webp"]
 	},
 	"hyperliquid:flx": {
 		"name": "Felix",
+		"description": "Felix Perpetual Futures are equity and commodity perpetual future markets managed by the Felix team. The product is built on top of the Hyperliquid protocol. The goal of this product is to enable users to access leverage for popular equities and commodities via perpetual futures as the derivative instrument of choice.",
 		"icon": ["/assets/icons/exchanges/hyperliquid.webp", "/assets/icons/exchanges/flx.webp"]
 	},
 	"hyperliquid:vntl": {
 		"name": "Ventuals",
+		"description": "Ventuals brings the power of perps to the most innovative companies in the world. On ventuals, you can trade: private companies (e.g. SpaceX, OpenAI, and Anthropic), and themeatic indices of public companies (e.g. nuclear, semiconductors, and robotics).",
 		"icon": ["/assets/icons/exchanges/hyperliquid.webp", "/assets/icons/exchanges/vntl.webp"]
 	},
 	"hyperliquid:km": {
 		"name": "Kinetiq Markets",
+		"description": "Markets by Kinetiq is the first platform where perpetual futures on equity, index, currency, and commodity trade 24/7/365. Built completely onchain, on Hyperliquid — eliminating the arbitrary constraints of traditional finance.",
 		"icon": ["/assets/icons/exchanges/hyperliquid.webp", "/assets/icons/exchanges/km.webp"]
 	},
 	"hyperliquid:cash": {
 		"name": "Dreamcash",
+		"description": "Dreamcash is a self-custodial mobile app built for trading on Hyperliquid. You can trade perpetuals with up to 40x leverage, buy and sell spot tokens, and access new on-chain markets with the speed and stability of Hyperliquid’s engine. Everything settles directly on-chain, and instant fiat rails make moving funds in and out simple and fast.",
 		"icon": ["/assets/icons/exchanges/hyperliquid.webp", "/assets/icons/exchanges/cash.webp"]
 	},
-	"lighter:": { "name": "Lighter", "icon": ["/assets/icons/exchanges/lighter.webp"] },
-	"ostium:": { "name": "Ostium", "icon": ["/assets/icons/exchanges/ostium.webp"] },
-	"qfex:": { "name": "QFEX", "icon": ["/assets/icons/exchanges/qfex.webp"] },
-	"binance:": { "name": "Binance", "icon": ["/assets/icons/exchanges/binance.webp"] },
-	"aster:": { "name": "Aster", "icon": ["/assets/icons/exchanges/aster.webp"] },
-	"edgex:": { "name": "edgeX", "icon": ["/assets/icons/exchanges/edgeX.webp"] },
-	"extended:": { "name": "Extended", "icon": ["/assets/icons/exchanges/extended.webp"] },
-	"vest:": { "name": "Vest", "icon": ["/assets/icons/exchanges/vest.webp"] }
+	"lighter:": {
+		"name": "Lighter",
+		"description": "Lighter is a decentralized trading platform designed for security, scale, and performance in a zero-fee trading environment. It is the first exchange to offer verifiable order matching and liquidations while delivering performance comparable to traditional exchanges.",
+		"icon": ["/assets/icons/exchanges/lighter.webp"]
+	},
+	"ostium:": {
+		"name": "Ostium",
+		"description": "The Ostium Protocol is an open-sourced, decentralised exchange on Ethereum Layer 2 Arbitrum, enabling transparent and non-custodial perpetuals exposure to Real World Assets. More specifically, Ostium is building decentralized trading infrastructure to allow you to trade any asset like a perp – all fully onchain.",
+		"icon": ["/assets/icons/exchanges/ostium.webp"]
+	},
+	"qfex:": {
+		"name": "QFEX",
+		"description": "QFEX is the first hybrid perpetual futures exchange to allow high leverage, performant trading on traditional financial assets. Markets on QFEX operate 24/7 like crypto venues, with external market makers, allowing users to trade outside of market hours.",
+		"icon": ["/assets/icons/exchanges/qfex.webp"]
+	},
+	"binance:": {
+		"name": "Binance",
+		"description": "Binance Holdings Ltd., branded Binance, is the largest cryptocurrency exchange in terms of daily trading volume of cryptocurrencies.",
+		"icon": ["/assets/icons/exchanges/binance.webp"]
+	},
+	"aster:": {
+		"name": "Aster",
+		"description": "Aster is a next-generation decentralized perpetual exchange built for everyone.",
+		"icon": ["/assets/icons/exchanges/aster.webp"]
+	},
+	"edgex:": {
+		"name": "edgeX",
+		"description": "edgeX V1, the Minimum Viable Product (MVP) of edgeX, is a high-performance, orderbook-based perpetual decentralized exchange (Perp DEX), crafted to deliver a native trading experience. This is achieved through advanced trading infrastructure, superior performance, and trader-centric features.",
+		"icon": ["/assets/icons/exchanges/edgeX.webp"]
+	},
+	"extended:": {
+		"name": "Extended",
+		"description": "Extended is a perp DEX, built by an ex-Revolut team. As of now, Extended offers perpetual contracts on both crypto and TradFi assets, with USDC as collateral and leverage of up to 100x.",
+		"icon": ["/assets/icons/exchanges/extended.webp"]
+	},
+	"vest:": {
+		"name": "Vest",
+		"description": "Vest 24/7 Markets combines equity trading and perpetual futures into a powerful platform that offers 24/7 markets, zero trading fees, and access to thousands of equity markets.",
+		"icon": ["/assets/icons/exchanges/vest.webp"]
+	}
 }
