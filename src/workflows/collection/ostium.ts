@@ -13,6 +13,8 @@ export const OM_BASE_URL = "https://metadata-backend.ostium.io";
 // API: `/pairs` response data subset
 type PairsResponse = {
 	id: string;
+	from: string;
+	to: string;
 	feed: string;
 	longOI: string; // 1e18
 	shortOI: string; // 1e18
@@ -47,7 +49,7 @@ export async function collectOstiumMarkets(batchId: string) {
 	const pairs = await stepFetchJSON<PairsResponse>(`${O_BASE_URL}/pairs`);
 
 	// Validate config
-	await stepValidateMarkets("ostium", new Set(pairs.map((p) => p.id)));
+	await stepValidateMarkets("ostium", new Set(pairs.map((p) => `${p.from}-${p.to}`)));
 
 	// Also collect volume and price data for all markets
 	// Proxy via internal `/api/proxy` endpoint which loads extra Comodo AAA CA
@@ -65,7 +67,7 @@ export async function collectOstiumMarkets(batchId: string) {
 		batchId,
 		venue: "ostium",
 		namespace: "",
-		ticker: pair.id,
+		ticker: `${pair.from}-${pair.to}`,
 		refPx: feedIdToMidPx.get(pair.feed) ?? 0,
 		oi: new Decimal(pair.longOI)
 			.add(new Decimal(pair.shortOI))
