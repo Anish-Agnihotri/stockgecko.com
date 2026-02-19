@@ -14,8 +14,9 @@ A few types of icons, closely inspired by Lighter:
 		src,
 		alt,
 		nested = false,
-		tooltip = ""
-	}: { src: string[]; alt: string; nested?: boolean; tooltip?: string } = $props();
+		tooltip = "",
+		class: extraClass = ""
+	}: { src: string[]; alt: string; nested?: boolean; tooltip?: string; class?: string } = $props();
 </script>
 
 <Tooltip.Root>
@@ -25,14 +26,14 @@ A few types of icons, closely inspired by Lighter:
 	>
 		<!-- Single icon -->
 		{#if src.length == 1}
-			<div>
+			<div class={extraClass}>
 				<img src={src[0]} {alt} class="size-5" />
 			</div>
 		{/if}
 
 		<!-- Pair icon (non-nested) -->
 		{#if src.length == 2 && !nested}
-			<div class="relative size-7">
+			<div class="{extraClass} relative size-7">
 				<img
 					src={src[0]}
 					alt={`${alt} pair 1`}
@@ -44,7 +45,7 @@ A few types of icons, closely inspired by Lighter:
 
 		<!-- Exchange icon (nested) -->
 		{#if src.length == 2 && nested}
-			<div class="relative size-5">
+			<div class="{extraClass} relative size-5">
 				<img src={src[1]} {alt} class="absolute top-0 left-px z-0 size-4.25" />
 				<img src={src[0]} {alt} class="absolute right-0 bottom-0 z-10 size-2.5" />
 			</div>

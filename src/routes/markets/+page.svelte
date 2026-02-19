@@ -2,6 +2,7 @@
 	import { getContext } from "svelte";
 	import Icon from "$components/Icon.svelte";
 	import Grid from "$components/Grid.svelte";
+	import Card from "$components/Card.svelte";
 	import exchanges from "$config/exchanges.json";
 	import Numeric from "$components/Numeric.svelte";
 	import type { DiffedSnapshot } from "$lib/transform";
@@ -28,27 +29,14 @@
 
 <!-- Statistics row -->
 <Grid>
-	<div class="flex flex-1 flex-col md:flex-6 lg:flex-9">
-		<!-- Chart header -->
-		<div
-			class="flex h-10 items-center border-b border-b-gecko-shade bg-gecko-black px-4 text-xs font-medium"
-		>
-			<h3>Volume vs. Open Interest</h3>
-		</div>
-
-		<!-- Chart body -->
-		<div class="flex min-h-30 flex-1 flex-col items-center justify-center text-xs text-gecko-muted">
+	<Card title="Volume vs. Open Interest" class="md:flex-6 lg:flex-9">
+		<div class="flex min-h-30 items-center justify-center text-xs text-gecko-muted">
 			<span>TODO</span>
 		</div>
-	</div>
+	</Card>
 
 	<!-- Exchange dominance by OI -->
-	<div class="flex flex-1 flex-col md:flex-3">
-		<!-- Table header -->
-		<div class="flex h-10 items-center bg-gecko-black px-4 text-xs font-medium">
-			<h3>Open Interest Dominance</h3>
-		</div>
-
+	<Card title="Open Interest Dominance" class="md:flex-3">
 		<!-- Table content -->
 		<div class="flex flex-col">
 			{#each snapshot.aggregates.oiByVenue as { venue, oiShare }, i}
@@ -56,7 +44,7 @@
 
 				<a
 					href="/venue/{venue}"
-					class="flex h-10 items-center justify-between border-t border-t-gecko-shade text-xs hover:bg-gecko-black-hover"
+					class="flex h-10 items-center justify-between border-b border-b-gecko-shade text-xs last:border-b-0 hover:bg-gecko-black-hover"
 				>
 					<div class="flex items-center">
 						<!-- Rank -->
@@ -83,8 +71,10 @@
 				</a>
 			{/each}
 		</div>
-	</div>
+	</Card>
 </Grid>
 
 <!-- Table of all markets -->
-<MarketTable />
+<div class="md:border-t md:border-t-gecko-shade">
+	<MarketTable />
+</div>

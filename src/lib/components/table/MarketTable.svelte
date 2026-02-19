@@ -19,9 +19,20 @@
 	type MarketKey = keyof DiffedSnapshot["markets"][0];
 	const sort = createSortState<MarketKey>("volume");
 
-	// Preserve market ID
-	type MarketRow = DiffedSnapshot["markets"][string] & { id: string };
-	const entries: MarketRow[] = Object.entries(snapshot.markets).map(([id, m]) => ({ id, ...m }));
+	// Preserve market ID and enrich with assetId
+	type MarketRow = DiffedSnapshot["markets"][string] & { id: string; assetId: string };
+
+	// Custom market filters
+	let { filter }: { filter?: Partial<MarketRow> } = $props();
+
+	// Derive available markets w/ filter
+	const entries: MarketRow[] = $derived(
+		Object.entries(snapshot.markets)
+			.map(([id, m]) => ({ id, assetId: MARKET_TO_ASSET.get(id)!.asset, ...m }))
+			.filter((row) =>
+				filter ? Object.entries(filter).every(([k, v]) => row[k as keyof MarketRow] === v) : true
+			)
+	);
 
 	// Sorted rows
 	const rows = $derived(() => {
@@ -56,9 +67,10 @@
 >
 	<!-- Purposefully leave rank not fixed to volume for market table -->
 	{#each rows() as row, rank}
-		{@const assetId = MARKET_TO_ASSET.get(row.id)!.asset}
-		{@const asset = snapshot.assets[assetId]}
-		{@const { name: assetName, quote } = (tickers.perps as TickerCfg)[asset.category][assetId].meta}
+		{@const asset = snapshot.assets[row.assetId]}
+		{@const { name: assetName, quote } = (tickers.perps as TickerCfg)[asset.category][
+			row.assetId
+		].meta}
 		{@const exchange = (exchanges as ExchangeCfg)[`${row.venue}:${row.namespace}`]}
 
 		<Table.Row
