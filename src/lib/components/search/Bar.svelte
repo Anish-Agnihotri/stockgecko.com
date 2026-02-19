@@ -11,6 +11,9 @@
 	// Dialog/drawer open state
 	let open: boolean = $state(false);
 
+	// Proxy input element to force-cpature focus
+	let proxyInput: HTMLInputElement;
+
 	onMount(() => {
 		// Handle keyboard shortcut
 		function onKeydown(e: KeyboardEvent) {
@@ -24,11 +27,46 @@
 		document.addEventListener("keydown", onKeydown);
 		return () => document.removeEventListener("keydown", onKeydown);
 	});
+
+	$effect(() => {
+		if (!open) return;
+
+		// Force lock scroll on dialog/drawer open
+		window.scrollTo(0, 0);
+		const lock = () => window.scrollTo(0, 0);
+		window.addEventListener("scroll", lock);
+
+		return () => {
+			window.removeEventListener("scroll", lock);
+
+			// Force dismiss iOS keyboard
+			const active = document.activeElement as HTMLElement | null;
+			active?.setAttribute("readonly", "readonly");
+			active?.blur();
+			setTimeout(() => active?.removeAttribute("readonly"), 100);
+		};
+	});
+
+	// Close modal fn
+	const close = () => (open = false);
 </script>
+
+<!-- Hidden proxy input to capture iOS keyboard -->
+<input
+	bind:this={proxyInput}
+	class="pointer-events-none fixed -top-20 left-0 opacity-0"
+	tabindex="-1"
+	aria-hidden="true"
+/>
 
 <!-- Search trigger button -->
 <button
-	onclick={() => (open = true)}
+	onclick={() => {
+		// Synchronously capture focus to "reserve" keyboard (esp. on iOS)
+		proxyInput?.focus();
+		// Then, toggle opening drawer/dialog
+		open = true;
+	}}
 	class="group flex h-8 w-8 cursor-pointer items-center justify-center gap-1 rounded-md border border-gecko-shade bg-gecko-black px-3 text-xs text-gecko-gray hover:border-gecko-gray/30 hover:bg-gecko-black-hover lg:w-56"
 >
 	<!-- Search icon -->
@@ -57,7 +95,7 @@
 	<!-- Desktop: Dialog + Command -->
 	<Dialog.Root bind:open>
 		<Dialog.Content class="border-3 border-gecko-shade bg-black p-0 **:data-dialog-close:hidden">
-			<Command />
+			<Command {close} />
 		</Dialog.Content>
 	</Dialog.Root>
 {:else}
@@ -66,7 +104,7 @@
 		<Drawer.Content
 			class="top-12 mt-0! h-[calc(100%-48px)]! max-h-[calc(100%-48px)]! rounded-none! border-gecko-shade bg-black [&>div:first-child]:hidden"
 		>
-			<Command />
+			<Command {close} />
 		</Drawer.Content>
 	</Drawer.Root>
 {/if}

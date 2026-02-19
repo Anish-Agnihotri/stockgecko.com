@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { tick } from "svelte";
 	import { getContext } from "svelte";
 	import { goto } from "$app/navigation";
 	import Icon from "$components/Icon.svelte";
@@ -13,6 +14,31 @@
 	const getSnapshot = getContext<() => DiffedSnapshot>("snapshot");
 	const snapshot = $derived(getSnapshot());
 
+	// Collect menu close fn
+	let { close }: { close: () => void } = $props();
+
+	// Steal focus from hidden proxy input to search bar
+	let inputEl: HTMLElement | undefined = $state();
+	$effect(() => {
+		if (inputEl) {
+			tick().then(() => inputEl?.focus());
+		}
+		return () => inputEl?.blur();
+	});
+
+	/**
+	 * Handle element selection
+	 * @param {string} path to navigate to
+	 */
+	function onSelect(path: string) {
+		// Goto relevant page
+		goto(path);
+		// Drop any input focus
+		inputEl?.blur();
+		// Close modal
+		close();
+	}
+
 	// Unified styling
 	const groupClass =
 		"p-0 **:data-command-group-heading:border-b **:data-command-group-heading:border-b-gecko-shade **:data-command-group-heading:bg-gecko-black **:data-command-group-heading:px-3";
@@ -24,7 +50,7 @@
 	class="flex flex-col rounded-none **:data-[slot=command-input-wrapper]:h-10 **:data-[slot=command-input-wrapper]:border-gecko-shade [&_svg:first-child]:hidden"
 >
 	<!-- Input field -->
-	<Command.Input placeholder="Search assets, categories, venues..." autofocus />
+	<Command.Input placeholder="Search assets, categories, venues..." ref={inputEl} autofocus />
 
 	<!-- Items list -->
 	<Command.List class="max-h-full lg:max-h-80 lg:min-h-80">
@@ -39,7 +65,7 @@
 					{@const live = snapshot.assets[id]}
 
 					<Command.Item
-						onSelect={() => goto(`/asset/${id}`)}
+						onSelect={() => onSelect(`/asset/${id}`)}
 						value="{meta.name} {id} {category}"
 						class={itemClass}
 					>
@@ -51,7 +77,15 @@
 
 						{#if live}
 							<div class="flex items-center [&_span]:w-22 [&_span]:text-right">
-								<Numeric value={live.volume} currency="USD" format="currency" class="text-white" />
+								<div>
+									<span class="font-mono text-gecko-muted">VOL:</span>
+									<Numeric
+										value={live.volume}
+										currency="USD"
+										format="currency"
+										class="text-white"
+									/>
+								</div>
 								<Numeric
 									value={live.volumeChange * 100}
 									format="numeric"
@@ -72,7 +106,7 @@
 				{@const [venue, namespace] = id.split(":")}
 
 				<Command.Item
-					onSelect={() => goto(`/venue/${venue}${namespace && `/dex/${namespace}`}`)}
+					onSelect={() => onSelect(`/venue/${venue}${namespace && `/dex/${namespace}`}`)}
 					value="{meta.name} {id}"
 					class={itemClass}
 				>
