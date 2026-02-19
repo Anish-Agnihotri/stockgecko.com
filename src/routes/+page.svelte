@@ -2,8 +2,8 @@
 	import { getContext } from "svelte";
 	import Numeric from "$components/Numeric.svelte";
 	import type { DiffedSnapshot } from "$lib/transform";
-	import AssetTable from "$components/AssetTable.svelte";
 	import DitherHero from "$components/DitherHero.svelte";
+	import AssetTable from "$components/table/AssetTable.svelte";
 
 	// Collect data snapshot
 	const getSnapshot = getContext<() => DiffedSnapshot>("snapshot");
