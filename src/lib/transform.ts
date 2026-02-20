@@ -72,6 +72,8 @@ type Snapshot = {
 		oi: number;
 		// Venue OIs, sorted by OI share
 		oiByVenue: { venue: string; oiShare: number }[];
+		// Venue stats, by sub-DEX, sorted by OI share
+		exchangeStats: { id: string; volume: number; oi: number }[];
 	};
 };
 
@@ -170,6 +172,7 @@ export function buildSnapshot(markets: PlainMarketEntry[]): Snapshot {
 	let totalVolume: number = 0;
 	let totalOI: number = 0;
 	const venueOIs = new Map<string, number>();
+	const exchanges = new Map<string, { volume: number; oi: number }>();
 
 	// Track markets
 	for (const market of markets) {
@@ -214,6 +217,13 @@ export function buildSnapshot(markets: PlainMarketEntry[]): Snapshot {
 		totalVolume += volume;
 		totalOI += oi;
 		venueOIs.set(venue, (venueOIs.get(venue) ?? 0) + oi);
+
+		// --- 6: Update aggregate exchange stats ---
+		const exchangeKey = `${venue}:${namespace}`;
+		const ex = exchanges.get(exchangeKey) ?? { volume: 0, oi: 0 };
+		ex.volume += volume;
+		ex.oi += oi;
+		exchanges.set(exchangeKey, ex);
 	}
 
 	// With markets setup, we can sort by volume
@@ -248,12 +258,17 @@ export function buildSnapshot(markets: PlainMarketEntry[]): Snapshot {
 		}))
 		.sort((a, b) => b.oiShare - a.oiShare);
 
+	// Sort exchanges by OI share
+	const exchangeStats = [...exchanges.entries()]
+		.map(([id, stats]) => ({ id, ...stats }))
+		.sort((a, b) => b.oi - a.oi);
+
 	return {
 		meta: snapshotMeta,
 		assets: snapshotAssets,
 		markets: snapshotMarkets,
 		index: { assetsByVolume, marketsByVenue },
-		aggregates: { volume: totalVolume, oiByVenue, oi: totalOI }
+		aggregates: { volume: totalVolume, oiByVenue, oi: totalOI, exchangeStats }
 	};
 }
 

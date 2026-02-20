@@ -67,6 +67,7 @@
 		// Then, toggle opening drawer/dialog
 		open = true;
 	}}
+	aria-label="Search"
 	class="group flex h-8 w-8 cursor-pointer items-center justify-center gap-1 rounded-md border border-gecko-shade bg-gecko-black px-3 text-xs text-gecko-gray hover:border-gecko-gray/30 hover:bg-gecko-black-hover lg:w-56"
 >
 	<!-- Search icon -->

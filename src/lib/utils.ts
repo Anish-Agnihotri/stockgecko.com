@@ -48,3 +48,16 @@ export function marketToURL(venue: string, namespace: string, ticker: string): s
 			throw new Error(`Unknown venue: ${venue}`);
 	}
 }
+
+/**
+ * Chunks array into sub-arrays of size `n`
+ * @dev: https://stackoverflow.com/a/55435856
+ * @param {T[]} arr array to chunk
+ * @param {number} n size of chunk
+ * @return {Generator<T[], void>} chunked array generator
+ */
+export function* chunks<T>(arr: T[], n: number): Generator<T[], void> {
+	for (let i = 0; i < arr.length; i += n) {
+		yield arr.slice(i, i + n);
+	}
+}

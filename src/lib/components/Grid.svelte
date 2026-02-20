@@ -1,7 +1,11 @@
 <script lang="ts">
 	import type { Snippet } from "svelte";
 
-	let { children, bottom = true }: { children: Snippet; bottom?: boolean } = $props();
+	let {
+		children,
+		class: extraClass = "",
+		bottom = true
+	}: { children: Snippet; class?: string; bottom?: boolean } = $props();
 </script>
 
 <div class="flex flex-1 flex-col">
@@ -13,7 +17,7 @@
 
 	<!-- Content section -->
 	<div
-		class="flex flex-1 flex-col px-0 md:flex-row md:gap-8 md:px-8 [&>div]:border-b [&>div]:border-b-gecko-shade [&>div]:bg-gecko-shade/25 md:[&>div]:border-x md:[&>div]:border-b-0 md:[&>div]:border-x-gecko-shade"
+		class="flex flex-1 flex-col px-0 md:flex-row md:gap-8 md:px-8 [&>div]:border-b [&>div]:border-b-gecko-shade [&>div]:bg-gecko-shade/25 md:[&>div]:border-x md:[&>div]:border-b-0 md:[&>div]:border-x-gecko-shade {extraClass}"
 	>
 		{@render children()}
 	</div>
