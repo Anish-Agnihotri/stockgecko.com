@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getContext } from "svelte";
+	import Meta from "$components/Meta.svelte";
 	import Numeric from "$components/Numeric.svelte";
 	import type { DiffedSnapshot } from "$lib/transform";
 	import DitherHero from "$components/DitherHero.svelte";
@@ -9,6 +10,8 @@
 	const getSnapshot = getContext<() => DiffedSnapshot>("snapshot");
 	const snapshot = $derived(getSnapshot());
 </script>
+
+<Meta />
 
 <!-- Hero -->
 <div class="flex min-h-96 flex-row justify-center border-b border-b-gecko-shade">

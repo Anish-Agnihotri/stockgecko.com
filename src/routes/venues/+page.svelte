@@ -1,6 +1,9 @@
 <script lang="ts">
 	import Grid from "$components/Grid.svelte";
+	import Meta from "$components/Meta.svelte";
 </script>
+
+<Meta title="StockGecko | Venues" />
 
 <div class="flex flex-1 flex-col">
 	<!-- Landing header (title, description) -->

@@ -1,23 +1,26 @@
 <script lang="ts">
-	import type { Meta } from "$lib/types";
 	import type { PageProps } from "./$types";
+	import Meta from "$components/Meta.svelte";
 	import Grid from "$components/Grid.svelte";
 	import tickers from "$config/tickers.json";
 	import Icon from "$components/Icon.svelte";
 	import Card from "$components/Card.svelte";
+	import type { Meta as MetaT } from "$lib/types";
 	import Numeric from "$components/Numeric.svelte";
 	import MarketTable from "$components/table/MarketTable.svelte";
 
 	let { data }: PageProps = $props();
 
 	// Collect asset meta
-	const meta: Meta = $derived(
+	const meta: MetaT = $derived(
 		new Map(Object.values(tickers.perps).flatMap((x) => Object.entries(x))).get(data.asset)!.meta
 	);
 
 	// Asset data
 	const asset = $derived(data.snapshot.assets[data.asset]);
 </script>
+
+<Meta title="StockGecko | {meta.name}" />
 
 <!-- Asset header -->
 <div>

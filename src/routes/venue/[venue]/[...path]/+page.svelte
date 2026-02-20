@@ -1,17 +1,18 @@
 <script lang="ts">
-	import type { Meta } from "$lib/types";
 	import type { PageProps } from "./$types";
+	import Meta from "$components/Meta.svelte";
 	import Grid from "$components/Grid.svelte";
 	import Icon from "$components/Icon.svelte";
 	import Card from "$components/Card.svelte";
 	import exchanges from "$config/exchanges.json";
+	import type { Meta as MetaT } from "$lib/types";
 	import Numeric from "$components/Numeric.svelte";
 	import MarketTable from "$components/table/MarketTable.svelte";
 
 	let { data }: PageProps = $props();
 
 	// Collect exchange meta
-	const meta: Meta = $derived(
+	const meta: MetaT = $derived(
 		exchanges[`${data.venue}:${data.dex ?? ""}` as keyof typeof exchanges]
 	);
 
@@ -33,6 +34,8 @@
 		aggOI ? filtered.reduce((s, x) => s + x.oi * x.oiChange, 0) / aggOI : 0
 	);
 </script>
+
+<Meta title="StockGecko | {meta.name}" />
 
 <!-- Asset header -->
 <div>

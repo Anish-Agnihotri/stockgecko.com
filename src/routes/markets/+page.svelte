@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { getContext } from "svelte";
+	import Meta from "$components/Meta.svelte";
 	import Icon from "$components/Icon.svelte";
 	import Grid from "$components/Grid.svelte";
 	import Card from "$components/Card.svelte";
@@ -16,6 +17,8 @@
 	const venueCount = Object.keys(exchanges).length;
 	const marketCount = $derived(Object.keys(snapshot.markets).length);
 </script>
+
+<Meta title="StockGecko | Markets" />
 
 <!-- Landing header (title, description) -->
 <Grid bottom={false}>
