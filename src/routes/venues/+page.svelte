@@ -2,10 +2,10 @@
 	import { chunks } from "$lib/utils";
 	import { goto } from "$app/navigation";
 	import Grid from "$components/Grid.svelte";
+	import Icon from "$components/Icon.svelte";
 	import Meta from "$components/Meta.svelte";
 	import type { PageProps } from "../$types";
 	import exchanges from "$config/exchanges.json";
-	import Icon from "$components/Icon.svelte";
 	import Numeric from "$components/Numeric.svelte";
 
 	let { data }: PageProps = $props();
@@ -61,23 +61,23 @@
 								e.currentTarget.click();
 							}
 						}}
-						class="relative min-h-20 flex-1 cursor-pointer hover:bg-gecko-black-hover md:max-w-[calc(33.33%-20px)]"
+						class="relative min-h-16 flex-1 cursor-pointer hover:bg-gecko-black-hover md:min-h-20 md:max-w-[calc(33.33%-20px)]"
 					>
 						<div class="flex h-full flex-row items-center">
-							<div class="flex items-center px-4">
+							<div class="flex w-18 items-center justify-center">
 								<Icon
 									src={venue.icon}
 									alt={venue.name}
 									nested
 									class="{venue.icon.length > 1
-										? 'size-11.5'
-										: ''} [&_img]:first:size-9! [&_img]:last:size-6"
+										? 'size-9.5 md:size-11.5'
+										: ''} [&_img]:first:size-8! [&_img]:last:size-5 md:[&_img]:first:size-9! md:[&_img]:last:size-6"
 								/>
 							</div>
 
 							<div class="flex flex-col">
 								<!-- Venue meta -->
-								<h3 class="text-white">{venue.name}</h3>
+								<h3 class="text-sm text-white md:text-base">{venue.name}</h3>
 
 								<!-- Venue stats -->
 								<div
