@@ -1,21 +1,86 @@
 <script lang="ts">
 	import { getContext } from "svelte";
+	import tickers from "$config/tickers.json";
 	import Meta from "$components/Meta.svelte";
 	import Icon from "$components/Icon.svelte";
 	import Grid from "$components/Grid.svelte";
 	import Card from "$components/Card.svelte";
+	import { init, Chart } from "$lib/echarts";
+	import type { TickerCfg } from "$lib/types";
 	import exchanges from "$config/exchanges.json";
-	import Numeric from "$components/Numeric.svelte";
-	import type { DiffedSnapshot } from "$lib/transform";
 	import MarketTable from "$components/table/MarketTable.svelte";
+	import type { EChartsOption } from "echarts/types/dist/shared";
+	import { MARKET_TO_ASSET, type DiffedSnapshot } from "$lib/transform";
+	import Numeric, { truncateCurrency } from "$components/Numeric.svelte";
 
 	// Collect data snapshot
 	const getSnapshot = getContext<() => DiffedSnapshot>("snapshot");
 	const snapshot = $derived(getSnapshot());
 
 	// Stats
-	const venueCount = Object.keys(exchanges).length;
+	const venueCount = $derived(snapshot.aggregates.exchangeStats.length);
 	const marketCount = $derived(Object.keys(snapshot.markets).length);
+
+	// Scatter plot setup
+	const scatter: EChartsOption = $derived.by(() => {
+		// Setup data
+		const data: { name: string; value: [number, number]; symbol: string; symbolSize: number }[] =
+			[];
+
+		// Generate data from markets
+		for (const [id, market] of Object.entries(snapshot.markets)) {
+			// Resolve asset icon
+			const { asset, category } = MARKET_TO_ASSET.get(id)!;
+			const { icon } = (tickers.perps as TickerCfg)[category][asset].meta;
+
+			// Populate scatter plot data
+			data.push({
+				name: id.toUpperCase(),
+				value: [market.oi || 1, market.volume || 1],
+				symbol: icon
+					? // Rough icon handling: if FX, get non-US icon
+						`image://${icon.length > 1 ? (icon[0].includes("USD") ? icon[1] : icon[0]) : icon[0]}`
+					: "circle",
+				symbolSize: 12
+			});
+		}
+
+		// Setup X/Y axis
+		const AXIS_SETUP: EChartsOption["xAxis"] & EChartsOption["yAxis"] = {
+			type: "log",
+			min: (value) => value.min * 0.8,
+			max: (value) => value.max * 3,
+			nameLocation: "center",
+			nameTextStyle: { color: "#f3f3f3", fontSize: 12 },
+			axisLabel: { color: "#b4b4b6", fontSize: 10, formatter: truncateCurrency, margin: 15 },
+			splitLine: { lineStyle: { color: "#1f1f24" } },
+			axisLine: { lineStyle: { color: "#2b2b30" } }
+		};
+
+		return {
+			series: [{ type: "scatter", data }],
+			grid: { left: 0, right: 0, top: 0, bottom: 0 },
+			xAxis: {
+				name: "Open Interest",
+				...AXIS_SETUP
+			},
+			yAxis: {
+				name: "Volume",
+				...AXIS_SETUP
+			},
+			tooltip: {
+				trigger: "item",
+				backgroundColor: "#121218",
+				borderColor: "#1f1f24",
+				textStyle: { color: "#f3f3f3", fontSize: 11 },
+				formatter: (params: any) => {
+					const [oi, vol] = params.value;
+					return `<b>${params.name}</b><br/>OI: $${truncateCurrency(oi)}<br/>Volume: $${truncateCurrency(vol)}`;
+				}
+			},
+			legend: { show: false }
+		} satisfies EChartsOption;
+	});
 </script>
 
 <Meta title="StockGecko | Markets" />
@@ -33,8 +98,18 @@
 <!-- Statistics row -->
 <Grid>
 	<Card title="Volume vs. Open Interest" class="md:flex-6 lg:flex-9">
-		<div class="flex min-h-30 items-center justify-center text-xs text-gecko-muted">
-			<span>TODO</span>
+		<!-- Scrollable handler on mobile (defaults to `lg` breakpoint) -->
+		<div
+			class="flex items-center justify-end border-b border-b-gecko-shade bg-gecko-black px-2 py-0.5 font-mono text-xs text-gecko-gray/30 uppercase lg:hidden"
+		>
+			<span>Scrollable</span>
+			<span class="ml-1 -translate-y-px text-lg">↔</span>
+		</div>
+
+		<div class="relative flex min-h-80 flex-1 flex-col overflow-x-scroll">
+			<div class="absolute inset-0 w-full min-w-200 px-4 py-2">
+				<Chart {init} options={scatter} />
+			</div>
 		</div>
 	</Card>
 

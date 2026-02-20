@@ -1,3 +1,30 @@
+<script module>
+	// Setup denominators
+	const [BILLION, MILLION, THOUSAND] = [1e9, 1e6, 1e3];
+
+	/**
+	 * Format number as US-denominated currency (2 fixed decimals, commas)
+	 * @param {number} n to format
+	 * @return {string} formatted string
+	 */
+	function formatNumeric(n: number): string {
+		return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+	}
+
+	/**
+	 * Format number as US-denominated currency but with suffix
+	 * @param {number} n to format
+	 * @return {string} formatted string
+	 */
+	export function truncateCurrency(n: number): string {
+		const abs = Math.abs(n);
+		if (abs >= BILLION) return formatNumeric(n / BILLION) + "B";
+		if (abs >= MILLION) return formatNumeric(n / MILLION) + "M";
+		if (abs >= THOUSAND) return formatNumeric(n / THOUSAND) + "K";
+		return formatNumeric(n);
+	}
+</script>
+
 <script lang="ts">
 	let {
 		value,
@@ -15,9 +42,6 @@
 		percentage?: boolean;
 	} = $props();
 
-	// Setup denominators
-	const [BILLION, MILLION, THOUSAND] = [1e9, 1e6, 1e3];
-
 	// Setup currency symbols
 	const CURRENCY_SYMBOLS: Record<string, string> = {
 		USD: "$",
@@ -30,28 +54,6 @@
 		CHF: "₣",
 		MXN: "MX$"
 	};
-
-	/**
-	 * Format number as US-denominated currency (2 fixed decimals, commas)
-	 * @param {number} n to format
-	 * @return {string} formatted string
-	 */
-	function formatNumeric(n: number): string {
-		return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-	}
-
-	/**
-	 * Format number as US-denominated currency but with suffix
-	 * @param {number} n to format
-	 * @return {string} formatted string
-	 */
-	function truncateCurrency(n: number): string {
-		const abs = Math.abs(n);
-		if (abs >= BILLION) return formatNumeric(n / BILLION) + "B";
-		if (abs >= MILLION) return formatNumeric(n / MILLION) + "M";
-		if (abs >= THOUSAND) return formatNumeric(n / THOUSAND) + "K";
-		return formatNumeric(n);
-	}
 
 	/**
 	 * Number render based on parameterized options
