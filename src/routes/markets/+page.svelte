@@ -14,7 +14,7 @@
 
 	// Stats
 	const venueCount = Object.keys(exchanges).length;
-	const marketCount = Object.keys(snapshot.markets).length;
+	const marketCount = $derived(Object.keys(snapshot.markets).length);
 </script>
 
 <!-- Landing header (title, description) -->

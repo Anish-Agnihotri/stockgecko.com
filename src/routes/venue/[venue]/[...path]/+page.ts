@@ -1,13 +1,21 @@
 import { error } from "@sveltejs/kit";
-import type { PageLoad } from "./$types";
 import exchanges from "$config/exchanges.json";
+import type { PageLoad, EntryGenerator } from "./$types";
 
 // Valid exchanges (`hyperliquid:`, `hyperliquid:xyz`)
 const VALID_EXCHANGES: readonly string[] = Object.keys(exchanges);
 
+// Statically generate all possible venue pages
+export const entries: EntryGenerator = () => {
+	return VALID_EXCHANGES.map((exchange) => {
+		const [venue, dex] = exchange.split(":");
+		return dex !== "" ? { venue, path: `dex/${dex}` } : { venue, path: "" };
+	});
+};
+
 export const load: PageLoad = ({ params }) => {
 	// Collect path
-	const { slug, path } = params;
+	const { venue, path } = params;
 
 	// `path` is undefined for `/venue/<venue>`
 	// `path` is `dex/<dex>` for `/venue/<venue>/dex/<dex>`
@@ -20,8 +28,7 @@ export const load: PageLoad = ({ params }) => {
 	const dex = segments[0] === "dex" ? segments[1] : null;
 
 	// Setup fully-qual'd exchange name
-	const exchange = `${slug}:${dex ? dex : ""}`;
-	console.log(exchange);
+	const exchange = `${venue}:${dex ? dex : ""}`;
 
 	// Validate against exchanges
 	if (!VALID_EXCHANGES.includes(exchange)) {
@@ -29,5 +36,5 @@ export const load: PageLoad = ({ params }) => {
 	}
 
 	// Return venue, dex
-	return { venue: slug, dex };
+	return { venue, dex };
 };

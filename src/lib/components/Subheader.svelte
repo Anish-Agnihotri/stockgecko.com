@@ -8,8 +8,8 @@
 	const snapshot = $derived(getSnapshot());
 
 	// Quick metrics helpers
-	const assets = Object.keys(snapshot.assets).length;
-	const markets = Object.keys(snapshot.markets).length;
+	const assets = $derived(Object.keys(snapshot.assets).length);
+	const markets = $derived(Object.keys(snapshot.markets).length);
 
 	let { class: extraClass }: { class?: string } = $props();
 </script>
