@@ -367,22 +367,6 @@
 				},
 				"ref": ["qfex:RKLB-USD", "vest:RKLB-USD-PERP"]
 			},
-			"grmn": {
-				"meta": {
-					"name": "Garmin",
-					"description": "Garmin Ltd. is an American multinational technology company based in Olathe, Kansas. The company designs, develops, manufactures, markets, and distributes GPS-enabled products and other navigation, communication, sensor-based, and information products to the automotive, aviation, marine, outdoors, and sport markets.",
-					"icon": ["/assets/icons/stocks/garmin.webp"]
-				},
-				"ref": ["vest:GRMN-USD-PERP"]
-			},
-			"nclh": {
-				"meta": {
-					"name": "NCLH",
-					"description": "Norwegian Cruise Line Holdings is a holding company that is based in the United States and domiciled in Bermuda. It operates three cruise lines as wholly owned subsidiaries: Norwegian Cruise Line, Oceania Cruises, and Regent Seven Seas Cruises.",
-					"icon": ["/assets/icons/stocks/nclh.webp"]
-				},
-				"ref": ["vest:NCLH-USD-PERP"]
-			},
 			"lly": {
 				"meta": {
 					"name": "Eli Lily And Co",
