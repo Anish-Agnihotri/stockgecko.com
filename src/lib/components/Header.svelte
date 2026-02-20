@@ -20,7 +20,6 @@
 		<!-- Logo -->
 		<div>
 			<a href="/">
-				<!-- TODO: change gecko symbol: technically copyright is on old gecko but CoinGecko are good people and we're not trying to cause problems -->
 				<img src="/assets/brand/logo.svg" alt="StockGecko logo" class="h-6 w-auto lg:h-8" />
 			</a>
 		</div>
