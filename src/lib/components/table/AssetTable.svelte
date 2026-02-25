@@ -143,7 +143,7 @@
 						{@const { venue, namespace } = snapshot.markets[marketId]}
 						{@const { name, icon } = (exchanges as ExchangeCfg)[`${venue}:${namespace}`]}
 
-						<Icon src={icon} alt={name} tooltip={name} nested />
+						<Icon src={icon} alt={name} nested />
 					{/each}
 				</IconScroll>
 			</Table.Cell>
