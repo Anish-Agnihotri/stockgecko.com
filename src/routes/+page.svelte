@@ -18,15 +18,15 @@
 	<DitherHero class="flex flex-1 flex-col">
 		<!-- CTA -->
 		<div class="flex flex-1 items-center justify-center">
-			<div class="flex max-w-lg flex-col items-center justify-center px-8 text-center lg:px-4">
+			<div class="flex max-w-xl flex-col items-center justify-center px-8 text-center lg:px-4">
 				<h1 class="text-3xl font-bold text-gecko-white sm:text-5xl">TradFi lives on crypto.</h1>
-				<p class="pt-2 text-sm">
+				<p class="max-w-sm pt-2 text-sm">
 					<Numeric
 						value={snapshot.aggregates.volume}
 						currency="USD"
-						format="numeric"
+						format="currency"
 						class="text-gecko-gray!"
-					/> and counting of real-world assets have been traded, on crypto venues, in the last day alone.
+					/> and counting of real-world assets have traded on crypto venues in the last 24 hours.
 				</p>
 			</div>
 		</div>
