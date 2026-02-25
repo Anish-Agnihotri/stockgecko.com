@@ -1,4 +1,20 @@
 <!-- @dev: this animation code is all written by Opus 4.6 -->
+<script module lang="ts">
+	// Shared `ResizeObserver` rather than one per rendered `IconScroll`
+	// Lazily initialized to avoid SSR where ResizeObserver doesn't exist
+	let sharedObserver: ResizeObserver;
+	const resizeCallbacks = new Map<Element, () => void>();
+
+	// Lazily-initialize `ResizeObserver` in browser
+	function getObserver() {
+		return (sharedObserver ??= new ResizeObserver((entries) => {
+			for (const entry of entries) {
+				resizeCallbacks.get(entry.target)?.();
+			}
+		}));
+	}
+</script>
+
 <script lang="ts">
 	import type { Snippet } from "svelte";
 
@@ -123,10 +139,14 @@
 			(kids[i] as HTMLElement).style.zIndex = String(kids.length - i);
 		}
 
-		// Check on resize
-		const obs = new ResizeObserver(checkOverflow);
+		// Register with shared observer
+		const obs = getObserver();
+		resizeCallbacks.set(scrollerRef, checkOverflow);
 		obs.observe(scrollerRef);
-		return () => obs.disconnect();
+		return () => {
+			obs.unobserve(scrollerRef!);
+			resizeCallbacks.delete(scrollerRef!);
+		};
 	});
 </script>
 
