@@ -2,6 +2,9 @@
 	import "../app.css";
 	import "../shadcn.css";
 	import { setContext } from "svelte";
+	import "@fontsource/inter/latin-300.css";
+	import "@fontsource/inter/latin-400.css";
+	import "@fontsource/inter/latin-500.css";
 	import * as Tooltip from "$shadcn/tooltip";
 	import Header from "$components/Header.svelte";
 	import Footer from "$components/Footer.svelte";

@@ -20,7 +20,21 @@
 		<!-- Logo -->
 		<div>
 			<a href="/">
-				<img src="/assets/brand/logo.svg" alt="StockGecko logo" class="h-6 w-auto lg:h-8" />
+				<!-- Mobile-friendly variant with explicit w/h -->
+				<img
+					src="/assets/brand/logo.svg"
+					alt="StockGecko logo"
+					class="hidden lg:inline"
+					height="32px"
+					width="160px"
+				/>
+				<img
+					src="/assets/brand/logo.svg"
+					alt="StockGecko logo"
+					class="lg:hidden"
+					height="24px"
+					width="120px"
+				/>
 			</a>
 		</div>
 
