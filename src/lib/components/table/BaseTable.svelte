@@ -38,7 +38,7 @@
 <div class="flex w-full flex-col {showBorder ? 'border-b border-b-gecko-shade ' : ''}">
 	<!-- Scrollable handler on mobile (defaults to `lg` breakpoint) -->
 	<div
-		class="flex items-center justify-end border-b border-b-gecko-shade bg-gecko-black px-2 py-0.5 font-mono text-xs text-gecko-gray/30 uppercase lg:hidden"
+		class="flex items-center justify-end border-b border-b-gecko-shade bg-gecko-black px-2 py-0.5 font-mono text-xs text-gecko-gray/50 uppercase lg:hidden"
 	>
 		<span>Scrollable</span>
 		<span class="ml-1 -translate-y-px text-lg">↔</span>
