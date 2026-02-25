@@ -17,7 +17,8 @@
 	);
 
 	// Asset data
-	const asset = $derived(data.snapshot.assets[data.asset]);
+	const snapshot = $derived(data.snapshot);
+	const asset = $derived(snapshot.assets[data.asset]);
 </script>
 
 <Meta title="StockGecko | {meta.name}" />
@@ -77,5 +78,5 @@
 
 <!-- Market table -->
 <div class="flex flex-1 flex-col md:border-t md:border-t-gecko-shade">
-	<MarketTable filter={{ assetId: data.asset }} />
+	<MarketTable filter={{ assetId: data.asset }} {snapshot} />
 </div>

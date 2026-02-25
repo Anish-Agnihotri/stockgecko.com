@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getContext } from "svelte";
+	import type { PageProps } from "../$types";
 	import tickers from "$config/tickers.json";
 	import Meta from "$components/Meta.svelte";
 	import Icon from "$components/Icon.svelte";
@@ -13,9 +13,8 @@
 	import { MARKET_TO_ASSET, type DiffedSnapshot } from "$lib/transform";
 	import Numeric, { truncateCurrency } from "$components/Numeric.svelte";
 
-	// Collect data snapshot
-	const getSnapshot = getContext<() => DiffedSnapshot>("snapshot");
-	const snapshot = $derived(getSnapshot());
+	let { data }: PageProps = $props();
+	const snapshot = $derived(data.snapshot as DiffedSnapshot);
 
 	// Stats
 	const venueCount = $derived(snapshot.aggregates.exchangeStats.length);
@@ -154,5 +153,5 @@
 
 <!-- Table of all markets -->
 <div class="md:border-t md:border-t-gecko-shade">
-	<MarketTable />
+	<MarketTable {snapshot} />
 </div>

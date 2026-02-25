@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { getContext } from "svelte";
 	import * as Table from "$shadcn/table";
 	import { marketToURL } from "$lib/utils";
 	import Icon from "$components/Icon.svelte";
@@ -11,10 +10,6 @@
 	import { MARKET_TO_ASSET, type DiffedSnapshot } from "$lib/transform";
 	import { createSortState, sortRows, type Column } from "$components/table/table.svelte";
 
-	// Collect data snapshot
-	const getSnapshot = getContext<() => DiffedSnapshot>("snapshot");
-	const snapshot = $derived(getSnapshot());
-
 	// Setup sortable table
 	type MarketKey = keyof DiffedSnapshot["markets"][0];
 	const sort = createSortState<MarketKey>("volume");
@@ -22,8 +17,8 @@
 	// Preserve market ID and enrich with assetId
 	type MarketRow = DiffedSnapshot["markets"][string] & { id: string; assetId: string };
 
-	// Custom market filters
-	let { filter }: { filter?: Partial<MarketRow> } = $props();
+	// Collect snapshot, custom market filters
+	let { snapshot, filter }: { snapshot: DiffedSnapshot; filter?: Partial<MarketRow> } = $props();
 
 	// Derive available markets w/ filter
 	const entries: MarketRow[] = $derived(

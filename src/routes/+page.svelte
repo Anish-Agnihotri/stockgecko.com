@@ -1,14 +1,12 @@
 <script lang="ts">
-	import { getContext } from "svelte";
+	import type { PageProps } from "./$types";
 	import Meta from "$components/Meta.svelte";
 	import Numeric from "$components/Numeric.svelte";
-	import type { DiffedSnapshot } from "$lib/transform";
 	import DitherHero from "$components/DitherHero.svelte";
 	import AssetTable from "$components/table/AssetTable.svelte";
 
-	// Collect data snapshot
-	const getSnapshot = getContext<() => DiffedSnapshot>("snapshot");
-	const snapshot = $derived(getSnapshot());
+	let { data }: PageProps = $props();
+	const snapshot = $derived(data.snapshot);
 </script>
 
 <Meta />
@@ -22,7 +20,7 @@
 				<h1 class="text-3xl font-bold text-gecko-white sm:text-5xl">TradFi lives on crypto.</h1>
 				<p class="max-w-sm pt-2 text-sm">
 					<Numeric
-						value={snapshot.aggregates.volume}
+						value={data.snapshot.aggregates.volume}
 						currency="USD"
 						format="currency"
 						class="text-gecko-gray!"
@@ -35,5 +33,5 @@
 
 <!-- Tabular data -->
 <section class="flex max-w-full flex-1 flex-row justify-center">
-	<AssetTable />
+	<AssetTable {snapshot} />
 </section>

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { tick } from "svelte";
-	import { getContext } from "svelte";
+	import { page } from "$app/state";
 	import { goto } from "$app/navigation";
 	import Icon from "$components/Icon.svelte";
 	import * as Command from "$shadcn/command";
@@ -10,9 +10,8 @@
 	import type { DiffedSnapshot } from "$lib/transform";
 	import type { ExchangeCfg, TickerCfg } from "$lib/types";
 
-	// Collect data snapshot
-	const getSnapshot = getContext<() => DiffedSnapshot>("snapshot");
-	const snapshot = $derived(getSnapshot());
+	// Snapshot via global page state
+	const snapshot = $derived(page.data.snapshot);
 
 	// Collect menu close fn
 	let { close }: { close: () => void } = $props();

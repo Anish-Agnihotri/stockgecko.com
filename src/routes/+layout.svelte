@@ -1,7 +1,6 @@
 <script lang="ts">
 	import "../app.css";
 	import "../shadcn.css";
-	import { setContext } from "svelte";
 	import "@fontsource/inter/latin-300.css";
 	import "@fontsource/inter/latin-400.css";
 	import "@fontsource/inter/latin-500.css";
@@ -9,11 +8,7 @@
 	import Footer from "$components/Footer.svelte";
 	import Subheader from "$components/Subheader.svelte";
 
-	// Injected data, page children
-	let props = $props();
-
-	// Set snapshot reference in Svelte component tree context to prevent drilling
-	setContext("snapshot", () => props.data.snapshot);
+	let { children } = $props();
 </script>
 
 <!-- Setup layout -->
@@ -27,7 +22,7 @@
 	<!-- Content -->
 	<main class="order-3 flex flex-1 flex-row justify-center">
 		<div class="flex w-full max-w-7xl flex-1 flex-col border-x-gecko-shade lg:border-x">
-			{@render props.children()}
+			{@render children()}
 		</div>
 	</main>
 

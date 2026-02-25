@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { getContext } from "svelte";
 	import * as Table from "$shadcn/table";
 	import { goto } from "$app/navigation";
 	import tickers from "$config/tickers.json";
@@ -12,9 +11,7 @@
 	import BaseTable from "$components/table/BaseTable.svelte";
 	import { createSortState, sortRows, type Column } from "$components/table/table.svelte";
 
-	// Collect data snapshot
-	const getSnapshot = getContext<() => DiffedSnapshot>("snapshot");
-	const snapshot = $derived(getSnapshot());
+	let { snapshot }: { snapshot: DiffedSnapshot } = $props();
 
 	// Setup sortable table
 	type AssetKey = keyof DiffedSnapshot["assets"][0];

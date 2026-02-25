@@ -17,8 +17,9 @@
 	);
 
 	// Filter markets
+	const snapshot = $derived(data.snapshot);
 	const filtered = $derived(
-		Object.values(data.snapshot.markets).filter(
+		Object.values(snapshot.markets).filter(
 			(x) => x.venue === data.venue && (data.dex ? x.namespace === data.dex : true)
 		)
 	);
@@ -85,5 +86,8 @@
 
 <!-- Market table -->
 <div class="flex flex-1 flex-col md:border-t md:border-t-gecko-shade">
-	<MarketTable filter={{ venue: data.venue, ...(data.dex ? { namespace: data.dex } : {}) }} />
+	<MarketTable
+		filter={{ venue: data.venue, ...(data.dex ? { namespace: data.dex } : {}) }}
+		{snapshot}
+	/>
 </div>

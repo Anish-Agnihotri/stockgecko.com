@@ -1,17 +1,13 @@
 <script lang="ts">
-	import { getContext } from "svelte";
+	import { page } from "$app/state";
 	import Numeric from "$components/Numeric.svelte";
-	import type { DiffedSnapshot } from "$lib/transform";
-
-	// Collect data snapshot
-	const getSnapshot = getContext<() => DiffedSnapshot>("snapshot");
-	const snapshot = $derived(getSnapshot());
-
-	// Quick metrics helpers
-	const assets = $derived(Object.keys(snapshot.assets).length);
-	const markets = $derived(Object.keys(snapshot.markets).length);
 
 	let { class: extraClass }: { class?: string } = $props();
+
+	// Quick metrics helpers
+	const snapshot = $derived(page.data.snapshot);
+	const assets = $derived(Object.keys(snapshot.assets).length);
+	const markets = $derived(Object.keys(snapshot.markets).length);
 </script>
 
 <section
