@@ -10,7 +10,21 @@
 			<!-- Logo -->
 			<div class="flex flex-row lg:justify-center">
 				<a href="/">
-					<img src="/assets/brand/logo.svg" alt="StockGecko logo" class="h-6 lg:h-10" />
+					<!-- Mobile-friendly variant with explicit w/h -->
+					<img
+						src="/assets/brand/logo.svg"
+						alt="StockGecko logo"
+						class="hidden lg:inline"
+						height="40px"
+						width="200px"
+					/>
+					<img
+						src="/assets/brand/logo.svg"
+						alt="StockGecko logo"
+						class="lg:hidden"
+						height="24px"
+						width="120px"
+					/>
 				</a>
 			</div>
 
