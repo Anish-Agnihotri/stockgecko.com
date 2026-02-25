@@ -30,12 +30,12 @@
 
 			<!-- Terms -->
 			<div class="pt-5">
-				<p class="text-left text-xs text-gecko-muted lg:text-center">
+				<p class="text-left text-xs text-gecko-white/40 lg:text-center">
 					StockGecko is an independent, <a
 						href="https://github.com/anish-agnihotri/stockgecko.com"
 						target="_blank"
 						rel="noopener noreferrer"
-						class="text-gecko-white/30 hover:text-gecko-white/50">open-source</a
+						class="text-gecko-white/70 hover:text-gecko-white/90">open-source</a
 					>
 					project, and is not affiliated with, endorsed by, or connected to CoinGecko in any way. All
 					data presented on this site is provided on an as-is basis for information purposes only and
