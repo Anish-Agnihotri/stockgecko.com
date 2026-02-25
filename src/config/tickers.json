@@ -5,7 +5,7 @@
 				"meta": {
 					"name": "Nvidia",
 					"description": "Nvidia Corporation is an American technology company headquartered in Santa Clara, California. Founded in 1993 by Jensen Huang, Chris Malachowsky, and Curtis Priem, it develops graphics processing units (GPUs), systems on chips (SoCs), and application programming interfaces (APIs) for data science, high-performance computing, video games, and mobile and automotive applications. Nvidia has been described as a Big Tech company.",
-					"icon": ["/assets/icons/stocks/nvidia.webp"]
+					"icon": ["/assets/icons/stocks/nvidia.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:NVDA",
@@ -24,7 +24,7 @@
 				"meta": {
 					"name": "Micron",
 					"description": "Micron Technology, Inc. is an American semiconductor company that manufactures computer memory and computer data storage products, including dynamic random-access memory, flash memory, and solid-state drives. Founded in 1978 in Boise, Idaho, Micron is the only major American computer memory manufacturer.",
-					"icon": ["/assets/icons/stocks/micron.webp"]
+					"icon": ["/assets/icons/stocks/micron.svg"]
 				},
 				"ref": ["hyperliquid:xyz:MU", "aster:MUUSDT", "vest:MU-USD-PERP"]
 			},
@@ -32,7 +32,7 @@
 				"meta": {
 					"name": "Robinhood",
 					"description": "Robinhood Markets, Inc. is an American financial services company based in Menlo Park, California. It provides an electronic trading platform that facilitates trades of stocks, exchange-traded funds, options, index options, futures contracts, event contracts on prediction markets, and cryptocurrency.",
-					"icon": ["/assets/icons/stocks/robinhood.webp"]
+					"icon": ["/assets/icons/stocks/robinhood.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:HOOD",
@@ -50,7 +50,7 @@
 				"meta": {
 					"name": "Sandisk",
 					"description": "Sandisk Corporation is an American multinational computer technology company based in Milpitas, California, that designs and manufactures flash memory products, including memory cards, USB flash drives, and solid-state drives. It was founded in 1988 as SunDisk by Eli Harari, Sanjay Mehrotra, and Jack Yuan.",
-					"icon": ["/assets/icons/stocks/sandisk.webp"]
+					"icon": ["/assets/icons/stocks/sandisk.svg"]
 				},
 				"ref": ["hyperliquid:xyz:SNDK", "lighter:SNDK", "aster:SNDKUSDT", "vest:SNDK-USD-PERP"]
 			},
@@ -58,7 +58,7 @@
 				"meta": {
 					"name": "Tesla",
 					"description": "Tesla, Inc. is an American multinational automotive and clean energy company. Headquartered in Austin, Texas, it designs, manufactures, and sells battery electric vehicles, stationary battery energy storage devices from home to grid-scale, solar panels and solar shingles, and related products and services.",
-					"icon": ["/assets/icons/stocks/tesla.webp"]
+					"icon": ["/assets/icons/stocks/tesla.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:TSLA",
@@ -79,7 +79,7 @@
 				"meta": {
 					"name": "Intel",
 					"description": "Intel Corporation is an American multinational technology company headquartered in Santa Clara, California. It designs, manufactures, and sells computer components such as central processing units and related products for business and consumer markets.",
-					"icon": ["/assets/icons/stocks/intel.webp"]
+					"icon": ["/assets/icons/stocks/intel.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:INTC",
@@ -94,7 +94,7 @@
 				"meta": {
 					"name": "MicroStrategy",
 					"description": "Strategy Inc., formerly known as MicroStrategy, is an American company that provides business intelligence and mobile software. Since 2020, the company's securities are widely considered to be a bitcoin proxy due to MicroStrategy's holdings of the cryptocurrency. Saylor has compared it to a bitcoin spot leveraged ETF, though it's not a regulated investment fund.",
-					"icon": ["/assets/icons/stocks/microstrategy.webp"]
+					"icon": ["/assets/icons/stocks/microstrategy.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:MSTR",
@@ -110,7 +110,7 @@
 				"meta": {
 					"name": "Palantir",
 					"description": "Palantir Technologies Inc. is an American publicly traded company that develops data integration and analytics platforms enabling government agencies, militaries, and corporations to combine and analyze data from multiple sources.",
-					"icon": ["/assets/icons/stocks/palantir.webp"]
+					"icon": ["/assets/icons/stocks/palantir.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:PLTR",
@@ -126,7 +126,7 @@
 				"meta": {
 					"name": "Coinbase",
 					"description": "Coinbase Global, Inc. is an American cryptocurrency exchange. It was founded in 2012 by Brian Armstrong and Fred Ehrsam. Coinbase has over 100 million users, and is the largest U.S. based cryptocurrency exchange as well as the world's biggest bitcoin custodian, as of 2024.",
-					"icon": ["/assets/icons/stocks/coinbase.webp"]
+					"icon": ["/assets/icons/stocks/coinbase.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:COIN",
@@ -143,7 +143,7 @@
 				"meta": {
 					"name": "Google",
 					"description": "Google LLC is an American multinational technology corporation focused on information technology, online advertising, search engine technology, email, cloud computing, software, quantum computing, e-commerce, consumer electronics, and artificial intelligence.",
-					"icon": ["/assets/icons/stocks/google.webp"]
+					"icon": ["/assets/icons/stocks/google.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:GOOGL",
@@ -160,7 +160,7 @@
 				"meta": {
 					"name": "Microsoft",
 					"description": "Microsoft Corporation is an American multinational technology conglomerate headquartered in Redmond, Washington.",
-					"icon": ["/assets/icons/stocks/microsoft.webp"]
+					"icon": ["/assets/icons/stocks/microsoft.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:MSFT",
@@ -176,7 +176,7 @@
 				"meta": {
 					"name": "Amazon",
 					"description": "Amazon.com, Inc. is an American multinational technology company engaged in e-commerce, cloud computing, online advertising, digital streaming, and artificial intelligence.",
-					"icon": ["/assets/icons/stocks/amazon.webp"]
+					"icon": ["/assets/icons/stocks/amazon.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:AMZN",
@@ -194,7 +194,7 @@
 				"meta": {
 					"name": "AMD",
 					"description": "Advanced Micro Devices, Inc. is an American multinational semiconductor company headquartered in Santa Clara, California, with significant operations in Austin, Texas.",
-					"icon": ["/assets/icons/stocks/amd.webp"]
+					"icon": ["/assets/icons/stocks/amd.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:AMD",
@@ -209,7 +209,7 @@
 				"meta": {
 					"name": "Oracle",
 					"description": "Oracle Corporation is an American multinational technology company headquartered in Austin, Texas. Co-founded in Santa Clara, California by Bob Miner, Ed Oates, and current CEO Larry Ellison in 1977, Oracle is among the 20 largest companies in the world by market cap, and ranked 66th on the Forbes Global 2000 as of 2025.",
-					"icon": ["/assets/icons/stocks/oracle.webp"]
+					"icon": ["/assets/icons/stocks/oracle.svg"]
 				},
 				"ref": ["hyperliquid:xyz:ORCL", "ostium:ORCL-USD", "vest:ORCL-USD-PERP"]
 			},
@@ -217,7 +217,7 @@
 				"meta": {
 					"name": "Rivian",
 					"description": "Rivian Automotive, Inc., is an American electric vehicle manufacturer and automotive technology company founded in 2009.",
-					"icon": ["/assets/icons/stocks/rivian.webp"]
+					"icon": ["/assets/icons/stocks/rivian.svg"]
 				},
 				"ref": ["hyperliquid:xyz:RIVN", "ostium:RIVN-USD", "vest:RIVN-USD-PERP"]
 			},
@@ -225,7 +225,7 @@
 				"meta": {
 					"name": "Meta",
 					"description": "Meta Platforms, Inc. is an American multinational technology company headquartered in Menlo Park, California. Meta owns and operates several prominent social media platforms and communication services, including Facebook, Instagram, WhatsApp, Messenger, Threads and Manus.",
-					"icon": ["/assets/icons/stocks/meta.webp"]
+					"icon": ["/assets/icons/stocks/meta.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:META",
@@ -242,7 +242,7 @@
 				"meta": {
 					"name": "USAR",
 					"description": "USA Rare Earth, Inc. is an American mining and manufacturing company specializing in the extraction, processing, and production of rare-earth elements, particularly heavy rare-earth elements, and permanent magnets.",
-					"icon": ["/assets/icons/stocks/usar.webp"]
+					"icon": ["/assets/icons/stocks/usar.svg"]
 				},
 				"ref": ["hyperliquid:xyz:USAR"]
 			},
@@ -250,7 +250,7 @@
 				"meta": {
 					"name": "Alibaba",
 					"description": "Alibaba Group Holding Limited, branded as Alibaba, is a Chinese multinational technology company specializing in e-commerce, retail, Internet, and technology.",
-					"icon": ["/assets/icons/stocks/alibaba.webp"]
+					"icon": ["/assets/icons/stocks/alibaba.svg"]
 				},
 				"ref": ["hyperliquid:xyz:BABA", "hyperliquid:km:BABA"]
 			},
@@ -258,7 +258,7 @@
 				"meta": {
 					"name": "TSMC",
 					"description": "Taiwan Semiconductor Manufacturing Company Limited is a Taiwanese multinational semiconductor contract manufacturing and design company.",
-					"icon": ["/assets/icons/stocks/tsmc.webp"]
+					"icon": ["/assets/icons/stocks/tsmc.svg"]
 				},
 				"ref": ["hyperliquid:xyz:TSM"]
 			},
@@ -266,7 +266,7 @@
 				"meta": {
 					"name": "CoreWeave",
 					"description": "CoreWeave, Inc. is an American artificial intelligence cloud-computing company based in Livingston, New Jersey. It specializes in providing cloud-based graphics processing unit infrastructure to AI developers and enterprises, and also develops its own chip management software.",
-					"icon": ["/assets/icons/stocks/coreweave.webp"]
+					"icon": ["/assets/icons/stocks/coreweave.svg"]
 				},
 				"ref": ["hyperliquid:xyz:CRWV", "qfex:CRWV-USD"]
 			},
@@ -274,7 +274,7 @@
 				"meta": {
 					"name": "Apple",
 					"description": "Apple Inc. is an American multinational technology company headquartered in Cupertino, California, in Silicon Valley, best known for its consumer electronics, software and online services.",
-					"icon": ["/assets/icons/stocks/apple.webp"]
+					"icon": ["/assets/icons/stocks/apple.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:AAPL",
@@ -291,7 +291,7 @@
 				"meta": {
 					"name": "Circle",
 					"description": "Circle is a payments technology company. Funded by Jeremy Allaire and Sean Neville in 2013, it is currently headquartered in New York City and issues two types of stablecoin: USDC, which has a conversion rate pegged to the U.S. dollar, and EURC, which is euro-denominated.",
-					"icon": ["/assets/icons/stocks/circle.webp"]
+					"icon": ["/assets/icons/stocks/circle.svg"]
 				},
 				"ref": [
 					"hyperliquid:flx:CRCL",
@@ -307,7 +307,7 @@
 				"meta": {
 					"name": "Bitmine",
 					"description": "Bitmine Immersion Technologies, Inc. is a technology company focused on acquiring, holding, and actively managing ETH as its primary treasury reserve asset.",
-					"icon": ["/assets/icons/stocks/bitmine.webp"]
+					"icon": ["/assets/icons/stocks/bitmine.svg"]
 				},
 				"ref": ["lighter:BMNR", "ostium:BMNR-USD", "vest:BMNR-USD-PERP"]
 			},
@@ -315,7 +315,7 @@
 				"meta": {
 					"name": "Chevron",
 					"description": "Chevron Corporation is an American multinational energy corporation predominantly specializing in oil and gas. The second-largest direct descendant of Standard Oil, and originally known as the Standard Oil Company of California, it is active in more than 180 countries.",
-					"icon": ["/assets/icons/stocks/chevron.webp"]
+					"icon": ["/assets/icons/stocks/chevron.svg"]
 				},
 				"ref": ["ostium:CVX-USD"]
 			},
@@ -323,7 +323,7 @@
 				"meta": {
 					"name": "Exxon Mobil",
 					"description": "Exxon Mobil Corporation is an American multinational oil and gas corporation headquartered in Spring, Texas, a suburb of Houston.",
-					"icon": ["/assets/icons/stocks/exxon.webp"]
+					"icon": ["/assets/icons/stocks/exxon.svg"]
 				},
 				"ref": ["ostium:XOM-USD"]
 			},
@@ -331,7 +331,7 @@
 				"meta": {
 					"name": "Costco",
 					"description": "Costco Wholesale Corporation is an American multinational corporation which operates a chain of membership-only big-box warehouse club retail stores.",
-					"icon": ["/assets/icons/stocks/costco.webp"]
+					"icon": ["/assets/icons/stocks/costco.svg"]
 				},
 				"ref": ["ostium:COST-USD", "vest:COST-USD-PERP"]
 			},
@@ -339,7 +339,7 @@
 				"meta": {
 					"name": "Netflix",
 					"description": "Netflix, Inc. is an American media company founded on August 29, 1997 by Reed Hastings and Marc Randolph in Scotts Valley, California, and currently based in Los Gatos, California, with production offices and stages at the Los Angeles-based Hollywood studios and the Albuquerque Studios.",
-					"icon": ["/assets/icons/stocks/netflix.webp"]
+					"icon": ["/assets/icons/stocks/netflix.svg"]
 				},
 				"ref": ["ostium:NFLX-USD", "hyperliquid:xyz:NFLX", "vest:NFLX-USD-PERP"]
 			},
@@ -347,7 +347,7 @@
 				"meta": {
 					"name": "Galaxy Digital",
 					"description": "Galaxy Digital Inc. is a financial services firm focused on digital assets and blockchain, structured with subsidiaries managing trading, asset management, principal investments, advisory, and mining services.",
-					"icon": ["/assets/icons/stocks/galaxy.webp"]
+					"icon": ["/assets/icons/stocks/galaxy.svg"]
 				},
 				"ref": ["ostium:GLXY-USD"]
 			},
@@ -355,7 +355,7 @@
 				"meta": {
 					"name": "SharpLink",
 					"description": "Sharplink, Inc. is an institutional-grade Ethereum treasury platform that provides public market investors with exposure to ETH. The platform focuses on Ethereum, which is used in various stablecoin, tokenized real-world asset, and decentralized finance settlement applications.",
-					"icon": ["/assets/icons/stocks/sharplink.webp"]
+					"icon": ["/assets/icons/stocks/sharplink.svg"]
 				},
 				"ref": ["ostium:SBET-USD"]
 			},
@@ -363,7 +363,7 @@
 				"meta": {
 					"name": "Rocket Lab",
 					"description": "Rocket Lab Corporation is a publicly traded aerospace manufacturer and launch service provider.",
-					"icon": ["/assets/icons/stocks/rocketlab.webp"]
+					"icon": ["/assets/icons/stocks/rocketlab.svg"]
 				},
 				"ref": ["qfex:RKLB-USD", "vest:RKLB-USD-PERP"]
 			},
@@ -371,7 +371,7 @@
 				"meta": {
 					"name": "Eli Lily And Co",
 					"description": "Eli Lilly and Company, doing business as Lilly, is an American multinational pharmaceutical company headquartered in Indianapolis, Indiana, with offices in 18 countries. Its products are sold in approximately 125 countries.",
-					"icon": ["/assets/icons/stocks/lly.webp"]
+					"icon": ["/assets/icons/stocks/lly.svg"]
 				},
 				"ref": ["vest:LLY-USD-PERP"]
 			},
@@ -379,7 +379,7 @@
 				"meta": {
 					"name": "Ondas",
 					"description": "Ondas Inc engages in the development, marketing, and sale of wireless radio systems for secure, wide area mission-critical business-to-business networks. It operates through the Ondas Networks and Ondas Autonomous Systems segments.",
-					"icon": ["/assets/icons/stocks/ondas.webp"]
+					"icon": ["/assets/icons/stocks/ondas.svg"]
 				},
 				"ref": ["vest:ONDS-USD-PERP"]
 			}
@@ -389,7 +389,7 @@
 				"meta": {
 					"name": "XYZ100",
 					"description": "100 largest non-financial public companies.",
-					"icon": ["/assets/icons/indices/xyz100.webp"]
+					"icon": ["/assets/icons/indices/xyz100.svg"]
 				},
 				"ref": ["hyperliquid:xyz:XYZ100"]
 			},
@@ -397,7 +397,7 @@
 				"meta": {
 					"name": "USA500",
 					"description": "S&P 500 index.",
-					"icon": ["/assets/icons/indices/usa500.webp"]
+					"icon": ["/assets/icons/indices/usa500.svg"]
 				},
 				"ref": ["hyperliquid:cash:USA500"]
 			},
@@ -405,7 +405,7 @@
 				"meta": {
 					"name": "US500",
 					"description": "U.S. large-cap equity exposure.",
-					"icon": ["/assets/icons/indices/us500.webp"]
+					"icon": ["/assets/icons/indices/us500.svg"]
 				},
 				"ref": ["hyperliquid:km:US500"]
 			},
@@ -413,7 +413,7 @@
 				"meta": {
 					"name": "QFEX 100",
 					"description": "QFEX 100 Index.",
-					"icon": ["/assets/icons/indices/us100.webp"]
+					"icon": ["/assets/icons/indices/us100.svg"]
 				},
 				"ref": ["qfex:US100-USD"]
 			},
@@ -421,7 +421,7 @@
 				"meta": {
 					"name": "US Tech",
 					"description": "Leading 100 U.S. technology and innovation companies.",
-					"icon": ["/assets/icons/indices/ustech.webp"]
+					"icon": ["/assets/icons/indices/ustech.svg"]
 				},
 				"ref": ["hyperliquid:km:USTECH"]
 			},
@@ -429,7 +429,7 @@
 				"meta": {
 					"name": "US Bond",
 					"description": "Provides exposure to U.S. Treasury bonds with remaining maturities greater than 20 years.",
-					"icon": ["/assets/icons/indices/usbond.webp"]
+					"icon": ["/assets/icons/indices/usbond.svg"]
 				},
 				"ref": ["hyperliquid:km:USBOND"]
 			},
@@ -437,7 +437,7 @@
 				"meta": {
 					"name": "MAG7",
 					"description": "MAG7 tracks the MAGS ETF, which offers equal weight exposure to the “Magnificent Seven” stocks – Alphabet, Amazon, Apple, Meta, Microsoft, Nvidia, and Tesla.",
-					"icon": ["/assets/icons/indices/mag7.webp"]
+					"icon": ["/assets/icons/indices/mag7.svg"]
 				},
 				"ref": ["hyperliquid:vntl:MAG7"]
 			},
@@ -445,7 +445,7 @@
 				"meta": {
 					"name": "SMALL2000",
 					"description": "U.S. small-cap equity market.",
-					"icon": ["/assets/icons/indices/small2000.webp"]
+					"icon": ["/assets/icons/indices/small2000.svg"]
 				},
 				"ref": ["hyperliquid:km:SMALL2000"]
 			},
@@ -453,7 +453,7 @@
 				"meta": {
 					"name": "Nuclear",
 					"description": "NUCLEAR tracks the NLR ETF, which offers total-market exposure to the nuclear renaissance. It captures the entire value chain, from uranium mining and fuel enrichment to nuclear plant construction and the utilities generating carbon-free baseload power.",
-					"icon": ["/assets/icons/indices/nuclear.webp"]
+					"icon": ["/assets/icons/indices/nuclear.svg"]
 				},
 				"ref": ["hyperliquid:vntl:NUCLEAR"]
 			},
@@ -461,7 +461,7 @@
 				"meta": {
 					"name": "Robotics",
 					"description": "ROBOT tracks the BOTZ ETF, which offers exposure to the future of physical intelligence. It targets the AI and robotics revolution, investing in global leaders across industrial automation, surgical robotics, and autonomous vehicle technology.",
-					"icon": ["/assets/icons/indices/robotics.webp"]
+					"icon": ["/assets/icons/indices/robotics.svg"]
 				},
 				"ref": ["hyperliquid:vntl:ROBOT"]
 			},
@@ -469,7 +469,7 @@
 				"meta": {
 					"name": "Defense",
 					"description": "DEFENSE tracks the SHLD ETF, which captures the tech-driven defense revolution. It offers targeted exposure to AI-powered cybersecurity, big data analytics, and next-gen hardware like autonomous robotics and advanced aerospace.",
-					"icon": ["/assets/icons/indices/defense.webp"]
+					"icon": ["/assets/icons/indices/defense.svg"]
 				},
 				"ref": ["hyperliquid:vntl:DEFENSE"]
 			},
@@ -477,7 +477,7 @@
 				"meta": {
 					"name": "Semiconductors",
 					"description": "SEMIS tracks the SMH ETF, which offers exposure to the semiconductor industry — the backbone of modern computing. It focuses on the companies that design, manufacture, and distribute the chips powering everything from smartphones to AI data centers.",
-					"icon": ["/assets/icons/indices/semiconductors.webp"]
+					"icon": ["/assets/icons/indices/semiconductors.svg"]
 				},
 				"ref": ["hyperliquid:vntl:SEMIS"]
 			},
@@ -485,7 +485,7 @@
 				"meta": {
 					"name": "Infotech",
 					"description": "INFOTECH tracks the XLK ETF, which offers exposure to companies in the S&P 500 technology sector, spanning enterprise software, cloud infrastructure, and world-class hardware manufacturing.",
-					"icon": ["/assets/icons/indices/infotech.webp"]
+					"icon": ["/assets/icons/indices/infotech.svg"]
 				},
 				"ref": ["hyperliquid:vntl:INFOTECH"]
 			},
@@ -493,7 +493,7 @@
 				"meta": {
 					"name": "Energy",
 					"description": "ENERGY tracks the XLE ETF, which offers exposure to the American energy machine. It focuses on the largest U.S. players in the oil, gas, and consumable fuel sectors, capturing the full spectrum of energy production, refining, and distribution.",
-					"icon": ["/assets/icons/indices/energy.webp"]
+					"icon": ["/assets/icons/indices/energy.svg"]
 				},
 				"ref": ["hyperliquid:vntl:ENERGY"]
 			},
@@ -501,7 +501,7 @@
 				"meta": {
 					"name": "Biotech",
 					"description": "BIOTECH tracks the XBI ETF, which represents the engine of medical innovation. It uses an equal-weighted approach to capture the biotechnology sector, providing high-growth exposure to smaller firms developing next-gen drugs and life-saving therapies.",
-					"icon": ["/assets/icons/indices/biotech.webp"]
+					"icon": ["/assets/icons/indices/biotech.svg"]
 				},
 				"ref": ["hyperliquid:vntl:BIOTECH"]
 			},
@@ -509,7 +509,7 @@
 				"meta": {
 					"name": "S&P 500",
 					"description": "S&P 500 is a stock market index tracking the stock performance of 500 leading companies listed on stock exchanges in the United States. ",
-					"icon": ["/assets/icons/indices/sp500.webp"]
+					"icon": ["/assets/icons/indices/sp500.svg"]
 				},
 				"ref": ["lighter:SPY", "edgex:SPYUSD", "vest:SPY-USD-PERP"]
 			},
@@ -517,7 +517,7 @@
 				"meta": {
 					"name": "QQQ",
 					"description": "QQQ tracks a modified-market-cap-weighted index of 100 NASDAQ-listed stocks. The listed name for QQQ is Invesco QQQ Trust, Series 1. ",
-					"icon": ["/assets/icons/indices/qqq.webp"]
+					"icon": ["/assets/icons/indices/qqq.svg"]
 				},
 				"ref": ["lighter:QQQ", "aster:QQQUSDT", "edgex:QQQUSD", "vest:QQQ-USD-PERP"]
 			},
@@ -525,7 +525,7 @@
 				"meta": {
 					"name": "Hang Seng",
 					"description": "The Hang Seng Index is a market-capitalisation-weighted stock market index in Hong Kong adjusted for free float. It tracks and records daily changes in the largest stock listings on the Hong Kong Stock Exchange and serves as the primary indicator of overall market performance in Hong Kong.",
-					"icon": ["/assets/icons/indices/hsi.webp"],
+					"icon": ["/assets/icons/indices/hsi.svg"],
 					"quote": "HKD"
 				},
 				"ref": ["ostium:HSI-HKD"]
@@ -534,7 +534,7 @@
 				"meta": {
 					"name": "DAX",
 					"description": "The DAX is a stock market index consisting of the 40 major German blue chip companies trading on the Frankfurt Stock Exchange. It is a total return index.",
-					"icon": ["/assets/icons/indices/dax.webp"],
+					"icon": ["/assets/icons/indices/dax.svg"],
 					"quote": "EUR"
 				},
 				"ref": ["ostium:DAX-EUR"]
@@ -543,7 +543,7 @@
 				"meta": {
 					"name": "FTSE 100",
 					"description": "The Financial Times Stock Exchange 100 Index, also called the FTSE 100 Index, FTSE 100, FTSE, or, informally, the 'Footsie', is one of the United Kingdom's best-known stock market indices and represents the 100 most highly capitalised blue chips listed on the London Stock Exchange.",
-					"icon": ["/assets/icons/indices/ftse.webp"],
+					"icon": ["/assets/icons/indices/ftse.svg"],
 					"quote": "GBP"
 				},
 				"ref": ["ostium:FTSE-GBP"]
@@ -552,7 +552,7 @@
 				"meta": {
 					"name": "Nikkei 225",
 					"description": "The Nikkei 225, or the Nikkei Stock Average, more commonly called the Nikkei or the Nikkei index, is a stock market index for the Tokyo Stock Exchange. It is a price-weighted index, operating in the Japanese Yen, and its components are reviewed twice a year.",
-					"icon": ["/assets/icons/indices/nikkei.webp"],
+					"icon": ["/assets/icons/indices/nikkei.svg"],
 					"quote": "JPY"
 				},
 				"ref": ["ostium:NIK-JPY"]
@@ -561,7 +561,7 @@
 				"meta": {
 					"name": "S&P 500",
 					"description": "S&P 500 is a stock market index tracking the stock performance of 500 leading companies listed on stock exchanges in the United States.",
-					"icon": ["/assets/icons/indices/sp500.webp"]
+					"icon": ["/assets/icons/indices/sp500.svg"]
 				},
 				"ref": ["ostium:SPX-USD", "extended:SPX-USD", "vest:SPX-USD-PERP"]
 			},
@@ -569,7 +569,7 @@
 				"meta": {
 					"name": "Dow Jones",
 					"description": "The Dow Jones Industrial Average, Dow Jones, or simply the Dow, is a stock market index of 30 prominent companies listed on stock exchanges in the United States. The DJIA is one of the oldest and most commonly followed equity indices.",
-					"icon": ["/assets/icons/indices/dji.webp"]
+					"icon": ["/assets/icons/indices/dji.svg"]
 				},
 				"ref": ["ostium:DJI-USD"]
 			},
@@ -577,7 +577,7 @@
 				"meta": {
 					"name": "NASDAQ 100",
 					"description": "Nasdaq-100 is a stock market index made up of equity securities issued by 100 of the largest non-financial companies listed on the Nasdaq stock exchange. It is a modified capitalization-weighted index.",
-					"icon": ["/assets/icons/indices/ndx.webp"]
+					"icon": ["/assets/icons/indices/ndx.svg"]
 				},
 				"ref": ["ostium:NDX-USD", "extended:NDX-USD", "vest:NDX-USD-PERP"]
 			},
@@ -585,7 +585,7 @@
 				"meta": {
 					"name": "Global X Uranium",
 					"description": "The Global X Uranium ETF (URA) is a prominent, passively managed fund designed to track the Solactive Global Uranium & Nuclear Components Total Return Index, providing exposure to the global uranium mining, refining, and nuclear component manufacturing industries. ",
-					"icon": ["/assets/icons/indices/ura.webp"]
+					"icon": ["/assets/icons/indices/ura.svg"]
 				},
 				"ref": ["ostium:URA-USD", "qfex:URANIUM-USD"]
 			},
@@ -593,7 +593,7 @@
 				"meta": {
 					"name": "iShares Silver Trust",
 					"description": "The iShares Silver Trust (SLV) is the largest physically-backed exchange-traded fund (ETF) designed to track the daily performance of the price of silver bullion. Managed by BlackRock, it provides investors with a cost-effective way to gain exposure to silver without taking physical delivery, with shares trading on the NYSE Arca.",
-					"icon": ["/assets/icons/indices/slv.webp"]
+					"icon": ["/assets/icons/indices/slv.svg"]
 				},
 				"ref": ["edgex:SLVUSD", "vest:SLV-USD-PERP"]
 			},
@@ -601,7 +601,7 @@
 				"meta": {
 					"name": "iShares Gold Trust",
 					"description": "The iShares Gold Trust (IAU) is an exchange-traded fund designed to provide cost-effective, convenient exposure to the daily performance of the price of gold bullion. It holds physical gold in vaults, offering investors a way to diversify portfolios and hedge against inflation without directly handling, insuring, or storing the metal.",
-					"icon": ["/assets/icons/indices/iau.webp"]
+					"icon": ["/assets/icons/indices/iau.svg"]
 				},
 				"ref": ["edgex:IAUUSD"]
 			}
@@ -611,7 +611,7 @@
 				"meta": {
 					"name": "Silver",
 					"description": "Silver is a chemical element; it has symbol Ag and atomic number 47. A soft, whitish-gray, lustrous transition metal, it exhibits the highest electrical conductivity, thermal conductivity, and reflectivity of any metal.",
-					"icon": ["/assets/icons/commodities/silver.webp"]
+					"icon": ["/assets/icons/commodities/silver.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:SILVER",
@@ -631,7 +631,7 @@
 				"meta": {
 					"name": "Gold",
 					"description": "Gold is a chemical element; its chemical symbol is Au and atomic number 79. In its pure form, it is a bright-metallic-yellow, dense, soft, malleable, and ductile metal. Chemically, gold is a transition metal, a group 11 element, and one of the noble metals.",
-					"icon": ["/assets/icons/commodities/gold.webp"]
+					"icon": ["/assets/icons/commodities/gold.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:GOLD",
@@ -651,7 +651,7 @@
 				"meta": {
 					"name": "Copper",
 					"description": "Copper is a chemical element; it has symbol Cu and atomic number 29. It is a soft, malleable, and ductile metal with very high thermal and electrical conductivity. A freshly exposed surface of pure copper has a pinkish-orange color.",
-					"icon": ["/assets/icons/commodities/copper.webp"]
+					"icon": ["/assets/icons/commodities/copper.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:COPPER",
@@ -667,7 +667,7 @@
 				"meta": {
 					"name": "Crude Oil",
 					"description": "Crude oil is a naturally occurring, yellowish-black liquid chemical mixture found in geological formations, consisting mainly of hydrocarbons.",
-					"icon": ["/assets/icons/commodities/oil.webp"]
+					"icon": ["/assets/icons/commodities/oil.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:CL",
@@ -682,7 +682,7 @@
 				"meta": {
 					"name": "Platinum",
 					"description": "Platinum is a chemical element; it has symbol Pt and atomic number 78. It is a dense, malleable, ductile, highly unreactive, precious, silverish-white transition metal. Its name originates from Spanish platina, a diminutive of plata 'silver'.",
-					"icon": ["/assets/icons/commodities/platinum.webp"]
+					"icon": ["/assets/icons/commodities/platinum.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:PLATINUM",
@@ -697,7 +697,7 @@
 				"meta": {
 					"name": "Natural Gas",
 					"description": "Natural gas (also gas, and methane gas) is a naturally occurring mixture composed of gaseous hydrocarbons, primarily methane (95%), small amounts of higher alkanes, and traces of carbon dioxide and nitrogen, hydrogen sulfide and helium.",
-					"icon": ["/assets/icons/commodities/natgas.webp"]
+					"icon": ["/assets/icons/commodities/natgas.svg"]
 				},
 				"ref": ["hyperliquid:xyz:NATGAS", "edgex:NATGASUSD", "extended:NATGAS-USD"]
 			},
@@ -705,7 +705,7 @@
 				"meta": {
 					"name": "Uranium",
 					"description": "Uranium is a chemical element; it has symbol U and atomic number 92. It is a silvery-grey metal in the actinide series of the periodic table. A uranium atom has 92 protons and 92 electrons, of which 6 are valence electrons. Uranium radioactively decays, usually by emitting an alpha particle.",
-					"icon": ["/assets/icons/commodities/uranium.webp"]
+					"icon": ["/assets/icons/commodities/uranium.svg"]
 				},
 				"ref": ["hyperliquid:xyz:URNM"]
 			},
@@ -713,7 +713,7 @@
 				"meta": {
 					"name": "Palladium",
 					"description": "Palladium is a chemical element; it has the symbol Pd and atomic number 46. It is a rare and lustrous silvery-white metal discovered in 1802 by the English chemist William Hyde Wollaston.",
-					"icon": ["/assets/icons/commodities/palladium.webp"]
+					"icon": ["/assets/icons/commodities/palladium.svg"]
 				},
 				"ref": ["hyperliquid:flx:PALLADIUM", "ostium:XPD-USD", "binance:XPDUSDT", "aster:XPDUSDT"]
 			}
@@ -723,7 +723,7 @@
 				"meta": {
 					"name": "EURUSD",
 					"description": "The Euro versus U.S. Dollar pair, the most heavily traded currency pair in the world. It represents the exchange rate between the eurozone's single currency and the U.S. dollar, serving as a key barometer of transatlantic economic sentiment.",
-					"icon": ["/assets/icons/fx/EUR.webp", "/assets/icons/fx/USD.webp"]
+					"icon": ["/assets/icons/fx/EUR.svg", "/assets/icons/fx/USD.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:EUR",
@@ -738,7 +738,7 @@
 				"meta": {
 					"name": "USDJPY",
 					"description": "The U.S. Dollar versus Japanese Yen pair, one of the most liquid currency pairs globally. It reflects the exchange rate between the world's largest economy and Japan's export-driven economy, and is highly sensitive to interest rate differentials and risk appetite.",
-					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/JPY.webp"],
+					"icon": ["/assets/icons/fx/USD.svg", "/assets/icons/fx/JPY.svg"],
 					"quote": "JPY"
 				},
 				"ref": ["hyperliquid:xyz:JPY", "lighter:USDJPY", "ostium:USD-JPY"]
@@ -747,7 +747,7 @@
 				"meta": {
 					"name": "GBPUSD",
 					"description": "The British Pound versus U.S. Dollar pair, commonly known as 'Cable.' It tracks the exchange rate between the pound sterling and the U.S. dollar, influenced by Bank of England policy, UK economic data, and broader dollar strength.",
-					"icon": ["/assets/icons/fx/GBP.webp", "/assets/icons/fx/USD.webp"]
+					"icon": ["/assets/icons/fx/GBP.svg", "/assets/icons/fx/USD.svg"]
 				},
 				"ref": ["lighter:GBPUSD", "ostium:GBP-USD", "qfex:GBP-USD"]
 			},
@@ -755,7 +755,7 @@
 				"meta": {
 					"name": "USDKRW",
 					"description": "The U.S. Dollar versus South Korean Won pair. It captures the exchange rate between the dollar and the won, often reflecting shifts in Asian trade flows, semiconductor export demand, and emerging-market risk sentiment.",
-					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/KRW.webp"],
+					"icon": ["/assets/icons/fx/USD.svg", "/assets/icons/fx/KRW.svg"],
 					"quote": "KRW"
 				},
 				"ref": ["lighter:USDKRW"]
@@ -764,7 +764,7 @@
 				"meta": {
 					"name": "USDCHF",
 					"description": "The U.S. Dollar versus Swiss Franc pair. The Swiss franc is widely regarded as a safe-haven currency, making this pair particularly responsive to geopolitical uncertainty and global risk-off events.",
-					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/CHF.webp"],
+					"icon": ["/assets/icons/fx/USD.svg", "/assets/icons/fx/CHF.svg"],
 					"quote": "CHF"
 				},
 				"ref": ["lighter:USDCHF", "ostium:USD-CHF"]
@@ -773,7 +773,7 @@
 				"meta": {
 					"name": "AUDUSD",
 					"description": "The Australian Dollar versus U.S. Dollar pair, often called the 'Aussie.' It is closely tied to commodity prices—especially iron ore and base metals—and serves as a proxy for China-linked growth expectations.",
-					"icon": ["/assets/icons/fx/AUD.webp", "/assets/icons/fx/USD.webp"]
+					"icon": ["/assets/icons/fx/AUD.svg", "/assets/icons/fx/USD.svg"]
 				},
 				"ref": ["lighter:AUDUSD", "ostium:AUD-USD"]
 			},
@@ -781,7 +781,7 @@
 				"meta": {
 					"name": "NZDUSD",
 					"description": "The New Zealand Dollar versus U.S. Dollar pair, known as the 'Kiwi.' It is influenced by New Zealand's dairy export cycle, Reserve Bank of New Zealand policy, and broader commodity and risk-on sentiment.",
-					"icon": ["/assets/icons/fx/NZD.webp", "/assets/icons/fx/USD.webp"]
+					"icon": ["/assets/icons/fx/NZD.svg", "/assets/icons/fx/USD.svg"]
 				},
 				"ref": ["lighter:NZDUSD", "ostium:NZD-USD"]
 			},
@@ -789,7 +789,7 @@
 				"meta": {
 					"name": "USDCAD",
 					"description": "The U.S. Dollar versus Canadian Dollar pair, nicknamed the 'Loonie.' It is heavily influenced by crude oil prices given Canada's status as a major energy exporter, as well as the economic relationship between the U.S. and Canada.",
-					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/CAD.webp"],
+					"icon": ["/assets/icons/fx/USD.svg", "/assets/icons/fx/CAD.svg"],
 					"quote": "CAD"
 				},
 				"ref": ["lighter:USDCAD", "ostium:USD-CAD"]
@@ -798,7 +798,7 @@
 				"meta": {
 					"name": "USDMXN",
 					"description": "The U.S. Dollar versus Mexican Peso pair. It reflects cross-border trade dynamics, nearshoring trends, Banxico monetary policy, and is one of the most actively traded emerging-market currency pairs.",
-					"icon": ["/assets/icons/fx/USD.webp", "/assets/icons/fx/MXN.webp"],
+					"icon": ["/assets/icons/fx/USD.svg", "/assets/icons/fx/MXN.webp"],
 					"quote": "MXN"
 				},
 				"ref": ["ostium:USD-MXN"]
@@ -809,7 +809,7 @@
 				"meta": {
 					"name": "OpenAI",
 					"description": "OpenAI is an American artificial intelligence research organization comprising both a non-profit foundation and a controlled for-profit public benefit corporation, headquartered in San Francisco.",
-					"icon": ["/assets/icons/ipo/openai.webp"]
+					"icon": ["/assets/icons/ipo/openai.svg"]
 				},
 				"ref": ["hyperliquid:vntl:OPENAI"]
 			},
@@ -817,7 +817,7 @@
 				"meta": {
 					"name": "SpaceX",
 					"description": "Space Exploration Technologies Corp., more commonly known as SpaceX, is a private American aerospace and artificial intelligence company headquartered at the Starbase development site in Starbase, Texas.",
-					"icon": ["/assets/icons/ipo/spacex.webp"]
+					"icon": ["/assets/icons/ipo/spacex.svg"]
 				},
 				"ref": ["hyperliquid:vntl:SPACEX"]
 			},
@@ -825,7 +825,7 @@
 				"meta": {
 					"name": "Anthropic",
 					"description": "Anthropic PBC is an American artificial intelligence company headquartered in San Francisco. It has developed a family of large language models named Claude.",
-					"icon": ["/assets/icons/ipo/anthropic.webp"]
+					"icon": ["/assets/icons/ipo/anthropic.svg"]
 				},
 				"ref": ["hyperliquid:vntl:ANTHROPIC"]
 			}
