@@ -114,6 +114,7 @@
 			</Table.Cell>
 
 			<!-- Ref price -->
+			<!-- Always prefer base quote currency -->
 			<Table.Cell class="w-26">
 				<Numeric
 					value={asset.medianRefPx}

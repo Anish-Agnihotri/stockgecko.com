@@ -4,10 +4,10 @@
 	import Icon from "$components/Icon.svelte";
 	import tickers from "$config/tickers.json";
 	import exchanges from "$config/exchanges.json";
-	import Numeric from "$components/Numeric.svelte";
 	import type { TickerCfg, ExchangeCfg } from "$lib/types";
 	import BaseTable from "$components/table/BaseTable.svelte";
 	import { MARKET_TO_ASSET, type DiffedSnapshot } from "$lib/transform";
+	import Numeric, { getNormalizedCurrency } from "$components/Numeric.svelte";
 	import { createSortState, sortRows, type Column } from "$components/table/table.svelte";
 
 	// Setup sortable table
@@ -63,9 +63,11 @@
 	<!-- Purposefully leave rank not fixed to volume for market table -->
 	{#each rows() as row, rank}
 		{@const asset = snapshot.assets[row.assetId]}
-		{@const { name: assetName, quote } = (tickers.perps as TickerCfg)[asset.category][
-			row.assetId
-		].meta}
+		{@const {
+			name: assetName,
+			quote,
+			quotes
+		} = (tickers.perps as TickerCfg)[asset.category][row.assetId].meta}
 		{@const exchange = (exchanges as ExchangeCfg)[`${row.venue}:${row.namespace}`]}
 
 		<Table.Row
@@ -125,7 +127,7 @@
 				<Numeric
 					value={row.refPx}
 					format="numeric"
-					currency={quote ?? "USD"}
+					currency={getNormalizedCurrency(`${row.venue}:${row.namespace}`, quote, quotes)}
 					class="text-gecko-white"
 				/>
 			</Table.Cell>

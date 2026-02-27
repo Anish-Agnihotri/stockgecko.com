@@ -390,27 +390,39 @@
 					"name": "Samsung",
 					"description": "Samsung Group is a South Korean multinational manufacturing conglomerate headquartered in the Samsung Town office complex in Seoul. The group consists of numerous affiliated businesses, most of which operate under the Samsung brand, and is the largest chaebol (business conglomerate) in South Korea.",
 					"icon": ["/assets/icons/stocks/samsung.svg"],
-					"quote": "KRW"
+					"quote": "KRW",
+					"quotes": {
+						"lighter:": "KRW",
+						"hyperliquid:xyz": "USD"
+					}
 				},
-				"ref": ["lighter:SAMSUNG"]
+				"ref": ["lighter:SAMSUNG", "hyperliquid:xyz:SMSN"]
 			},
 			"000660": {
 				"meta": {
 					"name": "SK hynix",
 					"description": "SK Hynix Inc. is a South Korean semiconductor company that manufactures dynamic random-access memory chips and flash memory chips. SK Hynix is one of the world's largest semiconductor vendors, and along with Samsung Electronics and Micron is one of the 'Big Three' memory manufacturers.",
 					"icon": ["/assets/icons/stocks/skhynix.svg"],
-					"quote": "KRW"
+					"quote": "KRW",
+					"quotes": {
+						"lighter:": "KRW",
+						"hyperliquid:xyz": "USD"
+					}
 				},
-				"ref": ["lighter:SKHYNIX"]
+				"ref": ["lighter:SKHYNIX", "hyperliquid:xyz:SKHX"]
 			},
 			"005380": {
 				"meta": {
 					"name": "Hyundai",
 					"description": "Hyundai Motor Company, often referred to as Hyundai Motors and commonly known as Hyundai, is a South Korean multinational automotive manufacturer headquartered in Seoul, South Korea, which was founded in 1967. Currently, the company owns 33.88 percent of Kia Corporation, and owns a luxury cars subsidiary, Genesis.",
 					"icon": ["/assets/icons/stocks/hyundai.svg"],
-					"quote": "KRW"
+					"quote": "KRW",
+					"quotes": {
+						"lighter:": "KRW",
+						"hyperliquid:xyz": "USD"
+					}
 				},
-				"ref": ["lighter:HYUNDAI"]
+				"ref": ["lighter:HYUNDAI", "hyperliquid:xyz:HYUNDAI"]
 			},
 			"042700": {
 				"meta": {

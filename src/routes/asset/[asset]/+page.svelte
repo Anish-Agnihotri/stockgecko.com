@@ -77,8 +77,9 @@
 <!-- Aggregate statistics -->
 <div>
 	<Grid>
-		<Card title="Median Price">
+		<Card title="Price">
 			<div class="flex gap-2 p-4 text-lg">
+				<!-- Always prefer base quote currency -->
 				<Numeric
 					value={asset.medianRefPx}
 					format="numeric"

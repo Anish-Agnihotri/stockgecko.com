@@ -1,12 +1,20 @@
+import type { Meta } from "$lib/types";
 import tickers from "$config/tickers.json";
 import type { PlainMarketEntry } from "$lib/serialize";
+import { getNormalizedCurrency } from "$components/Numeric.svelte";
 
 // Reverse index (marketKey => {asset, category})
-// "hyperliquid:xyz:NVDA" → { asset: "nvda", category: "stocks" }
+// "hyperliquid:xyz:NVDA" → { asset: "nvda", category: "stocks", quote: "KRW", venueQuote: "USD" }
 export const MARKET_TO_ASSET = new Map(
 	Object.entries(tickers.perps).flatMap(([category, assets]) =>
-		Object.entries(assets).flatMap(([asset, markets]) =>
-			markets.ref.map((market) => [market, { asset, category }] as const)
+		Object.entries(assets).flatMap(
+			([asset, { meta, ref }]: [string, { meta: Meta; ref: string[] }]) =>
+				ref.map((market) => {
+					// Check for special-cased quote
+					const exchange = market.substring(0, market.lastIndexOf(":"));
+					const venueQuote = getNormalizedCurrency(exchange, meta.quote, meta.quotes);
+					return [market, { asset, category, quote: meta.quote ?? "USD", venueQuote }] as const;
+				})
 		)
 	)
 );
@@ -239,6 +247,12 @@ export function buildSnapshot(markets: PlainMarketEntry[]): Snapshot {
 
 		// Collect `midPx` of each market, filter out zeroes, sort
 		const prices = asset.marketIds
+			.filter((id) => {
+				// Only include assets where the venue is quoting in the preferred quote currency
+				// in the median price calculations (prevent medianizing over diff. quote currencies).
+				const m = MARKET_TO_ASSET.get(id)!;
+				return m.quote === m.venueQuote;
+			})
 			.map((id) => snapshotMarkets[id].refPx)
 			.filter((p) => p > 0)
 			.sort((a, b) => a - b);

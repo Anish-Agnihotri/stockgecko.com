@@ -23,6 +23,29 @@
 		if (abs >= THOUSAND) return formatNumeric(n / THOUSAND) + "K";
 		return formatNumeric(n);
 	}
+
+	/**
+	 * Quote currency, normalized by configuration
+	 * @param {string} exchange `venue:namespace`
+	 * @param {string?} quote optional base quote currency
+	 * @param {Record<string, string>?} quotes optional venue-specific currency override
+	 */
+	export function getNormalizedCurrency(
+		exchange: string,
+		quote?: string,
+		quotes?: Record<string, string>
+	): string {
+		// If venue-specific quote exists, return indexed
+		if (quotes && Object.keys(quotes).includes(exchange)) {
+			return quotes[exchange];
+		}
+
+		// Otherwise, if base quote exists, return base
+		if (quote) return quote;
+
+		// Else, return USD
+		return "USD";
+	}
 </script>
 
 <script lang="ts">
