@@ -1,12 +1,15 @@
 <script lang="ts">
+	import { page } from "$app/state";
 	import type { PageProps } from "./$types";
 	import Meta from "$components/Meta.svelte";
 	import Grid from "$components/Grid.svelte";
 	import Icon from "$components/Icon.svelte";
 	import Card from "$components/Card.svelte";
+	import metaConfig from "$config/meta.json";
 	import exchanges from "$config/exchanges.json";
 	import type { Meta as MetaT } from "$lib/types";
 	import Numeric from "$components/Numeric.svelte";
+	import type { WithContext, Organization } from "schema-dts";
 	import MarketTable from "$components/table/MarketTable.svelte";
 
 	let { data }: PageProps = $props();
@@ -34,9 +37,30 @@
 	const aggOIChange = $derived(
 		aggOI ? filtered.reduce((s, x) => s + x.oi * x.oiChange, 0) / aggOI : 0
 	);
+
+	// Structured schema
+	const title = `StockGecko | ${meta.name}`;
+	const schema: WithContext<Organization> = {
+		"@context": "https://schema.org",
+		"@type": "Organization",
+		name: meta.name,
+		url: metaConfig.url + page.url.pathname,
+		makesOffer: {
+			"@type": "AggregateOffer",
+			priceCurrency: "USD",
+			offerCount: marketCount,
+			description: `${meta.name} offers ${marketCount} real-world asset markets`
+		},
+		parentOrganization: {
+			"@type": "Organization",
+			name: metaConfig.title,
+			url: metaConfig.url,
+			logo: metaConfig.favicon
+		}
+	};
 </script>
 
-<Meta title="StockGecko | {meta.name}" />
+<Meta {title} {schema} />
 
 <!-- Asset header -->
 <div>

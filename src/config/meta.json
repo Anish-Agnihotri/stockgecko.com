@@ -2,5 +2,6 @@
 	"title": "StockGecko",
 	"description": "Track 250+ RWA perp markets across 12+ venues, including stocks, FX, index, commodity, and pre-IPO perps.",
 	"url": "https://stockgecko.com",
-	"image": "https://stockgecko.com/assets/brand/meta.webp"
+	"image": "https://stockgecko.com/assets/brand/meta.webp",
+	"favicon": "https://stockgecko.com/assets/brand/favicon.svg"
 }

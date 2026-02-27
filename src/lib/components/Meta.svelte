@@ -2,12 +2,14 @@
 	import { page } from "$app/state";
 	import meta from "$config/meta.json";
 	import inter from "$lib/fonts/Inter-subset.woff2";
+	import { type Schema, DEFAULT_SCHEMA, serializeSchema } from "$lib/schema";
 
 	// Load optional props (w/ defaults from config)
 	export let title: string = meta.title;
 	export let description: string = meta.description;
 	export let url = meta.url + page.url.pathname;
 	export let image = meta.image;
+	export let schema: Schema = DEFAULT_SCHEMA;
 </script>
 
 <svelte:head>
@@ -31,5 +33,8 @@
 	<meta property="twitter:image" content={image} />
 
 	<!-- Preload font -->
-	<link rel="preload" href={inter} as="font" type="font/woff2" crossorigin />
+	<link rel="preload" href={inter} as="font" type="font/woff2" crossorigin="anonymous" />
+
+	<!-- Inject structured schema script -->
+	{@html serializeSchema(schema)}
 </svelte:head>
