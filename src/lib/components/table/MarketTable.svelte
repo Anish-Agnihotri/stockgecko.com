@@ -58,7 +58,7 @@
 	sortKey={sort.key}
 	sortDirection={sort.direction}
 	onSort={sort.toggle}
-	minWidth={870}
+	minWidth={940}
 >
 	<!-- Purposefully leave rank not fixed to volume for market table -->
 	{#each rows() as row, rank}

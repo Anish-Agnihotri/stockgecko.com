@@ -49,7 +49,7 @@
 	sortKey={sort.key}
 	sortDirection={sort.direction}
 	onSort={sort.toggle}
-	minWidth={1040}
+	minWidth={1100}
 >
 	{#each rows() as { asset: assetId, previousIndex }}
 		<!-- Collect asset data + metadata -->

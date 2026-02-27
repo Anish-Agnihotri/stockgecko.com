@@ -17,7 +17,8 @@
 					"aster:NVDAUSDT",
 					"edgex:NVDAUSD",
 					"extended:NVDA-USD",
-					"vest:NVDA-USD-PERP"
+					"vest:NVDA-USD-PERP",
+					"hyperliquid:km:NVDA"
 				]
 			},
 			"mu": {
@@ -26,7 +27,7 @@
 					"description": "Micron Technology, Inc. is an American semiconductor company that manufactures computer memory and computer data storage products, including dynamic random-access memory, flash memory, and solid-state drives. Founded in 1978 in Boise, Idaho, Micron is the only major American computer memory manufacturer.",
 					"icon": ["/assets/icons/stocks/micron.svg"]
 				},
-				"ref": ["hyperliquid:xyz:MU", "aster:MUUSDT", "vest:MU-USD-PERP"]
+				"ref": ["hyperliquid:xyz:MU", "aster:MUUSDT", "vest:MU-USD-PERP", "hyperliquid:km:MU"]
 			},
 			"hood": {
 				"meta": {
@@ -119,7 +120,8 @@
 					"qfex:PLTR-USD",
 					"binance:PLTRUSDT",
 					"edgex:PLTRUSD",
-					"vest:PLTR-USD-PERP"
+					"vest:PLTR-USD-PERP",
+					"hyperliquid:km:PLTR"
 				]
 			},
 			"coin": {
@@ -382,6 +384,42 @@
 					"icon": ["/assets/icons/stocks/ondas.svg"]
 				},
 				"ref": ["vest:ONDS-USD-PERP"]
+			},
+			"005930": {
+				"meta": {
+					"name": "Samsung",
+					"description": "Samsung Group is a South Korean multinational manufacturing conglomerate headquartered in the Samsung Town office complex in Seoul. The group consists of numerous affiliated businesses, most of which operate under the Samsung brand, and is the largest chaebol (business conglomerate) in South Korea.",
+					"icon": ["/assets/icons/stocks/samsung.svg"],
+					"quote": "KRW"
+				},
+				"ref": ["lighter:SAMSUNG"]
+			},
+			"000660": {
+				"meta": {
+					"name": "SK hynix",
+					"description": "SK Hynix Inc. is a South Korean semiconductor company that manufactures dynamic random-access memory chips and flash memory chips. SK Hynix is one of the world's largest semiconductor vendors, and along with Samsung Electronics and Micron is one of the 'Big Three' memory manufacturers.",
+					"icon": ["/assets/icons/stocks/skhynix.svg"],
+					"quote": "KRW"
+				},
+				"ref": ["lighter:SKHYNIX"]
+			},
+			"005380": {
+				"meta": {
+					"name": "Hyundai",
+					"description": "Hyundai Motor Company, often referred to as Hyundai Motors and commonly known as Hyundai, is a South Korean multinational automotive manufacturer headquartered in Seoul, South Korea, which was founded in 1967. Currently, the company owns 33.88 percent of Kia Corporation, and owns a luxury cars subsidiary, Genesis.",
+					"icon": ["/assets/icons/stocks/hyundai.svg"],
+					"quote": "KRW"
+				},
+				"ref": ["lighter:HYUNDAI"]
+			},
+			"042700": {
+				"meta": {
+					"name": "Hanmi Semiconductor",
+					"description": "Hanmi Semiconductor, founded in 1980, is a Korean semiconductor manufacturer.",
+					"icon": ["/assets/icons/stocks/hanmi.svg"],
+					"quote": "KRW"
+				},
+				"ref": ["lighter:HANMI"]
 			}
 		},
 		"indices": {
@@ -481,6 +519,14 @@
 				},
 				"ref": ["hyperliquid:vntl:SEMIS"]
 			},
+			"semi": {
+				"meta": {
+					"name": "Semiconductors",
+					"description": "SEMI tracks the iShares Semiconductor ETF (SOXX), which seeks to track the investment results of an index composed of US-listed equities in the semiconductor sector.",
+					"icon": ["/assets/icons/indices/iau.svg"]
+				},
+				"ref": ["hyperliquid:km:SEMI"]
+			},
 			"infotech": {
 				"meta": {
 					"name": "Infotech",
@@ -495,7 +541,7 @@
 					"description": "ENERGY tracks the XLE ETF, which offers exposure to the American energy machine. It focuses on the largest U.S. players in the oil, gas, and consumable fuel sectors, capturing the full spectrum of energy production, refining, and distribution.",
 					"icon": ["/assets/icons/indices/energy.svg"]
 				},
-				"ref": ["hyperliquid:vntl:ENERGY"]
+				"ref": ["hyperliquid:vntl:ENERGY", "hyperliquid:km:USENERGY"]
 			},
 			"biotech": {
 				"meta": {
@@ -604,6 +650,22 @@
 					"icon": ["/assets/icons/indices/iau.svg"]
 				},
 				"ref": ["edgex:IAUUSD"]
+			},
+			"kospi": {
+				"meta": {
+					"name": "Korean Composite Index",
+					"description": "The Korea Composite Stock Price Index is the index of all common stocks traded on the Stock Market Division—previously, Korea Stock Exchange—of the Korea Exchange. It is the representative stock market index of South Korea, analogous to the S&P 500 in the United States.",
+					"icon": ["/assets/icons/indices/kospi.svg"]
+				},
+				"ref": ["lighter:KRCOMP"]
+			},
+			"gldmine": {
+				"meta": {
+					"name": "Global Gold Miners",
+					"description": "GLDMINE tracks the VanEck Gold Miners ETF (GDX), which is intended to track the overall performance of companies involved in the gold mining industry.",
+					"icon": ["/assets/icons/indices/vaneck.svg"]
+				},
+				"ref": ["hyperliquid:km:GLDMINE"]
 			}
 		},
 		"commodities": {
@@ -675,7 +737,8 @@
 					"hyperliquid:km:USOIL",
 					"ostium:CL-USD",
 					"edgex:CLUSD",
-					"extended:XBR-USD"
+					"extended:XBR-USD",
+					"lighter:WTI"
 				]
 			},
 			"platinum": {
@@ -690,7 +753,8 @@
 					"ostium:XPT-USD",
 					"binance:XPTUSDT",
 					"aster:XPTUSDT",
-					"extended:XPT-USD"
+					"extended:XPT-USD",
+					"lighter:XPT"
 				]
 			},
 			"natgas": {
@@ -715,7 +779,13 @@
 					"description": "Palladium is a chemical element; it has the symbol Pd and atomic number 46. It is a rare and lustrous silvery-white metal discovered in 1802 by the English chemist William Hyde Wollaston.",
 					"icon": ["/assets/icons/commodities/palladium.svg"]
 				},
-				"ref": ["hyperliquid:flx:PALLADIUM", "ostium:XPD-USD", "binance:XPDUSDT", "aster:XPDUSDT"]
+				"ref": [
+					"hyperliquid:flx:PALLADIUM",
+					"ostium:XPD-USD",
+					"binance:XPDUSDT",
+					"aster:XPDUSDT",
+					"lighter:XPD"
+				]
 			}
 		},
 		"fx": {
