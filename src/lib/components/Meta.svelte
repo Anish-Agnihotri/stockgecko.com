@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { page } from "$app/state";
 	import meta from "$config/meta.json";
+	import inter from "$lib/fonts/Inter-subset.woff2";
 
 	// Load optional props (w/ defaults from config)
 	export let title: string = meta.title;
@@ -28,4 +29,7 @@
 	<meta property="twitter:title" content={title} />
 	<meta property="twitter:description" content={description} />
 	<meta property="twitter:image" content={image} />
+
+	<!-- Preload font -->
+	<link rel="preload" href={inter} as="font" type="font/woff2" crossorigin />
 </svelte:head>

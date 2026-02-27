@@ -1,9 +1,6 @@
 <script lang="ts">
 	import "../app.css";
 	import "../shadcn.css";
-	import "@fontsource/inter/latin-300.css";
-	import "@fontsource/inter/latin-400.css";
-	import "@fontsource/inter/latin-500.css";
 	import Header from "$components/Header.svelte";
 	import Footer from "$components/Footer.svelte";
 	import Subheader from "$components/Subheader.svelte";
