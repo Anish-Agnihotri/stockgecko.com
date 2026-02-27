@@ -53,19 +53,21 @@
 	});
 
 	// Setup virtualizer
-	const virtualizer = createWindowVirtualizer({
-		get count() {
-			return rowCount;
-		},
-		get estimateSize() {
-			return () => rowSizePx;
-		},
-		get overscan() {
-			return overscan;
-		},
-		// Prevent 0 height table flashing on page first load
-		initialRect: { width: 0, height: browser ? window.innerHeight : 800 }
-	});
+	const virtualizer = $derived(
+		createWindowVirtualizer({
+			get count() {
+				return rowCount;
+			},
+			get estimateSize() {
+				return () => rowSizePx;
+			},
+			get overscan() {
+				return overscan;
+			},
+			// Prevent 0 height table flashing on page first load
+			initialRect: { width: 0, height: browser ? window.innerHeight : 800 }
+		})
+	);
 </script>
 
 <div class="flex w-full flex-col {showBorder ? 'border-b border-b-gecko-shade ' : ''}">
