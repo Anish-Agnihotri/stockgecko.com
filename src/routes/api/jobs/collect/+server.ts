@@ -1,7 +1,7 @@
 import { start } from "workflow/api";
-import { strTimingSafeEqual } from "$lib/utils";
 import { CRON_SECRET } from "$env/static/private";
 import { collectMarkets } from "$workflows/collect";
+import { strTimingSafeEqual } from "$lib/utils.server";
 import { json, error, type RequestHandler } from "@sveltejs/kit";
 
 // Job: collect and store market data

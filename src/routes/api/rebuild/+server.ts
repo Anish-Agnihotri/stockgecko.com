@@ -1,4 +1,4 @@
-import { strTimingSafeEqual } from "$lib/utils";
+import { strTimingSafeEqual } from "$lib/utils.server";
 import { json, error, type RequestHandler } from "@sveltejs/kit";
 import { CRON_SECRET, VERCEL_DEPLOY_HOOK } from "$env/static/private";
 
