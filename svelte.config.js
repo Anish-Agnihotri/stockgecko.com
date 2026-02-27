@@ -13,6 +13,9 @@ export default {
 
 			// shadcn/ui
 			"@/*": "src/lib/*"
+		},
+		prerender: {
+			handleHttpError: "warn"
 		}
 	}
 };
