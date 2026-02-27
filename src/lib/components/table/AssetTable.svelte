@@ -18,14 +18,17 @@
 	const sort = createSortState<AssetKey>("volume");
 
 	// Sorted rows
-	const rows = $derived(() => {
-		return sortRows(
+	const rows = $derived(
+		sortRows(
 			[...snapshot.index.assetsByVolume],
 			(row, key: AssetKey) => snapshot.assets[row.asset][key!] as string | number,
 			sort.key,
 			sort.direction
-		);
-	});
+		)
+	);
+
+	// O(n) volume rank lookup
+	const rankMap = $derived(new Map(snapshot.index.assetsByVolume.map((r, i) => [r.asset, i])));
 
 	// Setup columns/headers
 	const columns: Column<AssetKey>[] = [
@@ -50,12 +53,14 @@
 	sortDirection={sort.direction}
 	onSort={sort.toggle}
 	minWidth={1100}
+	rowCount={rows.length}
 >
-	{#each rows() as { asset: assetId, previousIndex }}
+	{#snippet row(index)}
 		<!-- Collect asset data + metadata -->
+		{@const { asset: assetId, previousIndex } = rows[index]}
 		{@const asset = snapshot.assets[assetId]}
 		{@const { name, icon, quote } = (tickers.perps as TickerCfg)[asset.category][assetId].meta}
-		{@const volumeRank = snapshot.index.assetsByVolume.findIndex((r) => r.asset === assetId)}
+		{@const volumeRank = rankMap.get(assetId)!}
 		{@const rankDelta = previousIndex != null ? previousIndex - volumeRank : 0}
 
 		<Table.Row
@@ -149,5 +154,5 @@
 			<!-- Empty sizer -->
 			<Table.Cell class="w-3"></Table.Cell>
 		</Table.Row>
-	{/each}
+	{/snippet}
 </BaseTable>

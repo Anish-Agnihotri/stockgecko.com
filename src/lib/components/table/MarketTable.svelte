@@ -30,14 +30,14 @@
 	);
 
 	// Sorted rows
-	const rows = $derived(() => {
-		return sortRows(
+	const rows = $derived(
+		sortRows(
 			entries,
 			(row, key: MarketKey) => row[key] as string | number,
 			sort.key,
 			sort.direction
-		);
-	});
+		)
+	);
 
 	// Setup columns/headers
 	const columns: Column<MarketKey>[] = [
@@ -59,15 +59,17 @@
 	sortDirection={sort.direction}
 	onSort={sort.toggle}
 	minWidth={940}
+	rowCount={rows.length}
 >
 	<!-- Purposefully leave rank not fixed to volume for market table -->
-	{#each rows() as row, rank}
-		{@const asset = snapshot.assets[row.assetId]}
+	{#snippet row(index)}
+		{@const row = rows[index]}
+		{@const category = snapshot.assets[row.assetId].category}
 		{@const {
 			name: assetName,
 			quote,
 			quotes
-		} = (tickers.perps as TickerCfg)[asset.category][row.assetId].meta}
+		} = (tickers.perps as TickerCfg)[category][row.assetId].meta}
 		{@const exchange = (exchanges as ExchangeCfg)[`${row.venue}:${row.namespace}`]}
 
 		<Table.Row
@@ -75,7 +77,7 @@
 			class="h-10 cursor-pointer border-b-gecko-shade text-xs transition-none hover:bg-gecko-black-hover [&_td]:px-0 [&_td]:text-left [&_td]:align-middle"
 		>
 			<!-- Rank -->
-			<Table.Cell class="w-10 text-center!"><Numeric value={rank + 1} /></Table.Cell>
+			<Table.Cell class="w-10 text-center!"><Numeric value={index + 1} /></Table.Cell>
 
 			<!-- Market -->
 			<Table.Cell>
@@ -137,5 +139,5 @@
 				<Numeric value={row.refPxChange * 100} format="numeric" change percentage />
 			</Table.Cell>
 		</Table.Row>
-	{/each}
+	{/snippet}
 </BaseTable>
