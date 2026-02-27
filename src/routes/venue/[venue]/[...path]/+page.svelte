@@ -39,8 +39,10 @@
 	);
 
 	// Structured schema
-	const title = `StockGecko | ${meta.name}`;
-	const schema: WithContext<Organization> = {
+	// @dev: Doesn't have to be derived given pageload properties but added
+	// 			 for page change posterity
+	const title = $derived(`StockGecko | ${meta.name}`);
+	const schema: WithContext<Organization> = $derived({
 		"@context": "https://schema.org",
 		"@type": "Organization",
 		name: meta.name,
@@ -57,7 +59,7 @@
 			url: metaConfig.url,
 			logo: metaConfig.favicon
 		}
-	};
+	});
 </script>
 
 <Meta {title} {schema} />

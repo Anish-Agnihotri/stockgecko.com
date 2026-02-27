@@ -24,8 +24,10 @@
 	const asset = $derived(snapshot.assets[data.asset]);
 
 	// Structured schema
-	const title = `StockGecko | ${meta.name}`;
-	const schema: WithContext<FinancialProduct> = {
+	// @dev: Doesn't have to be derived given pageload properties but added
+	// 			 for page change posterity
+	const title = $derived(`StockGecko | ${meta.name}`);
+	const schema: WithContext<FinancialProduct> = $derived({
 		"@context": "https://schema.org",
 		"@type": "FinancialProduct",
 		name: title,
@@ -47,7 +49,7 @@
 			url: metaConfig.url,
 			logo: metaConfig.favicon
 		}
-	};
+	});
 </script>
 
 <Meta {title} {schema} />
