@@ -35,7 +35,7 @@
 		row,
 		rowCount,
 		rowSizePx = 40,
-		overscan = 20
+		overscan = 30
 	}: Props = $props();
 
 	// Dynamically add table bottom border if page does not scroll
@@ -98,7 +98,8 @@
 		<Table.Body>
 			{@const items = $virtualizer.getVirtualItems()}
 			{@const totalHeight = $virtualizer.getTotalSize()}
-			{@const startOffset = items.length > 0 ? items[0].start : 0}
+			{@const startOffset =
+				items.length > 0 ? items[0].start - $virtualizer.options.scrollMargin : 0}
 			{@const endOffset = items.length > 0 ? totalHeight - items[items.length - 1].end : 0}
 
 			<!-- Render virtualized first row (padding)-->
