@@ -1,4 +1,4 @@
-import tickers from "$config/tickers.json";
+import { MARKET_TO_ASSET } from "$lib/transform";
 
 /**
  * Validates local `tickers` config against remote set of valid markets
@@ -13,13 +13,13 @@ export async function stepValidateMarkets(
 ): Promise<ReadonlySet<string>> {
 	"use step";
 
-	// Find and extract prefixed markets in config
+	// Filter markets by `venuePrefix`
 	const localMarkets: ReadonlySet<string> = new Set(
-		JSON.stringify(tickers)
-			// Match all tickers starting with `venuePrefix:`
-			.match(new RegExp(`\\b${venuePrefix}:[^"\\\\]+`, "g"))
+		[...MARKET_TO_ASSET.keys()]
+			// Filter all tickers for just those starting with `venuePrefix:`
+			.filter((r) => r.startsWith(`${venuePrefix}:`))
 			// Drop `venuePrefix:` prefix
-			?.map((s) => s.replace(`${venuePrefix}:`, "")) ?? []
+			.map((r) => r.slice(venuePrefix.length + 1))
 	);
 
 	// Validate local configuration is subset of valid markets
