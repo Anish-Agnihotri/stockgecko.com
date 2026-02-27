@@ -2,13 +2,19 @@
 	// Setup denominators
 	const [BILLION, MILLION, THOUSAND] = [1e9, 1e6, 1e3];
 
+	// Cache `Intl.NumberFormat`
+	const numericFmt = new Intl.NumberFormat("en-us", {
+		minimumFractionDigits: 2,
+		maximumFractionDigits: 2
+	});
+
 	/**
 	 * Format number as US-denominated currency (2 fixed decimals, commas)
 	 * @param {number} n to format
 	 * @return {string} formatted string
 	 */
 	function formatNumeric(n: number): string {
-		return n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+		return numericFmt.format(n);
 	}
 
 	/**
