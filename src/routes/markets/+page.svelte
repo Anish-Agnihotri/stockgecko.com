@@ -7,9 +7,9 @@
 	import Card from "$components/Card.svelte";
 	import { init, Chart } from "$lib/echarts";
 	import type { TickerCfg } from "$lib/types";
+	import type { EChartsOption } from "echarts";
 	import exchanges from "$config/exchanges.json";
 	import MarketTable from "$components/table/MarketTable.svelte";
-	import type { EChartsOption } from "echarts/types/dist/shared";
 	import { MARKET_TO_ASSET, type DiffedSnapshot } from "$lib/transform";
 	import Numeric, { truncateCurrency } from "$components/Numeric.svelte";
 
