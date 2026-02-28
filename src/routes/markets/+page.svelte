@@ -5,10 +5,10 @@
 	import Icon from "$components/Icon.svelte";
 	import Grid from "$components/Grid.svelte";
 	import Card from "$components/Card.svelte";
-	import { init, Chart } from "$lib/echarts";
 	import type { TickerCfg } from "$lib/types";
 	import type { EChartsOption } from "echarts";
 	import exchanges from "$config/exchanges.json";
+	import LazyChart from "$components/LazyChart.svelte";
 	import MarketTable from "$components/table/MarketTable.svelte";
 	import { MARKET_TO_ASSET, type DiffedSnapshot } from "$lib/transform";
 	import Numeric, { truncateCurrency } from "$components/Numeric.svelte";
@@ -107,7 +107,7 @@
 
 		<div class="relative flex min-h-80 flex-1 flex-col overflow-x-scroll">
 			<div class="absolute inset-0 w-full min-w-200 px-4 py-2">
-				<Chart {init} options={scatter} />
+				<LazyChart options={scatter} />
 			</div>
 		</div>
 	</Card>
