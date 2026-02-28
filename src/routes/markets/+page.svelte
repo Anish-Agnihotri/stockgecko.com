@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PageProps } from "../$types";
+	import type { PageProps } from "./$types";
 	import tickers from "$config/tickers.json";
 	import Meta from "$components/Meta.svelte";
 	import Icon from "$components/Icon.svelte";
@@ -14,11 +14,7 @@
 	import Numeric, { truncateCurrency } from "$components/Numeric.svelte";
 
 	let { data }: PageProps = $props();
-	const snapshot = $derived(data.snapshot as DiffedSnapshot);
-
-	// Stats
-	const venueCount = $derived(snapshot.aggregates.exchangeStats.length);
-	const marketCount = $derived(Object.keys(snapshot.markets).length);
+	const { rows, venueCount, oiByVenue } = $derived(data);
 
 	// Scatter plot setup
 	const scatter: EChartsOption = $derived.by(() => {
@@ -27,15 +23,14 @@
 			[];
 
 		// Generate data from markets
-		for (const [id, market] of Object.entries(snapshot.markets)) {
+		for (const row of rows) {
 			// Resolve asset icon
-			const { asset, category } = MARKET_TO_ASSET.get(id)!;
-			const { icon } = (tickers.perps as TickerCfg)[category][asset].meta;
+			const { icon } = row.asset;
 
 			// Populate scatter plot data
 			data.push({
-				name: id.toUpperCase(),
-				value: [market.oi || 1, market.volume || 1],
+				name: row.id.toUpperCase(),
+				value: [row.oi || 1, row.volume || 1],
 				symbol: icon
 					? // Rough icon handling: if FX, get non-US icon
 						`image://${icon.length > 1 ? (icon[0].includes("USD") ? icon[1] : icon[0]) : icon[0]}`
@@ -89,7 +84,7 @@
 	<div class="flex flex-1 flex-col gap-0.5 px-4 py-6">
 		<h1 class="text-lg text-gecko-white md:text-xl">Markets</h1>
 		<p class="text-sm text-gecko-gray/75">
-			Aggregating {marketCount} markets across {venueCount} venues.
+			Aggregating {rows.length} markets across {venueCount} venues.
 		</p>
 	</div>
 </Grid>
@@ -116,7 +111,7 @@
 	<Card title="Open Interest Dominance" class="md:flex-3">
 		<!-- Table content -->
 		<div class="flex flex-col">
-			{#each snapshot.aggregates.oiByVenue as { venue, oiShare }, i}
+			{#each oiByVenue as { venue, oiShare }, i}
 				{@const { name, icon } = exchanges[`${venue}:` as keyof typeof exchanges]}
 
 				<a
@@ -153,5 +148,5 @@
 
 <!-- Table of all markets -->
 <div class="md:border-t md:border-t-gecko-shade">
-	<MarketTable {snapshot} />
+	<MarketTable {rows} />
 </div>

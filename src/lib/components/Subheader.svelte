@@ -3,11 +3,6 @@
 	import Numeric from "$components/Numeric.svelte";
 
 	let { class: extraClass }: { class?: string } = $props();
-
-	// Quick metrics helpers
-	const snapshot = $derived(page.data.snapshot);
-	const assets = $derived(Object.keys(snapshot.assets).length);
-	const markets = $derived(Object.keys(snapshot.markets).length);
 </script>
 
 <section
@@ -18,16 +13,16 @@
 	>
 		<!-- Statistics -->
 		<div class="flex min-w-3xl flex-row space-x-4">
-			<span>Assets: <Numeric value={assets} class="text-gecko-white" /></span>
-			<span>Markets: <Numeric value={markets} class="text-gecko-white" /></span>
+			<span>Assets: <Numeric value={page.data.stats.assets} class="text-gecko-white" /></span>
+			<span>Markets: <Numeric value={page.data.stats.markets} class="text-gecko-white" /></span>
 			<span
 				>OI: <Numeric
-					value={snapshot.aggregates.oi}
+					value={page.data.stats.oi.value}
 					format="currency"
 					currency="USD"
 					class="text-gecko-white"
 				/><Numeric
-					value={snapshot.aggregates.oiChange * 100}
+					value={page.data.stats.oi.change * 100}
 					format="numeric"
 					class="ml-1"
 					change
@@ -36,12 +31,12 @@
 			>
 			<span
 				>Volume: <Numeric
-					value={snapshot.aggregates.volume}
+					value={page.data.stats.volume.value}
 					format="currency"
 					currency="USD"
 					class="text-gecko-white"
 				/><Numeric
-					value={snapshot.aggregates.volumeChange * 100}
+					value={page.data.stats.volume.change * 100}
 					format="numeric"
 					class="ml-1"
 					change
@@ -52,7 +47,7 @@
 			<!-- @dev: Requires at least two distinct venues -->
 			<span
 				>OI Dominance: <span class="ml-1 inline-flex gap-2"
-					>{#each snapshot.aggregates.oiByVenue.slice(0, 2) as { venue, oiShare }}
+					>{#each page.data.stats.oi.dominance as { venue, oiShare }}
 						<!-- Tad ugly but proper capitalization -->
 						<span class="text-gecko-white"
 							>{venue.at(0)?.toUpperCase() + venue.slice(1)}

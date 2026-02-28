@@ -6,37 +6,12 @@
 	import Icon from "$components/Icon.svelte";
 	import Card from "$components/Card.svelte";
 	import metaConfig from "$config/meta.json";
-	import exchanges from "$config/exchanges.json";
-	import type { Meta as MetaT } from "$lib/types";
 	import Numeric from "$components/Numeric.svelte";
 	import type { WithContext, Organization } from "schema-dts";
 	import MarketTable from "$components/table/MarketTable.svelte";
 
 	let { data }: PageProps = $props();
-
-	// Collect exchange meta
-	const meta: MetaT = $derived(
-		exchanges[`${data.venue}:${data.dex ?? ""}` as keyof typeof exchanges]
-	);
-
-	// Filter markets
-	const snapshot = $derived(data.snapshot);
-	const filtered = $derived(
-		Object.values(snapshot.markets).filter(
-			(x) => x.venue === data.venue && (data.dex ? x.namespace === data.dex : true)
-		)
-	);
-
-	// Aggregate statistics
-	const marketCount = $derived(filtered.length);
-	const aggVol = $derived(filtered.reduce((s, x) => s + x.volume, 0));
-	const aggVolChange = $derived(
-		aggVol ? filtered.reduce((s, x) => s + x.volume * x.volumeChange, 0) / aggVol : 0
-	);
-	const aggOI = $derived(filtered.reduce((s, x) => s + x.oi, 0));
-	const aggOIChange = $derived(
-		aggOI ? filtered.reduce((s, x) => s + x.oi * x.oiChange, 0) / aggOI : 0
-	);
+	const { meta, rows, aggregate } = $derived(data);
 
 	// Structured schema
 	// @dev: Doesn't have to be derived given pageload properties but added
@@ -50,8 +25,8 @@
 		makesOffer: {
 			"@type": "AggregateOffer",
 			priceCurrency: "USD",
-			offerCount: marketCount,
-			description: `${meta.name} offers ${marketCount} real-world asset markets`
+			offerCount: rows.length,
+			description: `${meta.name} offers ${rows.length} real-world asset markets`
 		},
 		parentOrganization: {
 			"@type": "Organization",
@@ -90,21 +65,31 @@
 	<Grid>
 		<Card title="Market Count">
 			<div class="flex gap-2 p-4 text-lg">
-				<Numeric value={marketCount} class="text-gecko-white" />
+				<Numeric value={rows.length} class="text-gecko-white" />
 			</div>
 		</Card>
 
 		<Card title="Aggregate Volume">
 			<div class="flex gap-2 p-4 text-lg">
-				<Numeric value={aggVol} format="currency" currency="USD" class="text-gecko-white" />
-				<Numeric value={aggVolChange * 100} format="numeric" change percentage />
+				<Numeric
+					value={aggregate.volume.value}
+					format="currency"
+					currency="USD"
+					class="text-gecko-white"
+				/>
+				<Numeric value={aggregate.volume.change * 100} format="numeric" change percentage />
 			</div>
 		</Card>
 
 		<Card title="Aggregate Open Interest">
 			<div class="flex gap-2 p-4 text-lg">
-				<Numeric value={aggOI} format="currency" currency="USD" class="text-gecko-white" />
-				<Numeric value={aggOIChange * 100} format="numeric" change percentage />
+				<Numeric
+					value={aggregate.oi.value}
+					format="currency"
+					currency="USD"
+					class="text-gecko-white"
+				/>
+				<Numeric value={aggregate.oi.change * 100} format="numeric" change percentage />
 			</div>
 		</Card>
 	</Grid>
@@ -112,8 +97,5 @@
 
 <!-- Market table -->
 <div class="flex flex-1 flex-col md:border-t md:border-t-gecko-shade">
-	<MarketTable
-		filter={{ venue: data.venue, ...(data.dex ? { namespace: data.dex } : {}) }}
-		{snapshot}
-	/>
+	<MarketTable {rows} />
 </div>

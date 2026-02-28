@@ -3,41 +3,31 @@
 	import type { PageProps } from "./$types";
 	import Meta from "$components/Meta.svelte";
 	import Grid from "$components/Grid.svelte";
-	import tickers from "$config/tickers.json";
 	import Icon from "$components/Icon.svelte";
 	import Card from "$components/Card.svelte";
 	import metaConfig from "$config/meta.json";
-	import type { Meta as MetaT } from "$lib/types";
 	import Numeric from "$components/Numeric.svelte";
 	import MarketTable from "$components/table/MarketTable.svelte";
 	import type { WithContext, FinancialProduct } from "schema-dts";
 
 	let { data }: PageProps = $props();
-
-	// Collect asset meta
-	const meta: MetaT = $derived(
-		new Map(Object.values(tickers.perps).flatMap((x) => Object.entries(x))).get(data.asset)!.meta
-	);
-
-	// Asset data
-	const snapshot = $derived(data.snapshot);
-	const asset = $derived(snapshot.assets[data.asset]);
+	const { asset, meta, rows } = $derived(data);
 
 	// Structured schema
 	// @dev: Doesn't have to be derived given pageload properties but added
 	// 			 for page change posterity
-	const title = $derived(`StockGecko | ${meta.name}`);
+	const title = $derived(`StockGecko | ${data.meta.name}`);
 	const schema: WithContext<FinancialProduct> = $derived({
 		"@context": "https://schema.org",
 		"@type": "FinancialProduct",
 		name: title,
 		url: metaConfig.url + page.url.pathname,
-		category: asset.category,
+		category: data.asset.category,
 		offers: {
 			"@type": "AggregateOffer",
 			priceCurrency: meta.quote,
 			price: asset.medianRefPx.toString(),
-			offerCount: asset.marketIds.length
+			offerCount: rows.length
 		},
 		isRelatedTo: {
 			"@type": "FinancialProduct",
@@ -110,5 +100,5 @@
 
 <!-- Market table -->
 <div class="flex flex-1 flex-col md:border-t md:border-t-gecko-shade">
-	<MarketTable filter={{ assetId: data.asset }} {snapshot} />
+	<MarketTable {rows} />
 </div>

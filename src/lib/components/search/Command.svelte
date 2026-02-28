@@ -7,11 +7,7 @@
 	import tickers from "$config/tickers.json";
 	import exchanges from "$config/exchanges.json";
 	import Numeric from "$components/Numeric.svelte";
-	import type { DiffedSnapshot } from "$lib/transform";
 	import type { ExchangeCfg, TickerCfg } from "$lib/types";
-
-	// Snapshot via global page state
-	const snapshot = $derived(page.data.snapshot);
 
 	// Collect menu close fn
 	let { close }: { close: () => void } = $props();
@@ -57,12 +53,10 @@
 		<Command.Empty class="text-gecko-gray/50">No results found.</Command.Empty>
 
 		<!-- Iterate asset groups -->
-		{#each Object.entries(tickers.perps as TickerCfg) as [category, assets]}
+		{#each Object.entries(page.data.assets) as [category, assets]}
 			<Command.Group heading={category.toUpperCase()} class={groupClass}>
 				<!-- Iterate assets -->
-				{#each Object.entries(assets) as [id, { meta }]}
-					{@const live = snapshot.assets[id]}
-
+				{#each assets as { id, meta, volume }}
 					<Command.Item
 						onSelect={() => onSelect(`/asset/${id}`)}
 						value="{meta.name} {id} {category}"
@@ -74,19 +68,19 @@
 							<span class="ml-1 text-gecko-gray">({id.toUpperCase()})</span>
 						</div>
 
-						{#if live}
+						{#if volume.value}
 							<div class="flex items-center [&_span]:w-22 [&_span]:text-right">
 								<div>
 									<span class="font-mono text-gecko-muted">VOL:</span>
 									<Numeric
-										value={live.volume}
+										value={volume.value}
 										currency="USD"
 										format="currency"
 										class="text-white"
 									/>
 								</div>
 								<Numeric
-									value={live.volumeChange * 100}
+									value={volume.change * 100}
 									format="numeric"
 									class="ml-1"
 									change

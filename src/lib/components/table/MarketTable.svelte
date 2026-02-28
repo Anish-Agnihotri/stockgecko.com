@@ -1,42 +1,38 @@
+<script module>
+	import type { DiffedSnapshot } from "$lib/transform";
+
+	// Minimally-optimized `MarketRow` to reduce config inlining
+	// @dev: venue lookup left to per-iteration (smaller static config)
+	export type MarketRow = DiffedSnapshot["markets"][string] & {
+		// Market ID
+		id: string;
+		// Market currency
+		currency: string;
+		// Asset name
+		asset: { name: string };
+	};
+</script>
+
 <script lang="ts">
 	import * as Table from "$shadcn/table";
 	import { marketToURL } from "$lib/utils";
 	import Icon from "$components/Icon.svelte";
-	import tickers from "$config/tickers.json";
+	import type { ExchangeCfg } from "$lib/types";
 	import exchanges from "$config/exchanges.json";
-	import type { TickerCfg, ExchangeCfg } from "$lib/types";
+	import Numeric from "$components/Numeric.svelte";
 	import BaseTable from "$components/table/BaseTable.svelte";
-	import { MARKET_TO_ASSET, type DiffedSnapshot } from "$lib/transform";
-	import Numeric, { getNormalizedCurrency } from "$components/Numeric.svelte";
 	import { createSortState, sortRows, type Column } from "$components/table/table.svelte";
 
 	// Setup sortable table
-	type MarketKey = keyof DiffedSnapshot["markets"][0];
+	type MarketKey = keyof MarketRow;
 	const sort = createSortState<MarketKey>("volume");
 
-	// Preserve market ID and enrich with assetId
-	type MarketRow = DiffedSnapshot["markets"][string] & { id: string; assetId: string };
+	// Collect rows to render
+	let { rows }: { rows: MarketRow[] } = $props();
 
-	// Collect snapshot, custom market filters
-	let { snapshot, filter }: { snapshot: DiffedSnapshot; filter?: Partial<MarketRow> } = $props();
-
-	// Derive available markets w/ filter
-	const entries: MarketRow[] = $derived(
-		Object.entries(snapshot.markets)
-			.map(([id, m]) => ({ id, assetId: MARKET_TO_ASSET.get(id)!.asset, ...m }))
-			.filter((row) =>
-				filter ? Object.entries(filter).every(([k, v]) => row[k as keyof MarketRow] === v) : true
-			)
-	);
-
-	// Sorted rows
-	const rows = $derived(
-		sortRows(
-			entries,
-			(row, key: MarketKey) => row[key] as string | number,
-			sort.key,
-			sort.direction
-		)
+	// Sort rows
+	const sorted = $derived(
+		sortRows(rows, (row, key: MarketKey) => row[key] as string | number, sort.key, sort.direction)
 	);
 
 	// Setup columns/headers
@@ -59,21 +55,16 @@
 	sortDirection={sort.direction}
 	onSort={sort.toggle}
 	minWidth={940}
-	rowCount={rows.length}
+	rowCount={sorted.length}
 >
 	<!-- Purposefully leave rank not fixed to volume for market table -->
 	{#snippet row(index)}
-		{@const row = rows[index]}
-		{@const category = snapshot.assets[row.assetId].category}
-		{@const {
-			name: assetName,
-			quote,
-			quotes
-		} = (tickers.perps as TickerCfg)[category][row.assetId].meta}
-		{@const exchange = (exchanges as ExchangeCfg)[`${row.venue}:${row.namespace}`]}
+		{@const market = sorted[index]}
+		{@const { name, icon } = (exchanges as ExchangeCfg)[`${market.venue}:${market.namespace}`]}
 
 		<Table.Row
-			onclick={() => window.open(marketToURL(row.venue, row.namespace, row.ticker), "_blank")}
+			onclick={() =>
+				window.open(marketToURL(market.venue, market.namespace, market.ticker), "_blank")}
 			class="h-10 cursor-pointer border-b-gecko-shade text-xs transition-none hover:bg-gecko-black-hover [&_td]:px-0 [&_td]:text-left [&_td]:align-middle"
 		>
 			<!-- Rank -->
@@ -84,59 +75,61 @@
 				<span class="flex items-center">
 					<!-- Venue icon -->
 					<div class="flex w-7 items-center justify-center">
-						<Icon src={exchange.icon} alt={exchange.name} nested />
+						<Icon src={icon} alt={name} nested />
 					</div>
 
 					<!-- Asset name -->
-					<span class="ml-2 text-gecko-white">{assetName}</span>
+					<span class="ml-2 text-gecko-white">{market.asset.name}</span>
 
 					<!-- Spacer -->
 					<span class="mx-1">/</span>
 
 					<!-- Exchange human name -->
-					<span class="font-mono text-gecko-gray">{exchange.name.toUpperCase()}</span>
+					<span class="font-mono text-gecko-gray">{name.toUpperCase()}</span>
 
 					<!-- Spacer -->
 					<span class="mx-1 hidden text-gecko-gray/30 lg:inline">/</span>
 
 					<!-- Full market identifier -->
-					<span class="hidden font-mono text-gecko-gray/30 lg:inline">{row.id.toUpperCase()}</span>
+					<span class="hidden font-mono text-gecko-gray/30 lg:inline"
+						>{market.id.toUpperCase()}</span
+					>
 				</span>
 			</Table.Cell>
 
 			<!-- Volume -->
 			<Table.Cell class="w-20">
-				<Numeric value={row.volume} format="currency" currency="USD" class="text-gecko-white" />
+				<Numeric value={market.volume} format="currency" currency="USD" class="text-gecko-white" />
 			</Table.Cell>
 
 			<!-- Volume change -->
 			<Table.Cell class="w-24">
-				<Numeric value={row.volumeChange * 100} format="numeric" change percentage />
+				<Numeric value={market.volumeChange * 100} format="numeric" change percentage />
 			</Table.Cell>
 
 			<!-- OI -->
 			<Table.Cell class="w-20">
-				<Numeric value={row.oi} format="currency" currency="USD" class="text-gecko-white" />
+				<Numeric value={market.oi} format="currency" currency="USD" class="text-gecko-white" />
 			</Table.Cell>
 
 			<!-- OI change -->
 			<Table.Cell class="w-24">
-				<Numeric value={row.oiChange * 100} format="numeric" change percentage />
+				<Numeric value={market.oiChange * 100} format="numeric" change percentage />
 			</Table.Cell>
 
 			<!-- Ref price -->
 			<Table.Cell class="w-26">
 				<Numeric
-					value={row.refPx}
+					value={market.refPx}
 					format="numeric"
-					currency={getNormalizedCurrency(`${row.venue}:${row.namespace}`, quote, quotes)}
+					currency={market.currency}
 					class="text-gecko-white"
 				/>
 			</Table.Cell>
 
 			<!-- Mid price change -->
 			<Table.Cell class="w-20">
-				<Numeric value={row.refPxChange * 100} format="numeric" change percentage />
+				<Numeric value={market.refPxChange * 100} format="numeric" change percentage />
 			</Table.Cell>
 		</Table.Row>
 	{/snippet}

@@ -4,25 +4,13 @@
 	import Grid from "$components/Grid.svelte";
 	import Icon from "$components/Icon.svelte";
 	import Meta from "$components/Meta.svelte";
-	import type { PageProps } from "../$types";
-	import exchanges from "$config/exchanges.json";
+	import type { PageProps } from "./$types";
 	import Numeric from "$components/Numeric.svelte";
 
 	let { data }: PageProps = $props();
 
-	// Venue count
-	const venueCount = $derived(data.snapshot.aggregates.exchangeStats.length);
-
-	// Setup venue with additional metadata
-	const venues = $derived(
-		data.snapshot.aggregates.exchangeStats.map((x) => ({
-			...x,
-			...exchanges[x.id as keyof typeof exchanges]
-		}))
-	);
-
 	// Setup chunks for rendered rows
-	const rows = $derived([...chunks(venues, 3)]);
+	const rows = $derived([...chunks(data.venues, 3)]);
 </script>
 
 <Meta title="StockGecko | Venues" />
@@ -33,7 +21,7 @@
 		<Grid bottom={false}>
 			<div class="flex flex-1 flex-col gap-0.5 px-4 py-6">
 				<h1 class="text-lg text-gecko-white md:text-xl">Venues</h1>
-				<p class="text-sm text-gecko-gray/75">Tracking {venueCount} venues and counting.</p>
+				<p class="text-sm text-gecko-gray/75">Tracking {data.venues.length} venues and counting.</p>
 			</div>
 		</Grid>
 	</div>

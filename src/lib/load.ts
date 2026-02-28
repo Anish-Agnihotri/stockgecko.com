@@ -7,9 +7,9 @@ const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
 /**
  * Loads and returns `DiffedSnapshot` w/ 24h change if exists (else no change) from DB
- * @returns {Promise<{ snapshot: DiffedSnapshot }>} aggregated snapshot data
+ * @returns {Promise<DiffedSnapshot>} aggregated snapshot data
  */
-export async function loadSnapshot(): Promise<{ snapshot: DiffedSnapshot }> {
+export async function loadSnapshot(): Promise<DiffedSnapshot> {
 	// Running as a transaction to naively minimize serverless function roundtrips
 	const { prevEntries, currEntries } = await db.$transaction(async (tx) => {
 		// Collect latest batch ID
@@ -41,10 +41,8 @@ export async function loadSnapshot(): Promise<{ snapshot: DiffedSnapshot }> {
 	});
 
 	// Build and return diffed snapshot
-	return {
-		snapshot: buildDiffedSnapshot(
-			buildSnapshot(plainifyEntries(prevEntries)),
-			buildSnapshot(plainifyEntries(currEntries))
-		)
-	};
+	return buildDiffedSnapshot(
+		buildSnapshot(plainifyEntries(prevEntries)),
+		buildSnapshot(plainifyEntries(currEntries))
+	);
 }

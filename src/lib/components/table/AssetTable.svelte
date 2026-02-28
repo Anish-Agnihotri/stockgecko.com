@@ -1,34 +1,40 @@
+<script module>
+	import type { Meta } from "$lib/types";
+	import type { DiffedSnapshot } from "$lib/transform";
+
+	export type AssetRow = DiffedSnapshot["assets"][string] & {
+		// ID
+		id: string;
+		// Asset meta
+		meta: Meta;
+		// Volume-weighted rank
+		rank: number;
+		// Previous rank
+		previousRank: number | null;
+	};
+</script>
+
 <script lang="ts">
 	import * as Table from "$shadcn/table";
 	import { goto } from "$app/navigation";
-	import tickers from "$config/tickers.json";
 	import Icon from "$components/Icon.svelte";
+	import type { ExchangeCfg } from "$lib/types";
 	import exchanges from "$config/exchanges.json";
 	import Numeric from "$components/Numeric.svelte";
-	import type { DiffedSnapshot } from "$lib/transform";
 	import IconScroll from "$components/IconScroll.svelte";
-	import type { ExchangeCfg, TickerCfg } from "$lib/types";
 	import BaseTable from "$components/table/BaseTable.svelte";
 	import { createSortState, sortRows, type Column } from "$components/table/table.svelte";
 
-	let { snapshot }: { snapshot: DiffedSnapshot } = $props();
+	let { rows }: { rows: AssetRow[] } = $props();
 
 	// Setup sortable table
 	type AssetKey = keyof DiffedSnapshot["assets"][0];
 	const sort = createSortState<AssetKey>("volume");
 
 	// Sorted rows
-	const rows = $derived(
-		sortRows(
-			[...snapshot.index.assetsByVolume],
-			(row, key: AssetKey) => snapshot.assets[row.asset][key!] as string | number,
-			sort.key,
-			sort.direction
-		)
+	const sorted = $derived(
+		sortRows(rows, (row, key: AssetKey) => row[key] as string | number, sort.key, sort.direction)
 	);
-
-	// O(n) volume rank lookup
-	const rankMap = $derived(new Map(snapshot.index.assetsByVolume.map((r, i) => [r.asset, i])));
 
 	// Setup columns/headers
 	const columns: Column<AssetKey>[] = [
@@ -57,22 +63,20 @@
 >
 	{#snippet row(index)}
 		<!-- Collect asset data + metadata -->
-		{@const { asset: assetId, previousIndex } = rows[index]}
-		{@const asset = snapshot.assets[assetId]}
-		{@const { name, icon, quote } = (tickers.perps as TickerCfg)[asset.category][assetId].meta}
-		{@const volumeRank = rankMap.get(assetId)!}
-		{@const rankDelta = previousIndex != null ? previousIndex - volumeRank : 0}
+		{@const asset = sorted[index]}
 
 		<Table.Row
-			onclick={() => goto(`/asset/${assetId}`)}
+			onclick={() => goto(`/asset/${asset.id}`)}
 			class="h-10 cursor-pointer border-b-gecko-shade text-xs transition-none hover:bg-gecko-black-hover [&_td]:px-0 [&_td]:text-left [&_td]:align-middle"
 		>
 			<!-- Ranking change -->
-			<Table.Cell class="w-10 text-center!"><Numeric value={rankDelta} change /></Table.Cell>
+			<Table.Cell class="w-10 text-center!"
+				><Numeric value={asset.rank - (asset.previousRank ?? 0)} change /></Table.Cell
+			>
 
 			<!-- Current ranking -->
 			<Table.Cell class="w-6">
-				{@const rank = volumeRank + 1}
+				{@const rank = asset.rank + 1}
 
 				{#if rank <= 3}
 					<img
@@ -91,10 +95,10 @@
 			<Table.Cell class="py-0 pr-0">
 				<span class="flex items-center">
 					<div class="flex w-7 items-center justify-center">
-						<Icon src={icon} alt={name} />
+						<Icon src={asset.meta.icon} alt={asset.meta.name} />
 					</div>
-					<span class="ml-2 text-gecko-white">{name}</span>
-					<span class="ml-1 text-gecko-gray">{assetId.toUpperCase()}</span>
+					<span class="ml-2 text-gecko-white">{asset.meta.name}</span>
+					<span class="ml-1 text-gecko-gray">{asset.id.toUpperCase()}</span>
 				</span>
 			</Table.Cell>
 
@@ -124,7 +128,7 @@
 				<Numeric
 					value={asset.medianRefPx}
 					format="numeric"
-					currency={quote ?? "USD"}
+					currency={asset.meta.quote ?? "USD"}
 					class="text-gecko-white"
 				/>
 			</Table.Cell>
@@ -143,8 +147,10 @@
 			<Table.Cell class="w-25">
 				<IconScroll>
 					{#each asset.marketIds as marketId}
-						{@const { venue, namespace } = snapshot.markets[marketId]}
-						{@const { name, icon } = (exchanges as ExchangeCfg)[`${venue}:${namespace}`]}
+						{@const [venue, dex] = marketId.split(":")}
+						{@const { name, icon } = (exchanges as ExchangeCfg)[
+							marketId.split(":").length == 3 ? `${venue}:${dex}` : `${venue}:`
+						]}
 
 						<Icon src={icon} alt={name} nested />
 					{/each}

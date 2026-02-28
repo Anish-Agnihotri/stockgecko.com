@@ -6,7 +6,7 @@
 	import AssetTable from "$components/table/AssetTable.svelte";
 
 	let { data }: PageProps = $props();
-	const snapshot = $derived(data.snapshot);
+	const { volume, rows } = $derived(data);
 </script>
 
 <Meta />
@@ -19,12 +19,8 @@
 			<div class="flex max-w-xl flex-col items-center justify-center px-8 text-center lg:px-4">
 				<h1 class="text-3xl font-bold text-gecko-white sm:text-5xl">TradFi lives on crypto.</h1>
 				<p class="max-w-sm pt-2 text-sm">
-					<Numeric
-						value={data.snapshot.aggregates.volume}
-						currency="USD"
-						format="currency"
-						class="text-gecko-gray!"
-					/> and counting of real-world assets have traded on crypto venues in the last 24 hours.
+					<Numeric value={volume} currency="USD" format="currency" class="text-gecko-gray!" /> and counting
+					of real-world assets have traded on crypto venues in the last 24 hours.
 				</p>
 			</div>
 		</div>
@@ -33,5 +29,5 @@
 
 <!-- Tabular data -->
 <section class="flex max-w-full flex-1 flex-row justify-center">
-	<AssetTable {snapshot} />
+	<AssetTable {rows} />
 </section>
