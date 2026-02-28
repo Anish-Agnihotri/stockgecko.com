@@ -5,11 +5,19 @@
 	import { type Schema, DEFAULT_SCHEMA, serializeSchema } from "$lib/schema";
 
 	// Load optional props (w/ defaults from config)
-	export let title: string = meta.title;
-	export let description: string = meta.description;
-	export let url = meta.url + page.url.pathname;
-	export let image = meta.image;
-	export let schema: Schema = DEFAULT_SCHEMA;
+	let {
+		title = meta.title,
+		description = meta.description,
+		url = meta.url + page.url.pathname,
+		image = meta.image,
+		schema = DEFAULT_SCHEMA
+	}: {
+		title: string;
+		description: string;
+		url: string;
+		image: string;
+		schema: Schema;
+	} = $props();
 </script>
 
 <svelte:head>
