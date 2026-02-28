@@ -4,7 +4,7 @@ import type { PlainMarketEntry } from "$lib/serialize";
 import { getNormalizedCurrency } from "$components/Numeric.svelte";
 
 // Reverse index (marketKey => {asset, category})
-// "hyperliquid:xyz:NVDA" → { asset: "nvda", category: "stocks", quote: "KRW", venueQuote: "USD" }
+// "hyperliquid:xyz:NVDA" → { asset: "nvda", name: "Nvidia", category: "stocks", quote: "KRW", venueQuote: "USD" }
 export const MARKET_TO_ASSET = new Map(
 	Object.entries(tickers.perps).flatMap(([category, assets]) =>
 		Object.entries(assets).flatMap(
@@ -13,7 +13,10 @@ export const MARKET_TO_ASSET = new Map(
 					// Check for special-cased quote
 					const exchange = market.substring(0, market.lastIndexOf(":"));
 					const venueQuote = getNormalizedCurrency(exchange, meta.quote, meta.quotes);
-					return [market, { asset, category, quote: meta.quote ?? "USD", venueQuote }] as const;
+					return [
+						market,
+						{ asset, name: meta.name, category, quote: meta.quote ?? "USD", venueQuote }
+					] as const;
 				})
 		)
 	)

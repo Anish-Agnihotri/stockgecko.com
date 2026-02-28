@@ -14,26 +14,34 @@
 	type MarketKey = keyof DiffedSnapshot["markets"][0];
 	const sort = createSortState<MarketKey>("volume");
 
-	// Preserve market ID and enrich with assetId
-	type MarketRow = DiffedSnapshot["markets"][string] & { id: string; assetId: string };
+	// Minimally-optimized filter
+	type Filter = { assetId?: string; venue?: string; namespace?: string };
 
 	// Collect snapshot, custom market filters
-	let { snapshot, filter }: { snapshot: DiffedSnapshot; filter?: Partial<MarketRow> } = $props();
+	let { snapshot, filter }: { snapshot: DiffedSnapshot; filter?: Filter } = $props();
 
-	// Derive available markets w/ filter
-	const entries: MarketRow[] = $derived(
-		Object.entries(snapshot.markets)
-			.map(([id, m]) => ({ id, assetId: MARKET_TO_ASSET.get(id)!.asset, ...m }))
-			.filter((row) =>
-				filter ? Object.entries(filter).every(([k, v]) => row[k as keyof MarketRow] === v) : true
-			)
-	);
+	// Filter over just market ID candidate set
+	const marketIds = $derived.by(() => {
+		// Collect marketIDs by specific assetID (asset pages)
+		if (filter?.assetId) return snapshot.assets[filter.assetId]?.marketIds ?? [];
 
-	// Sorted rows
-	const rows = $derived(
+		// Collect marketIDs by {venue, namespace}-filtering over full set
+		if (filter?.venue) {
+			const ids = snapshot.index.marketsByVenue[filter.venue] ?? [];
+			return filter.namespace
+				? ids.filter((id) => snapshot.markets[id].namespace === filter.namespace)
+				: ids;
+		}
+
+		// Else, return all market IDs
+		return Object.keys(snapshot.markets);
+	});
+
+	// Sort IDs via lookup (don't prematurely allocate `MarketRow` via `map`)
+	const sortedIds = $derived(
 		sortRows(
-			entries,
-			(row, key: MarketKey) => row[key] as string | number,
+			marketIds,
+			(row, key: MarketKey) => snapshot.markets[row][key] as string | number,
 			sort.key,
 			sort.direction
 		)
@@ -59,21 +67,18 @@
 	sortDirection={sort.direction}
 	onSort={sort.toggle}
 	minWidth={940}
-	rowCount={rows.length}
+	rowCount={sortedIds.length}
 >
 	<!-- Purposefully leave rank not fixed to volume for market table -->
 	{#snippet row(index)}
-		{@const row = rows[index]}
-		{@const category = snapshot.assets[row.assetId].category}
-		{@const {
-			name: assetName,
-			quote,
-			quotes
-		} = (tickers.perps as TickerCfg)[category][row.assetId].meta}
-		{@const exchange = (exchanges as ExchangeCfg)[`${row.venue}:${row.namespace}`]}
+		{@const id = sortedIds[index]}
+		{@const market = snapshot.markets[id]}
+		{@const { name, quote, venueQuote } = MARKET_TO_ASSET.get(id)!}
+		{@const exchange = (exchanges as ExchangeCfg)[`${market.venue}:${market.namespace}`]}
 
 		<Table.Row
-			onclick={() => window.open(marketToURL(row.venue, row.namespace, row.ticker), "_blank")}
+			onclick={() =>
+				window.open(marketToURL(market.venue, market.namespace, market.ticker), "_blank")}
 			class="h-10 cursor-pointer border-b-gecko-shade text-xs transition-none hover:bg-gecko-black-hover [&_td]:px-0 [&_td]:text-left [&_td]:align-middle"
 		>
 			<!-- Rank -->
@@ -88,7 +93,7 @@
 					</div>
 
 					<!-- Asset name -->
-					<span class="ml-2 text-gecko-white">{assetName}</span>
+					<span class="ml-2 text-gecko-white">{name}</span>
 
 					<!-- Spacer -->
 					<span class="mx-1">/</span>
@@ -100,43 +105,43 @@
 					<span class="mx-1 hidden text-gecko-gray/30 lg:inline">/</span>
 
 					<!-- Full market identifier -->
-					<span class="hidden font-mono text-gecko-gray/30 lg:inline">{row.id.toUpperCase()}</span>
+					<span class="hidden font-mono text-gecko-gray/30 lg:inline">{id.toUpperCase()}</span>
 				</span>
 			</Table.Cell>
 
 			<!-- Volume -->
 			<Table.Cell class="w-20">
-				<Numeric value={row.volume} format="currency" currency="USD" class="text-gecko-white" />
+				<Numeric value={market.volume} format="currency" currency="USD" class="text-gecko-white" />
 			</Table.Cell>
 
 			<!-- Volume change -->
 			<Table.Cell class="w-24">
-				<Numeric value={row.volumeChange * 100} format="numeric" change percentage />
+				<Numeric value={market.volumeChange * 100} format="numeric" change percentage />
 			</Table.Cell>
 
 			<!-- OI -->
 			<Table.Cell class="w-20">
-				<Numeric value={row.oi} format="currency" currency="USD" class="text-gecko-white" />
+				<Numeric value={market.oi} format="currency" currency="USD" class="text-gecko-white" />
 			</Table.Cell>
 
 			<!-- OI change -->
 			<Table.Cell class="w-24">
-				<Numeric value={row.oiChange * 100} format="numeric" change percentage />
+				<Numeric value={market.oiChange * 100} format="numeric" change percentage />
 			</Table.Cell>
 
 			<!-- Ref price -->
 			<Table.Cell class="w-26">
 				<Numeric
-					value={row.refPx}
+					value={market.refPx}
 					format="numeric"
-					currency={getNormalizedCurrency(`${row.venue}:${row.namespace}`, quote, quotes)}
+					currency={venueQuote ? venueQuote : quote ? quote : "USD"}
 					class="text-gecko-white"
 				/>
 			</Table.Cell>
 
 			<!-- Mid price change -->
 			<Table.Cell class="w-20">
-				<Numeric value={row.refPxChange * 100} format="numeric" change percentage />
+				<Numeric value={market.refPxChange * 100} format="numeric" change percentage />
 			</Table.Cell>
 		</Table.Row>
 	{/snippet}
