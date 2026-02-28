@@ -34,23 +34,31 @@
 
 	// Element setup
 	let containerEl: HTMLDivElement;
-	let shaderMount: ShaderMount | null = null;
+
+	// Reuseable WebGL context
+	let sharedMount: ShaderMount | null = null;
 
 	onMount(() => {
-		// Setup new shader mount
-		shaderMount = new ShaderMount(
-			containerEl,
-			ditheringFragmentShader,
-			shaderConfig,
-			{ alpha: true, premultipliedAlpha: true },
-			animationSpeed
-		);
+		if (sharedMount) {
+			// Reuse existing WebGL context, just move canvas
+			containerEl.prepend(sharedMount.canvasElement);
+		} else {
+			// First mount: create shader once
+			sharedMount = new ShaderMount(
+				containerEl,
+				ditheringFragmentShader,
+				shaderConfig,
+				{ alpha: true, premultipliedAlpha: true },
+				animationSpeed
+			);
+		}
 	});
 
 	onDestroy(() => {
-		// On dismount, cleanup
-		shaderMount?.dispose();
-		shaderMount = null;
+		// On dismount, detach canvas so WebGL context stays alive
+		if (sharedMount?.canvasElement?.parentNode) {
+			sharedMount.canvasElement.remove();
+		}
 	});
 
 	// Collect additional styles, inject children
