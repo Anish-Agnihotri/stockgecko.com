@@ -1,6 +1,5 @@
 <script lang="ts">
 	import * as Table from "$shadcn/table";
-	import { goto } from "$app/navigation";
 	import tickers from "$config/tickers.json";
 	import Icon from "$components/Icon.svelte";
 	import exchanges from "$config/exchanges.json";
@@ -9,6 +8,7 @@
 	import IconScroll from "$components/IconScroll.svelte";
 	import type { ExchangeCfg, TickerCfg } from "$lib/types";
 	import BaseTable from "$components/table/BaseTable.svelte";
+	import { goto, preloadCode, preloadData } from "$app/navigation";
 	import { createSortState, sortRows, type Column } from "$components/table/table.svelte";
 
 	let { snapshot }: { snapshot: DiffedSnapshot } = $props();
@@ -64,6 +64,11 @@
 		{@const rankDelta = previousIndex != null ? previousIndex - volumeRank : 0}
 
 		<Table.Row
+			onmouseenter={() => {
+				// Warm page w/o relying on `data-sveltekit-preload-data="hover"` via a-href
+				preloadCode(`/asset/${assetId}`);
+				preloadData(`/asset/${assetId}`);
+			}}
 			onclick={() => goto(`/asset/${assetId}`)}
 			class="h-10 cursor-pointer border-b-gecko-shade text-xs transition-none hover:bg-gecko-black-hover [&_td]:px-0 [&_td]:text-left [&_td]:align-middle"
 		>

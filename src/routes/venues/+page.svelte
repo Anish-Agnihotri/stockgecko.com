@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { chunks } from "$lib/utils";
-	import { goto } from "$app/navigation";
 	import Grid from "$components/Grid.svelte";
 	import Icon from "$components/Icon.svelte";
 	import Meta from "$components/Meta.svelte";
 	import type { PageProps } from "../$types";
 	import exchanges from "$config/exchanges.json";
 	import Numeric from "$components/Numeric.svelte";
+	import { goto, preloadCode, preloadData } from "$app/navigation";
 
 	let { data }: PageProps = $props();
 
@@ -23,6 +23,16 @@
 
 	// Setup chunks for rendered rows
 	const rows = $derived([...chunks(venues, 3)]);
+
+	/**
+	 * Collect venue page path from venue ID
+	 * @param {string} id venue ID
+	 * @return {string} venue page path
+	 */
+	function venuePath(id: string): string {
+		const [v, dex] = id.split(":");
+		return `/venue/${v}${dex ? `/dex/${dex}` : ""}`;
+	}
 </script>
 
 <Meta title="StockGecko | Venues" />
@@ -46,14 +56,18 @@
 				class={i === rows.length - 1 ? "[&>div:last-child]:border-b-0" : ""}
 			>
 				{#each row as venue}
+					{@const path = venuePath(venue.id)}
+
 					<div
 						role="button"
 						tabindex="0"
 						aria-label={venue.name}
-						onclick={() => {
-							const [v, dex] = venue.id.split(":");
-							goto(`/venue/${v}${dex ? `/dex/${dex}` : ""}`);
+						onmouseenter={() => {
+							// Warm page w/o relying on `data-sveltekit-preload-data="hover"` via a-href
+							preloadCode(path);
+							preloadData(path);
 						}}
+						onclick={() => goto(path)}
 						onkeydown={(e) => {
 							// Simple handling to not have to deal w/ button styling in `Grid`
 							if (e.key === "Enter" || e.key === " ") {
