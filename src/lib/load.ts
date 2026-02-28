@@ -5,6 +5,9 @@ import { buildSnapshot, buildDiffedSnapshot, type DiffedSnapshot } from "$lib/tr
 // One day in milliseconds
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
+// P0 venues — force fail build if missing in latest batch
+const P0_VENUES: readonly string[] = ["hyperliquid", "binance", "lighter"];
+
 /**
  * Loads and returns `DiffedSnapshot` w/ 24h change if exists (else no change) from DB
  * @returns {Promise<{ snapshot: DiffedSnapshot }>} aggregated snapshot data
@@ -19,6 +22,18 @@ export async function loadSnapshot(): Promise<{ snapshot: DiffedSnapshot }> {
 				orderBy: { createdAt: "desc" },
 				select: { batchId: true, createdAt: true }
 			});
+
+		// Validate P0 venue coverage
+		// @dev: fail build fast if not present
+		const venuesInBatch = await tx.marketEntry.groupBy({
+			by: ["venue"],
+			where: { batchId: currBatchId }
+		});
+		const venueSet = new Set(venuesInBatch.map((r) => r.venue));
+		const missing = P0_VENUES.filter((v) => !venueSet.has(v));
+		if (missing.length > 0) {
+			throw new Error(`Latest batch ${currBatchId} missing P0 venues: ${missing.join(", ")}`);
+		}
 
 		// Collect batch ID closest to 24 hours ago
 		const lte = new Date(currCreatedAt.getTime() - ONE_DAY_MS);
