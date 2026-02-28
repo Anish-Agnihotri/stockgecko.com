@@ -7,21 +7,17 @@
 	import Icon from "$components/Icon.svelte";
 	import Card from "$components/Card.svelte";
 	import metaConfig from "$config/meta.json";
-	import type { Meta as MetaT } from "$lib/types";
 	import Numeric from "$components/Numeric.svelte";
+	import type { Meta as MetaT, TickerCfg } from "$lib/types";
 	import MarketTable from "$components/table/MarketTable.svelte";
 	import type { WithContext, FinancialProduct } from "schema-dts";
 
 	let { data }: PageProps = $props();
-
-	// Collect asset meta
-	const meta: MetaT = $derived(
-		new Map(Object.values(tickers.perps).flatMap((x) => Object.entries(x))).get(data.asset)!.meta
-	);
+	const { snapshot } = $derived(data);
 
 	// Asset data
-	const snapshot = $derived(data.snapshot);
 	const asset = $derived(snapshot.assets[data.asset]);
+	const meta: MetaT = $derived((tickers.perps as TickerCfg)[asset.category][data.asset].meta);
 
 	// Structured schema
 	// @dev: Doesn't have to be derived given pageload properties but added
