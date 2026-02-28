@@ -19,24 +19,34 @@
 		exchanges[`${data.venue}:${data.dex ?? ""}` as keyof typeof exchanges]
 	);
 
-	// Filter markets
+	// Filter markets by optimized ID search
 	const snapshot = $derived(data.snapshot);
-	const filtered = $derived(
-		Object.values(snapshot.markets).filter(
-			(x) => x.venue === data.venue && (data.dex ? x.namespace === data.dex : true)
-		)
-	);
+	const marketIds = $derived.by(() => {
+		const ids = snapshot.index.marketsByVenue[data.venue] ?? [];
+		return data.dex ? ids.filter((id) => snapshot.markets[id].namespace === data.dex) : ids;
+	});
 
 	// Aggregate statistics
-	const marketCount = $derived(filtered.length);
-	const aggVol = $derived(filtered.reduce((s, x) => s + x.volume, 0));
-	const aggVolChange = $derived(
-		aggVol ? filtered.reduce((s, x) => s + x.volume * x.volumeChange, 0) / aggVol : 0
-	);
-	const aggOI = $derived(filtered.reduce((s, x) => s + x.oi, 0));
-	const aggOIChange = $derived(
-		aggOI ? filtered.reduce((s, x) => s + x.oi * x.oiChange, 0) / aggOI : 0
-	);
+	const stats = $derived.by(() => {
+		let count = 0,
+			vol = 0,
+			oi = 0,
+			volX = 0,
+			oiX = 0;
+
+		for (const id of marketIds) {
+			const market = snapshot.markets[id];
+
+			// Aggregate statistics
+			count += 1;
+			vol += market.volume;
+			oi += market.oi;
+			volX += market.volume * market.volumeChange;
+			oiX += market.oi + market.oiChange;
+		}
+
+		return { count, vol, oi, volChg: vol ? volX / vol : 0, oiChg: oi ? oiX / oi : 0 };
+	});
 
 	// Structured schema
 	// @dev: Doesn't have to be derived given pageload properties but added
@@ -50,8 +60,8 @@
 		makesOffer: {
 			"@type": "AggregateOffer",
 			priceCurrency: "USD",
-			offerCount: marketCount,
-			description: `${meta.name} offers ${marketCount} real-world asset markets`
+			offerCount: stats.count,
+			description: `${meta.name} offers ${stats.count} real-world asset markets`
 		},
 		parentOrganization: {
 			"@type": "Organization",
@@ -90,21 +100,21 @@
 	<Grid>
 		<Card title="Market Count">
 			<div class="flex gap-2 p-4 text-lg">
-				<Numeric value={marketCount} class="text-gecko-white" />
+				<Numeric value={stats.count} class="text-gecko-white" />
 			</div>
 		</Card>
 
 		<Card title="Aggregate Volume">
 			<div class="flex gap-2 p-4 text-lg">
-				<Numeric value={aggVol} format="currency" currency="USD" class="text-gecko-white" />
-				<Numeric value={aggVolChange * 100} format="numeric" change percentage />
+				<Numeric value={stats.vol} format="currency" currency="USD" class="text-gecko-white" />
+				<Numeric value={stats.volChg * 100} format="numeric" change percentage />
 			</div>
 		</Card>
 
 		<Card title="Aggregate Open Interest">
 			<div class="flex gap-2 p-4 text-lg">
-				<Numeric value={aggOI} format="currency" currency="USD" class="text-gecko-white" />
-				<Numeric value={aggOIChange * 100} format="numeric" change percentage />
+				<Numeric value={stats.oi} format="currency" currency="USD" class="text-gecko-white" />
+				<Numeric value={stats.oiChg * 100} format="numeric" change percentage />
 			</div>
 		</Card>
 	</Grid>
