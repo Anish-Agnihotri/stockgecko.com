@@ -12,11 +12,11 @@
 		image = meta.image,
 		schema = DEFAULT_SCHEMA
 	}: {
-		title: string;
-		description: string;
-		url: string;
-		image: string;
-		schema: Schema;
+		title?: string;
+		description?: string;
+		url?: string;
+		image?: string;
+		schema?: Schema;
 	} = $props();
 </script>
 
