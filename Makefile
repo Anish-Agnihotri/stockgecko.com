@@ -3,6 +3,8 @@ SHELL := /bin/bash
 
 # Pre-setup
 PRISMA := bunx --bun prisma
+AUTH_HEADER := "Authorization: Bearer $$(grep CRON_SECRET .env | cut -d'=' -f2 | tr -d '"')"
+COLLECT_URL := http://localhost:5173/api/jobs/collect
 
 # Phony targets
 .PHONY: install dev prisma-format prisma-generate prisma-migrate workflow test-collect setup
@@ -36,25 +38,19 @@ workflow:
 
 # Test: kick off local collection job
 test-collect:
-	@curl -s http://localhost:5173/api/jobs/collect \
-		-H "Authorization: Bearer $$(grep CRON_SECRET .env | cut -d'=' -f2 | tr -d '"')" | jq
+	@curl -s $(COLLECT_URL) -H $(AUTH_HEADER) | jq
 
 # Full setup: migrate, start dev, run test-collect twice, then kill dev
 setup:
 	@$(PRISMA) migrate dev
-	@bun run dev & DEV_PID=$$!; \
-		echo "Waiting 30s..."; \
+	@bun run dev > /dev/null 2>&1 & DEV_PID=$$!; \
+		echo "Dev server started (PID: $$DEV_PID). Waiting 30s..."; \
 		sleep 30; \
-		echo "Running test-collect (1/2)..."; \
-		curl -s http://localhost:5173/api/jobs/collect \
-			-H "Authorization: Bearer $$(grep CRON_SECRET .env | cut -d'=' -f2 | tr -d '"')" | jq; \
-		echo "Waiting 60s..."; \
-		sleep 60; \
-		echo "Running test-collect (2/2)..."; \
-		curl -s http://localhost:5173/api/jobs/collect \
-			-H "Authorization: Bearer $$(grep CRON_SECRET .env | cut -d'=' -f2 | tr -d '"')" | jq; \
-		echo "Waiting 60s..."; \
-		sleep 60; \
+		for i in 1 2; do \
+			echo "Running test-collect ($$i/2)..."; \
+			$(MAKE) test-collect; \
+			echo "Waiting 60s..."; \
+			sleep 60; \
+		done; \
 		echo "Killing dev server..."; \
-		sleep 60; \
 		kill $$DEV_PID || true
