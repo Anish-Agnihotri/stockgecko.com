@@ -15,7 +15,7 @@ export default {
 			"@/*": "src/lib/*"
 		},
 		prerender: {
-			handleHttpError: "warn"
+			handleHttpError: "fail"
 		}
 	}
 };
