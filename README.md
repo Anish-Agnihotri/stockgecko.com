@@ -1,6 +1,6 @@
 ![StockGecko landing image](https://github.com/user-attachments/assets/10234bb9-c50e-4831-b6d1-905b4b6dfbe6)
 
-StockGecko aggregates **270+ markets** across **85+ assets** and **12+ venues**—covering stocks, indices, commodities, FX, and pre-IPO perps.
+<p align="center">StockGecko aggregates <b>270+ markets</b> across <b>85+ assets</b> and <b>12+ venues</b>—covering stocks, indices, commodities, FX, and pre-IPO perps.</p>
 
 ## Setup & Usage
 
@@ -120,7 +120,7 @@ For existing venues, adding the market `ref` itself should automatically populat
 
 ## Architecture
 
-Fair warning: this project is closer to the cutting-edge of current web tech stacks as a function of the dev's development enjoyment and urge to play with new tech. Some fun quirks/notes below:
+Fair warning: this project is closer to the _experimental_-edge of current web tech stacks as a function of the dev's development enjoyment and urge to play with new tech. Some fun quirks/notes below:
 
 > [!TIP]
 >
