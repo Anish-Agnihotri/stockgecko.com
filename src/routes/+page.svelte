@@ -17,7 +17,7 @@
 		<!-- CTA -->
 		<div class="flex flex-1 items-center justify-center">
 			<div class="flex max-w-xl flex-col items-center justify-center px-8 text-center lg:px-4">
-				<h1 class="text-3xl font-bold text-gecko-white sm:text-5xl">TradFi lives on crypto.</h1>
+				<h1 class="text-3xl font-bold text-gecko-white sm:text-5xl">TradFi lives on-chain.</h1>
 				<p class="max-w-sm pt-2 text-sm">
 					<Numeric
 						value={data.snapshot.aggregates.volume}
