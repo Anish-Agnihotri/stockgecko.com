@@ -71,7 +71,11 @@
 						<div class="flex items-center" inert>
 							<Icon src={meta.icon} alt={meta.name} />
 							<h5 class="ml-2 text-gecko-white">{meta.name}</h5>
-							<span class="ml-1 text-gecko-gray">({id.toUpperCase()})</span>
+
+							{#if meta.name.length <= 15}
+								<!-- Don't render symbol if overflowing on mobile -->
+								<span class="ml-1 text-gecko-gray">({id.toUpperCase()})</span>
+							{/if}
 						</div>
 
 						{#if live}
