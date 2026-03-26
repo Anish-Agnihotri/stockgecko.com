@@ -3,6 +3,6 @@
 	"bunVersion": "1.x",
 	"crons": [
 		{ "path": "/api/jobs/collect", "schedule": "*/10 * * * *" },
-		{ "path": "/api/rebuild", "schedule": "5 * * * *" }
+		{ "path": "/api/rebuild", "schedule": "5 */6 * * *" }
 	]
 }
