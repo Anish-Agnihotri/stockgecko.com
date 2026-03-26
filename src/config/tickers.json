@@ -44,7 +44,8 @@
 					"aster:HOODUSDT",
 					"edgex:HOODUSD",
 					"extended:HOOD-USD",
-					"vest:HOOD-USD-PERP"
+					"vest:HOOD-USD-PERP",
+					"qfex:HOOD-USD"
 				]
 			},
 			"sndk": {
@@ -53,7 +54,13 @@
 					"description": "Sandisk Corporation is an American multinational computer technology company based in Milpitas, California, that designs and manufactures flash memory products, including memory cards, USB flash drives, and solid-state drives. It was founded in 1988 as SunDisk by Eli Harari, Sanjay Mehrotra, and Jack Yuan.",
 					"icon": ["/assets/icons/stocks/sandisk.svg"]
 				},
-				"ref": ["hyperliquid:xyz:SNDK", "lighter:SNDK", "aster:SNDKUSDT", "vest:SNDK-USD-PERP"]
+				"ref": [
+					"hyperliquid:xyz:SNDK",
+					"lighter:SNDK",
+					"aster:SNDKUSDT",
+					"vest:SNDK-USD-PERP",
+					"qfex:SNDK-USD"
+				]
 			},
 			"tsla": {
 				"meta": {
@@ -88,7 +95,8 @@
 					"lighter:INTC",
 					"binance:INTCUSDT",
 					"aster:INTCUSDT",
-					"vest:INTC-USD-PERP"
+					"vest:INTC-USD-PERP",
+					"qfex:INTC-USD"
 				]
 			},
 			"mstr": {
@@ -153,9 +161,10 @@
 					"hyperliquid:km:GOOGL",
 					"lighter:GOOGL",
 					"ostium:GOOG-USD",
-					"aster:GOOGUSDT",
+					"aster:GOOGLUSDT",
 					"extended:GOOG-USD",
-					"vest:GOOGL-USD-PERP"
+					"vest:GOOGL-USD-PERP",
+					"qfex:GOOGL-USD"
 				]
 			},
 			"msft": {
@@ -185,7 +194,7 @@
 					"hyperliquid:cash:AMZN",
 					"lighter:AMZN",
 					"ostium:AMZN-USD",
-					"binace:AMZNUSDT",
+					"binance:AMZNUSDT",
 					"aster:AMZNUSDT",
 					"edgex:AMZNUSD",
 					"extended:AMZN-USD",
@@ -302,7 +311,8 @@
 					"binance:CRCLUSDT",
 					"edgex:CRCLUSD",
 					"hyperliquid:xyz:CRCL",
-					"vest:CRCL-USD-PERP"
+					"vest:CRCL-USD-PERP",
+					"qfex:CRCL-USD"
 				]
 			},
 			"bmnr": {
@@ -311,7 +321,7 @@
 					"description": "Bitmine Immersion Technologies, Inc. is a technology company focused on acquiring, holding, and actively managing ETH as its primary treasury reserve asset.",
 					"icon": ["/assets/icons/stocks/bitmine.svg"]
 				},
-				"ref": ["lighter:BMNR", "ostium:BMNR-USD", "vest:BMNR-USD-PERP"]
+				"ref": ["lighter:BMNR", "ostium:BMNR-USD", "vest:BMNR-USD-PERP", "hyperliquid:km:BMNR"]
 			},
 			"cvx": {
 				"meta": {
@@ -335,7 +345,7 @@
 					"description": "Costco Wholesale Corporation is an American multinational corporation which operates a chain of membership-only big-box warehouse club retail stores.",
 					"icon": ["/assets/icons/stocks/costco.svg"]
 				},
-				"ref": ["ostium:COST-USD", "vest:COST-USD-PERP"]
+				"ref": ["ostium:COST-USD", "vest:COST-USD-PERP", "hyperliquid:xyz:COST"]
 			},
 			"nflx": {
 				"meta": {
@@ -375,7 +385,7 @@
 					"description": "Eli Lilly and Company, doing business as Lilly, is an American multinational pharmaceutical company headquartered in Indianapolis, Indiana, with offices in 18 countries. Its products are sold in approximately 125 countries.",
 					"icon": ["/assets/icons/stocks/lly.svg"]
 				},
-				"ref": ["vest:LLY-USD-PERP"]
+				"ref": ["vest:LLY-USD-PERP", "hyperliquid:xyz:LLY"]
 			},
 			"onds": {
 				"meta": {
@@ -384,6 +394,38 @@
 					"icon": ["/assets/icons/stocks/ondas.svg"]
 				},
 				"ref": ["vest:ONDS-USD-PERP"]
+			},
+			"asml": {
+				"meta": {
+					"name": "ASML",
+					"description": "ASML is a Dutch company and the world's sole supplier of extreme ultraviolet (EUV) lithography machines, critical for manufacturing advanced AI and semiconductor chips. As the leader in photolithography with ~90% market share, it dominates the industry, serving giants like TSMC, Samsung, and Intel.",
+					"icon": ["/assets/icons/stocks/asml.svg"]
+				},
+				"ref": ["lighter:ASML"]
+			},
+			"dkng": {
+				"meta": {
+					"name": "DraftKings",
+					"description": "DraftKings Inc. is an American gambling company based in Boston, Massachusetts. It offers sportsbook and daily fantasy sports services. The company was originally launched in 2012 as a DFS provider, competing principally with the New York–based FanDuel.",
+					"icon": ["/assets/icons/stocks/draftkings.svg"]
+				},
+				"ref": ["hyperliquid:xyz:DKNG"]
+			},
+			"hims": {
+				"meta": {
+					"name": "Hims & Hers Health",
+					"description": "Hims & Hers Health, Inc. is an American telehealth company established in 2017. The company provides prescription medications, over-the-counter medications, and personal care products. Hims & Hers operates with a direct-to-consumer model.",
+					"icon": ["/assets/icons/stocks/hims.svg"]
+				},
+				"ref": ["hyperliquid:xyz:HIMS"]
+			},
+			"rtx": {
+				"meta": {
+					"name": "RTX",
+					"description": "RTX Corporation, formerly Raytheon Technologies Corporation, is an American multinational aerospace and defense conglomerate headquartered in Arlington, Virginia. It is one of the largest aerospace and defense manufacturers in the world by revenue and market capitalization, as well as one of the largest providers of intelligence services.",
+					"icon": ["/assets/icons/stocks/rtx.svg"]
+				},
+				"ref": ["hyperliquid:km:RTX"]
 			},
 			"005930": {
 				"meta": {
@@ -449,7 +491,7 @@
 					"description": "S&P 500 index.",
 					"icon": ["/assets/icons/indices/usa500.svg"]
 				},
-				"ref": ["hyperliquid:cash:USA500"]
+				"ref": ["hyperliquid:cash:USA500", "hyperliquid:flx:USA500"]
 			},
 			"us500": {
 				"meta": {
@@ -621,7 +663,7 @@
 					"description": "S&P 500 is a stock market index tracking the stock performance of 500 leading companies listed on stock exchanges in the United States.",
 					"icon": ["/assets/icons/indices/sp500.svg"]
 				},
-				"ref": ["ostium:SPX-USD", "extended:SPX-USD", "vest:SPX-USD-PERP"]
+				"ref": ["ostium:SPX-USD", "extended:SPX-USD", "vest:SPX-USD-PERP", "hyperliquid:xyz:SP500"]
 			},
 			"dji": {
 				"meta": {
@@ -663,6 +705,14 @@
 				},
 				"ref": ["edgex:IAUUSD"]
 			},
+			"ewy": {
+				"meta": {
+					"name": "iShares MSCI South Korea",
+					"description": "The iShares MSCI South Korea ETF seeks to track the investment results of an index composed of South Korean equities.",
+					"icon": ["/assets/icons/indices/ewy.svg"]
+				},
+				"ref": ["hyperliquid:xyz:EWY", "hyperliquid:cash:EWY", "qfex:KOSPI-USD"]
+			},
 			"kospi": {
 				"meta": {
 					"name": "Korean Composite Index",
@@ -671,6 +721,22 @@
 				},
 				"ref": ["lighter:KRCOMP"]
 			},
+			"ewj": {
+				"meta": {
+					"name": "iShares MSCI Japan",
+					"description": "The iShares MSCI Japan ETF seeks to track the investment results of an index composed of Japanese equities.",
+					"icon": ["/assets/icons/indices/ewy.svg"]
+				},
+				"ref": ["hyperliquid:xyz:EWJ"]
+			},
+			"kweb": {
+				"meta": {
+					"name": "KraneShares CSI China Internet",
+					"description": "KWEB is a China ETF that tracks the CSI Overseas China Internet Index, which consists of China based companies whose primary business or businesses are focused on internet and internet-related technology. The Index is free float market capitalization weighted and includes securities traded on the Hong Kong Stock Exchange, NASDAQ, or NYSE.",
+					"icon": ["/assets/icons/indices/kweb.svg"]
+				},
+				"ref": ["hyperliquid:cash:KWEB"]
+			},
 			"gldmine": {
 				"meta": {
 					"name": "Global Gold Miners",
@@ -678,6 +744,14 @@
 					"icon": ["/assets/icons/indices/vaneck.svg"]
 				},
 				"ref": ["hyperliquid:km:GLDMINE"]
+			},
+			"uso": {
+				"meta": {
+					"name": "United States Oil Fund LP",
+					"description": "The United States Oil Fund LP (USO) is a popular exchange-traded fund (ETF) designed to track the daily price changes of light, sweet crude oil, typically using near-month futures contracts. Managed by United States Commodity Funds LLC, it offers investors exposure to oil prices without trading futures directly.",
+					"icon": ["/assets/icons/indices/uso.svg"]
+				},
+				"ref": ["hyperliquid:km:USOIL"]
 			}
 		},
 		"commodities": {
@@ -734,24 +808,32 @@
 					"ostium:HG-USD",
 					"aster:XCUUSDT",
 					"edgex:COPPERUSD",
-					"extended:XCU-USD"
+					"extended:XCU-USD",
+					"qfex:COPPER-USD"
 				]
 			},
-			"oil": {
+			"wti": {
 				"meta": {
-					"name": "Crude Oil",
-					"description": "Crude oil is a naturally occurring, yellowish-black liquid chemical mixture found in geological formations, consisting mainly of hydrocarbons.",
+					"name": "WTI Crude Oil",
+					"description": "Crude oil is a naturally occurring, yellowish-black liquid chemical mixture found in geological formations, consisting mainly of hydrocarbons. WTI (West Texas Intermediate) and Brent Crude are the two primary global oil benchmarks, with Brent serving as the international standard and WTI as the U.S. standard. While WTI is generally higher quality (lighter and sweeter), Brent often trades at a premium due to easier global transport and its role as the dominant worldwide benchmark.",
 					"icon": ["/assets/icons/commodities/oil.svg"]
 				},
 				"ref": [
 					"hyperliquid:xyz:CL",
 					"hyperliquid:flx:OIL",
-					"hyperliquid:km:USOIL",
 					"ostium:CL-USD",
 					"edgex:CLUSD",
-					"extended:XBR-USD",
-					"lighter:WTI"
+					"lighter:WTI",
+					"qfex:CL-USD"
 				]
+			},
+			"brent": {
+				"meta": {
+					"name": "Brent Crude Oil",
+					"description": "Crude oil is a naturally occurring, yellowish-black liquid chemical mixture found in geological formations, consisting mainly of hydrocarbons. WTI (West Texas Intermediate) and Brent Crude are the two primary global oil benchmarks, with Brent serving as the international standard and WTI as the U.S. standard. While WTI is generally higher quality (lighter and sweeter), Brent often trades at a premium due to easier global transport and its role as the dominant worldwide benchmark.",
+					"icon": ["/assets/icons/commodities/oil.svg"]
+				},
+				"ref": ["extended:XBR-USD", "hyperliquid:xyz:BRENTOIL", "ostium:BRENT-USD"]
 			},
 			"platinum": {
 				"meta": {
@@ -775,7 +857,12 @@
 					"description": "Natural gas (also gas, and methane gas) is a naturally occurring mixture composed of gaseous hydrocarbons, primarily methane (95%), small amounts of higher alkanes, and traces of carbon dioxide and nitrogen, hydrogen sulfide and helium.",
 					"icon": ["/assets/icons/commodities/natgas.svg"]
 				},
-				"ref": ["hyperliquid:xyz:NATGAS", "edgex:NATGASUSD", "extended:NATGAS-USD"]
+				"ref": [
+					"hyperliquid:xyz:NATGAS",
+					"edgex:NATGASUSD",
+					"extended:NATGAS-USD",
+					"qfex:NATGAS-USD"
+				]
 			},
 			"uranium": {
 				"meta": {
@@ -796,7 +883,8 @@
 					"ostium:XPD-USD",
 					"binance:XPDUSDT",
 					"aster:XPDUSDT",
-					"lighter:XPD"
+					"lighter:XPD",
+					"hyperliquid:xyz:PALLADIUM"
 				]
 			}
 		},
